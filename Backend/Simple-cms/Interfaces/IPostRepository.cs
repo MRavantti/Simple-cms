@@ -4,9 +4,9 @@ using Simple_cms.Models;
 
 namespace Simple_cms.Interfaces
 {
-    public interface IUserRepository
+    public interface IPostRepository
     {
-        List<User> Get();
-        List<User> Get(int id);
+        IEnumerable<Post> Posts { get; set; }
+        Post GetPostById(int postId);
     }
 }

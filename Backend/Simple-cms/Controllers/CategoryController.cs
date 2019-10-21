@@ -1,10 +1,10 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Simple_cms.Controllers
 {
-    public class CategoryController
+    public class CategoryController : Controller
     {
-        public CategoryController()
-        {
-        }
+
     }
 }

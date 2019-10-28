@@ -17,7 +17,7 @@ namespace Simple_cms.Repositories
             this.connectionString = connectionString;
         }
 
-        public List<User> Get()
+        public List<User> GetUsers()
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
@@ -25,11 +25,11 @@ namespace Simple_cms.Repositories
             }
         }
 
-        public List<User> Get(int id)
+        public User GetUserById(int id)
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                return connection.Query<User>("SELECT * FROM User WHERE Id = @id", new { id }).ToList();
+                return connection.QuerySingleOrDefault<User>("SELECT * FROM User WHERE Id = @id", new { id });
             }
         }
     }

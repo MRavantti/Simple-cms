@@ -15,13 +15,14 @@ namespace Simple_cms.Services
             this.userRepository = userRepository;
         }
 
-        public List<User> Get()
+        public List<User> GetUsers()
         {
-            return this.userRepository.Get();
+            return this.userRepository.GetUsers();
         }
-        public List<User> Get(int key)
+
+        public User GetUserById(int id)
         {
-            return this.userRepository.Get(key);
+            return this.userRepository.GetUserById(id);
         }
     }
 }

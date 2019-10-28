@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using Simple_cms.Services;
 
 namespace Simple_cms.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     public class UserController : Controller
     {
@@ -23,9 +25,25 @@ namespace Simple_cms.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<User>), StatusCodes.Status200OK)]
-        public IActionResult Get()
+        public IActionResult GetUsers()
         {
-            var user = this.userService.Get();
+            var user = this.userService.GetUsers();
+
+            return Ok(user);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetUserById(int id)
+        {
+            var user = this.userService.GetUserById(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             return Ok(user);
         }
     }

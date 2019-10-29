@@ -6,14 +6,16 @@ namespace Simple_cms.Models
     {
         public int Id { get; set; }
 
-        public string UserName { get; set; }
+        public string User_name { get; set; }
+
+        public string First_name { get; set; }
+
+        public string Last_name { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
+        public string User_image_thumbnail { get; set; }
     }
 }

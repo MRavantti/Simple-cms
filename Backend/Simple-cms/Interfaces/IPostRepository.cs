@@ -6,7 +6,7 @@ namespace Simple_cms.Interfaces
 {
     public interface IPostRepository
     {
-        IEnumerable<Post> Posts { get; set; }
-        Post GetPostById(int postId);
+        List<Post> GetPosts();
+        Post GetPostById(int id);
     }
 }

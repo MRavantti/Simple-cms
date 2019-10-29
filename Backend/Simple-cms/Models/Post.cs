@@ -4,18 +4,18 @@ namespace Simple_cms.Models
 {
     public class Post
     {
-        public int PostId { get; set; }
+        public int Post_id { get; set; }
+
+        public string Post_category { get; set; }
 
         public string Title { get; set; }
 
         public string Preamble { get; set; }
 
-        public string BodyText { get; set; }
+        public string Body_text { get; set; }
 
-        public string ImageThumbnail { get; set; }
+        public string Post_image_thumbnail { get; set; }
 
-        public string PostCategory { get; set; }
-
-        public virtual Category Category { get; set; }
+        public DateTime Created_date_time { get; set; }
     }
 }

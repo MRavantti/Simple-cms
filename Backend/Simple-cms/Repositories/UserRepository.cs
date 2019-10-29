@@ -25,11 +25,27 @@ namespace Simple_cms.Repositories
             }
         }
 
-        public User GetUserById(int id)
+        public User GetUserByKey(string key)
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                return connection.QuerySingleOrDefault<User>("SELECT * FROM User WHERE Id = @id", new { id });
+                return connection.QuerySingleOrDefault<User>("SELECT * FROM User WHERE Id = @key OR User_name = @key OR Email = @key", new { key });
+            }
+        }
+
+        public void AddUser(User user)
+        {
+            using (MySqlConnection connection = new MySqlConnection(this.connectionString))
+            {
+                connection.Execute("INSERT INTO User (User_name, Email, Password) VALUES(@User_name, @Email, @Password)", user);
+            }
+        }
+
+        public void EditUser(string key)
+        {
+            using (MySqlConnection connection = new MySqlConnection(this.connectionString))
+            {
+                connection.Execute("UPDATE User SET User_name = @User_name, First_name = @First_name, Last_name = @Last_name, Email = @Email, Password = @Password, User_image_thumbnail = @User_image_thumbnail  WHERE Id = @id", new { key});
             }
         }
     }

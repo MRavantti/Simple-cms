@@ -36,7 +36,7 @@ namespace Simple_cms
             .AddCookie()
             .AddOktaMvc(new OktaMvcOptions
             {
-                OktaDomain = Configuration["Okta:OktaDomain"],
+                OktaDomain = Configuration["Okta:Domain"],
                 ClientId = Configuration["Okta:ClientId"],
                 ClientSecret = Configuration["Okta:ClientSecret"]
             });

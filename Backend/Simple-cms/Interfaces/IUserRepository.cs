@@ -6,7 +6,9 @@ namespace Simple_cms.Interfaces
 {
     public interface IUserRepository
     {
-        List<User> Get();
-        List<User> Get(int id);
+        List<User> GetUsers();
+        User GetUserByKey(string key);
+        void AddUser(User user);
+        void EditUser(string key);
     }
 }

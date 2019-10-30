@@ -61,5 +61,24 @@ namespace Simple_cms.Services
                 return true;
             }
         }
+
+        public bool DeleteUser(string key)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var userExist = this.GetUserByKey(key);
+
+                if (userExist == null)
+                {
+                    return false;
+                }
+
+                this._userRepository.DeleteUser(key);
+
+                transaction.Complete();
+
+                return true;
+            }
+        }
     }
 }

@@ -56,5 +56,13 @@ namespace Simple_cms.Repositories
                     "WHERE Post_id = @Post_id", post);
             }
         }
+
+        public void DeletePost(string key)
+        {
+            using (MySqlConnection connection = new MySqlConnection(this.connectionString))
+            {
+                connection.Execute("DELETE FROM Post WHERE Post_id = @key", new { key });
+            }
+        }
     }
 }

@@ -65,5 +65,12 @@ namespace Simple_cms.Functions
                 post.Post_image_thumbnail = postExist.Post_image_thumbnail;
             }
         }
+
+        public static void ChangeTimeFormat(Post post)
+        {
+            var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+
+            post.Updated_at_date_time = DateTime.Parse(dateTimeNow);
+        }
     }
 }

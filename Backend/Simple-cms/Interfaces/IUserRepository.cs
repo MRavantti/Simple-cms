@@ -10,5 +10,6 @@ namespace Simple_cms.Interfaces
         User GetUserByKey(string key);
         void AddUser(User user);
         void EditUser(User user);
+        void DeleteUser(string key);
     }
 }

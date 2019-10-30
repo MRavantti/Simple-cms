@@ -10,5 +10,7 @@ namespace Simple_cms.Interfaces
         Post GetPostById(string key);
         void AddPost(Post post);
         void EditPost(Post post);
+        void DeletePost(string key);
+
     }
 }

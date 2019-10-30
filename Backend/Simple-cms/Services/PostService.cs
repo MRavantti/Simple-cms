@@ -69,5 +69,24 @@ namespace Simple_cms.Services
                 return true;
             }
         }
+
+        public bool DeletePost(string key)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var userExist = this.GetPostByKey(key);
+
+                if (userExist == null)
+                {
+                    return false;
+                }
+
+                this._postRepository.DeletePost(key);
+
+                transaction.Complete();
+
+                return true;
+            }
+        }
     }
 }

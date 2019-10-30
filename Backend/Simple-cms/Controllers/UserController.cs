@@ -57,7 +57,7 @@ namespace Simple_cms.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult AddUser([FromBody]User user)
+        public IActionResult AddUser([FromBody] User user)
         {
             var result = this._userService.AddUser(user);
 
@@ -72,13 +72,28 @@ namespace Simple_cms.Controllers
         [HttpPut("{key}")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult EditUser([FromBody]User user, string key)
+        public IActionResult EditUser([FromBody] User user, string key)
         {
             var result = this._userService.EditUser(user, key);
 
             if (!result)
             {
                 return BadRequest("You SUCK");
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("{key}")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteUser(string key)
+        {
+            var result = this._userService.DeleteUser(key);
+
+            if (!result)
+            {
+                return NotFound("You SUCK");
             }
 
             return Ok();

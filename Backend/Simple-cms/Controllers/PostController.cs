@@ -76,5 +76,20 @@ namespace Simple_cms.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{key}")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeletePost(string key)
+        {
+            var result = this._postService.DeletePost(key);
+
+            if (!result)
+            {
+                return NotFound("You SUCK");
+            }
+
+            return Ok();
+        }
     }
 }

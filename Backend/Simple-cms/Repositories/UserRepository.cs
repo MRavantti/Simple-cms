@@ -56,5 +56,13 @@ namespace Simple_cms.Repositories
                 	"WHERE Id = @id", user );
             }
         }
+
+        public void DeleteUser(string key)
+        {
+            using (MySqlConnection connection = new MySqlConnection(this.connectionString))
+            {
+                connection.Execute("DELETE FROM User WHERE Id = @key", new { key });
+            }
+        }
     }
 }

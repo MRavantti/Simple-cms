@@ -16,6 +16,8 @@ namespace Simple_cms.Models
 
         public string Post_image_thumbnail { get; set; }
 
-        public string Created_date_time { get; set; }
+        public DateTime Created_date_time { get; set; }
+
+        public DateTime Updated_at_date_time { get; set; }
     }
 }

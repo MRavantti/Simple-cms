@@ -64,11 +64,6 @@ namespace Simple_cms.Functions
             {
                 post.Post_image_thumbnail = postExist.Post_image_thumbnail;
             }
-
-            if (string.IsNullOrEmpty(post?.Created_date_time.ToString()))
-            {
-                post.Created_date_time = postExist.Created_date_time;
-            }
         }
     }
 }

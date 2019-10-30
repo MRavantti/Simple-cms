@@ -34,9 +34,9 @@ namespace Simple_cms.Services
                 return false;
             }
 
-            var dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
 
-            post.Created_date_time = dateTime;
+            post.Created_date_time = DateTime.Parse(dateTimeNow);
 
             this._postRepository.AddPost(post);
 
@@ -55,6 +55,10 @@ namespace Simple_cms.Services
                 }
 
                 post.Post_id = Int32.Parse(key);
+
+                var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+
+                post.Updated_at_date_time = DateTime.Parse(dateTimeNow);
 
                 CheckIfFieldIsEmpty.CheckPostField(postExist, post);
 

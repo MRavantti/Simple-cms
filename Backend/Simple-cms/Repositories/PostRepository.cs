@@ -29,7 +29,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                return connection.QuerySingleOrDefault<Post>("SELECT * FROM Post WHERE Id = @id", new { key });
+                return connection.QuerySingleOrDefault<Post>("SELECT * FROM Post WHERE Post_id = @key", new { key });
             }
         }
 
@@ -46,13 +46,13 @@ namespace Simple_cms.Repositories
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
                 connection.Execute("UPDATE Post " +
-                    "SET Post_id = @Id, " +
+                    "SET Post_id = @Post_id, " +
                     "Post_category = @Post_category, " +
                     "Title = @Title, " +
                     "Preamble = @Preamble, " +
                     "Body_text = @Body_text, " +
                     "Post_image_thumbnail = @Post_image_thumbnail, " +
-                    "Created_date_time = @Created_date_time " +
+                    "Updated_at_date_time = @Updated_at_date_time " +
                     "WHERE Post_id = @Post_id", post);
             }
         }

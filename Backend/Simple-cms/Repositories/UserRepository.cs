@@ -45,7 +45,15 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("UPDATE User SET Id = @Id, User_name = @User_name, First_name = @First_name, Last_name = @Last_name, Email = @Email, Password = @Password, User_image_thumbnail = @User_image_thumbnail WHERE Id = @id", user );
+                connection.Execute("UPDATE User " +
+                	"SET Id = @Id, " +
+                	"User_name = @User_name, " +
+                	"First_name = @First_name, " +
+                	"Last_name = @Last_name, " +
+                	"Email = @Email, " +
+                	"Password = @Password, " +
+                	"User_image_thumbnail = @User_image_thumbnail " +
+                	"WHERE Id = @id", user );
             }
         }
     }

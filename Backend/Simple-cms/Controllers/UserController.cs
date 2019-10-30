@@ -18,7 +18,6 @@ namespace Simple_cms.Controllers
     {
         private readonly string connectionString;
         private readonly UserService _userService;
-        private readonly IUserRepository _userRepository;
 
         public UserController(IConfiguration configuration)
         {

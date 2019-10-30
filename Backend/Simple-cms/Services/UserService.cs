@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Simple_cms.Interfaces;
 using Simple_cms.Models;
 using System.Transactions;
+using Simple_cms.Functions;
 
 namespace Simple_cms.Services
 {
@@ -50,6 +51,8 @@ namespace Simple_cms.Services
                 }
 
                 user.Id = Int32.Parse(key);
+
+                CheckIfFieldIsEmpty.CheckUserField(userExist, user);
 
                 this._userRepository.EditUser(user);
 

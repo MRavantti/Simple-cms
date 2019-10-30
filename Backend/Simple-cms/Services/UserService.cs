@@ -38,18 +38,20 @@ namespace Simple_cms.Services
             return true;
         }
 
-        public bool EditUser(string key)
+        public bool EditUser(User user, string key)
         {
             using (var transaction = new TransactionScope())
             {
-                var user = this.GetUserByKey(key);
+                var userExist = this.GetUserByKey(key);
 
-                if (user == null)
+                if (userExist == null)
                 {
                     return false;
                 }
 
-                this._userRepository.EditUser(key);
+                user.Id = Int32.Parse(key);
+
+                this._userRepository.EditUser(user);
 
                 transaction.Complete();
 

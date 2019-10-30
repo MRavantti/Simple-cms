@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Simple_cms.Interfaces;
 using Simple_cms.Models;
 using Simple_cms.Repositories;
 using Simple_cms.Services;
@@ -16,6 +18,7 @@ namespace Simple_cms.Controllers
     {
         private readonly string connectionString;
         private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
 
         public UserController(IConfiguration configuration)
         {
@@ -70,9 +73,9 @@ namespace Simple_cms.Controllers
         [HttpPut("{key}")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult EditUser([FromBody]string key)
+        public IActionResult EditUser([FromBody]User user, string key)
         {
-            var result = this._userService.EditUser(key);
+            var result = this._userService.EditUser(user, key);
 
             if (!result)
             {
@@ -80,6 +83,7 @@ namespace Simple_cms.Controllers
             }
 
             return Ok();
+
         }
     }
 }

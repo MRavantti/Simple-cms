@@ -9,6 +9,6 @@ namespace Simple_cms.Interfaces
         List<User> GetUsers();
         User GetUserByKey(string key);
         void AddUser(User user);
-        void EditUser(string key);
+        void EditUser(User user);
     }
 }

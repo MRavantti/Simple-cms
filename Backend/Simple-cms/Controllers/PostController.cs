@@ -32,19 +32,49 @@ namespace Simple_cms.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{key}")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetUserById(int id)
+        public IActionResult GetUserByKey(string key)
         {
-            var user = this._postService.GetPostById(id);
+            var post = this._postService.GetPostByKey(key);
 
-            if (user == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(post);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddPost([FromBody]Post post)
+        {
+            var result = this._postService.AddPost(post);
+
+            if (!result)
+            {
+                return BadRequest("Wrong");
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("{key}")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult EditPost([FromBody]Post post, string key)
+        {
+            var result = this._postService.EditPost(post, key);
+
+            if (!result)
+            {
+                return BadRequest("You SUCK");
+            }
+
+            return Ok();
         }
     }
 }

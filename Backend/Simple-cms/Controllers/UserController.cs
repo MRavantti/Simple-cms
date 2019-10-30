@@ -82,7 +82,6 @@ namespace Simple_cms.Controllers
             }
 
             return Ok();
-
         }
     }
 }

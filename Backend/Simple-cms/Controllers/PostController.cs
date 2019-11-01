@@ -27,9 +27,9 @@ namespace Simple_cms.Controllers
         [ProducesResponseType(typeof(List<Post>), StatusCodes.Status200OK)]
         public IActionResult GetUsers()
         {
-            var user = this._postService.GetPosts();
+            var post = this._postService.GetPosts();
 
-            return Ok(user);
+            return Ok(post);
         }
 
         [HttpGet("{key}")]

@@ -66,11 +66,12 @@ namespace Simple_cms.Functions
             }
         }
 
-        public static void ChangeTimeFormat(Post post)
+        public static void CheckPageField(Page pageExist, Page page)
         {
-            var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-
-            post.Updated_at_date_time = DateTime.Parse(dateTimeNow);
+            if (string.IsNullOrEmpty(page?.Page_name))
+            {
+                page.Page_name = pageExist.Page_name;
+            }
         }
     }
 }

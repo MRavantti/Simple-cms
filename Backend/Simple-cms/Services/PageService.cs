@@ -5,6 +5,7 @@ using Simple_cms.Interfaces;
 using Simple_cms.Models;
 using Simple_cms.Functions;
 using System.Transactions;
+using System.Linq;
 
 namespace Simple_cms.Services
 {
@@ -22,7 +23,7 @@ namespace Simple_cms.Services
             return this._pageRepository.GetPages();
         }
 
-        public Page GetPageByKey(string key)
+        public List<Page> GetPageByKey(string key)
         {
             return this._pageRepository.GetPageByKey(key);
         }
@@ -47,7 +48,7 @@ namespace Simple_cms.Services
         {
             using (var transaction = new TransactionScope())
             {
-                var pageExist = this.GetPageByKey(key);
+                var pageExist = this.GetPageByKey(key).First();
 
                 if (pageExist == null)
                 {

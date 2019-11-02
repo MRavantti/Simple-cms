@@ -29,11 +29,8 @@ namespace Simple_cms.Repositories
                     sql,
                     (page, post) =>
                     {
-                        Page pageEntry;
-
-                        if (!pageDictionary.TryGetValue(page.Page_name, out pageEntry))
+                        if (!pageDictionary.TryGetValue(page.Page_name, out Page pageEntry))
                         {
-
                             pageEntry = page;
                             pageEntry.Posts = new List<Post>();
                             pageDictionary.Add(pageEntry.Page_name, pageEntry);
@@ -50,11 +47,34 @@ namespace Simple_cms.Repositories
             }
         }
 
-        public Page GetPageByKey(string key)
+        public List<Page> GetPageByKey(string key)
         {
+            string sql = "SELECT * FROM Page AS Pa JOIN Post AS Po ON Pa.Page_name = Po.Post_category WHERE Page_id = @key OR Page_name = @key";
+
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                return connection.QuerySingleOrDefault<Page>("SELECT * FROM Page WHERE Page_id = @key", new { key });
+                var pageDictionary = new Dictionary<string, Page>();
+
+                var list = connection.Query<Page, Post, Page>(
+                    sql,
+                    (page, post) =>
+                    {
+                        if (!pageDictionary.TryGetValue(page.Page_name, out Page pageEntry))
+                        {
+                            pageEntry = page;
+                            pageEntry.Posts = new List<Post>();
+                            pageDictionary.Add(pageEntry.Page_name, pageEntry);
+                        }
+                        pageEntry.Posts.Add(post);
+                        return pageEntry;
+
+                    }, new { key },
+
+                    splitOn: "Post_category")
+                    .Distinct()
+                    .ToList();
+
+                return list;
             }
         }
 

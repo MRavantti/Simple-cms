@@ -33,7 +33,7 @@ namespace Simple_cms.Controllers
         }
 
         [HttpGet("{key}")]
-        [ProducesResponseType(typeof(Page), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<Page>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetPageByKey(string key)
         {

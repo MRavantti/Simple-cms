@@ -25,9 +25,15 @@ namespace Simple_cms.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Page>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetPages()
         {
             var page = this._pageService.GetPages();
+
+            if (page == null)
+            {
+                return NotFound();
+            }
 
             return Ok(page);
         }

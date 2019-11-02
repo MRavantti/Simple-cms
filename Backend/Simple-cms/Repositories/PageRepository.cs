@@ -19,7 +19,7 @@ namespace Simple_cms.Repositories
 
         public List<Page> GetPages()
         {
-            string sql = "SELECT * FROM Page AS Pa JOIN Post AS Po ON Pa.Page_name = Po.Post_category";
+            string sql = "SELECT * FROM Page AS Pa LEFT JOIN Post AS Po ON Pa.Page_name = Po.Post_category";
 
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
@@ -35,7 +35,6 @@ namespace Simple_cms.Repositories
                             pageEntry.Posts = new List<Post>();
                             pageDictionary.Add(pageEntry.Page_name, pageEntry);
                         }
-
                         pageEntry.Posts.Add(post);
                         return pageEntry;
                     },
@@ -49,7 +48,7 @@ namespace Simple_cms.Repositories
 
         public List<Page> GetPageByKey(string key)
         {
-            string sql = "SELECT * FROM Page AS Pa JOIN Post AS Po ON Pa.Page_name = Po.Post_category WHERE Page_id = @key OR Page_name = @key";
+            string sql = "SELECT * FROM Page AS Pa LEFT JOIN Post AS Po ON Pa.Page_name = Po.Post_category WHERE Page_id = @key OR Page_name = @key";
 
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
@@ -90,7 +89,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("UPDATE Page SET Page_name = @Page_name WHERE Page_id = @Page_id", page);
+                connection.Execute("UPDATE Page SET Page_name = @Page_name, Updated_at_date_time = @Updated_at_date_time  WHERE Page_id = @Page_id", page);
             }
         }
 

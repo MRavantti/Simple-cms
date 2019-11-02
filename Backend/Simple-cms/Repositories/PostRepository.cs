@@ -25,7 +25,7 @@ namespace Simple_cms.Repositories
             }
         }
 
-        public Post GetPostById(string key)
+        public Post GetPostByKey(string key)
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {

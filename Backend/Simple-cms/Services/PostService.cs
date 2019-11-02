@@ -24,7 +24,7 @@ namespace Simple_cms.Services
 
         public Post GetPostByKey(string key)
         {
-            return this._postRepository.GetPostById(key);
+            return this._postRepository.GetPostByKey(key);
         }
 
         public bool AddPost(Post post)

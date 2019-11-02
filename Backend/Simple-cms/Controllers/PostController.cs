@@ -35,7 +35,7 @@ namespace Simple_cms.Controllers
         [HttpGet("{key}")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetUserByKey(string key)
+        public IActionResult GetPostByKey(string key)
         {
             var post = this._postService.GetPostByKey(key);
 

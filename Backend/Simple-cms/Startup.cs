@@ -12,11 +12,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Okta.AspNetCore;
+using Microsoft.Net.Http.Headers;
 
 namespace Simple_cms
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,17 @@ namespace Simple_cms
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+                {
+                    options.AddPolicy(MyAllowSpecificOrigins, builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                        .WithHeaders(HeaderNames.ContentType, "application/json")
+                        .AllowAnyMethod();
+
+                    });
+                });
+                
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -57,6 +70,7 @@ namespace Simple_cms
                 app.UseHsts();
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseAuthentication();

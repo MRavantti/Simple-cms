@@ -1,0 +1,19 @@
+.logo,
+.burger-menu {
+    padding: .5rem 1rem;
+}
+
+.logo img{
+    max-height: 7vh;
+}
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.burger-menu p {
+    margin: auto;
+    text-align: center;
+    font-size: .65rem;
+}

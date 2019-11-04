@@ -1,5 +1,4 @@
-﻿using System;
-using Dapper;
+﻿using Dapper;
 using System.Linq;
 using MySql.Data.MySqlClient;
 using Simple_cms.Interfaces;
@@ -29,7 +28,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                return connection.QuerySingleOrDefault<User>("SELECT * FROM User WHERE Id = @key OR User_name = @key OR Email = @key", new { key });
+                return connection.QuerySingleOrDefault<User>("SELECT * FROM User WHERE Id = @key OR Username = @key OR Email = @key", new { key });
             }
         }
 
@@ -37,7 +36,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("INSERT INTO User (User_name, Email, Password) VALUES(@User_name, @Email, @Password)", user);
+                connection.Execute("INSERT INTO User (Username, Email, Password) VALUES(@Username, @Email, @Password)", user);
             }
         }
 
@@ -47,7 +46,7 @@ namespace Simple_cms.Repositories
             {
                 connection.Execute("UPDATE User " +
                 	"SET Id = @Id, " +
-                	"User_name = @User_name, " +
+                	"Username = @Username, " +
                 	"First_name = @First_name, " +
                 	"Last_name = @Last_name, " +
                 	"Email = @Email, " +

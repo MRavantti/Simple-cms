@@ -7,9 +7,9 @@ namespace Simple_cms.Functions
     {
         public static void CheckUserField(User userExist, User user)
         {
-            if (string.IsNullOrEmpty(user?.User_name))
+            if (string.IsNullOrEmpty(user?.Username))
             {
-                user.User_name = userExist.User_name;
+                user.Username = userExist.Username;
             }
 
             if (string.IsNullOrEmpty(user?.First_name))

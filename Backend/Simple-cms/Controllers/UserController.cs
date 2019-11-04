@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Transactions;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Simple_cms.Interfaces;
 using Simple_cms.Models;
 using Simple_cms.Repositories;
 using Simple_cms.Services;

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Web.Http;
 using System.Collections.Generic;
 using Simple_cms.Interfaces;
 using Simple_cms.Models;
 using System.Transactions;
 using Simple_cms.Functions;
+
 
 namespace Simple_cms.Services
 {
@@ -29,9 +29,9 @@ namespace Simple_cms.Services
 
         public bool AddUser(User user)
         {
-            if (string.IsNullOrEmpty(user?.User_name) || string.IsNullOrEmpty(user?.Email) || string.IsNullOrEmpty(user?.Password))
+            if (string.IsNullOrEmpty(user?.Username) || string.IsNullOrEmpty(user?.Email) || string.IsNullOrEmpty(user?.Password))
             {
-                return false;
+                throw new Exception("Not all required fields is filled");
             }
 
             this._userRepository.AddUser(user);

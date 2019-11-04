@@ -6,7 +6,7 @@ namespace Simple_cms.Models
     {
         public int Id { get; set; }
 
-        public string User_name { get; set; }
+        public string Username { get; set; }
 
         public string First_name { get; set; }
 

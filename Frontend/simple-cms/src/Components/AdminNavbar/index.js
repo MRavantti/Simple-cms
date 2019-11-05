@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 
 import './style.css'
-import MobileMenu from '../MobileMenu';
+import AdminMobileMenu from '../AdminMobileMenu';
 import NavbarItems from '../NavbarItems'
 
-class Navbar extends Component {
+class AdminNavbar extends Component {
     state = {
         menuVisable: false
     }
@@ -15,11 +15,10 @@ class Navbar extends Component {
         }))
     }
     render() {
-
         return (
             <Fragment>
                 <Fragment>
-                    <MobileMenu toggleMenu={this.toggleMenu} myClass={this.state.menuVisable && "visible" } />
+                    <AdminMobileMenu toggleMenu={this.toggleMenu} myClass={this.state.menuVisable && "visible"} />
                 </Fragment>
                 <div className="navbar">
                     <NavbarItems toggleMenu={this.toggleMenu} />
@@ -30,4 +29,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+export default AdminNavbar;

@@ -97,7 +97,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("DELETE FROM Page WHERE Post_id = @key", new { key });
+                connection.Execute("DELETE FROM Page WHERE Page_id = @key", new { key });
             }
         }
     }

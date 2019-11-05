@@ -1,17 +1,18 @@
 .mobile-menu {
-	position: absolute;
+	position: fixed;
 	z-index: 2;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     top: 0;
+    transform-origin: 0% 0%;
     transform: translate(100%, 0);
     height: 100%;
     width: 100%;
     background-color: #fcfcfc;
 	color: #fff;
-	transition: transform 0.7s ease-in;
+    transition: transform 0.4s ease-in-out;
 }
 
 .mobile-menu.visible {
@@ -31,7 +32,4 @@
     margin-top: 8px;
     right: 0;
     height: 3.3rem;
-}
-
-.cross-icon img {
 }

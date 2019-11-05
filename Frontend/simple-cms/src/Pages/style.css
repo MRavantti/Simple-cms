@@ -1,0 +1,12 @@
+.page {
+    margin: 1rem;
+}
+
+.page-action-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.page-action-list a {
+    margin: 1rem;
+}

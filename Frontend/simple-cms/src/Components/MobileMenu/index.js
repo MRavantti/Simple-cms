@@ -19,11 +19,9 @@ class MobileMenu extends Component {
         fetch(api)
             .then(res => res.json())
             .then(item => {
-
                 this.setState({
                     pages: item
                 });
-
             });
     };
 
@@ -38,7 +36,7 @@ class MobileMenu extends Component {
 
                     <div className="mobile-menu-items">
                         {this.state.pages.map((page, key) =>
-                            <Link to={`/${page.page_name}`} onClick={toggleMenu} key={key}>
+                            <Link to={page.page_name} onClick={toggleMenu} key={key}>
                                 <p >{page.page_name} </p>
                             </Link>
                         )}

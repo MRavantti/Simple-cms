@@ -15,16 +15,14 @@ class Navbar extends Component {
         }))
     }
     render() {
-
         return (
             <Fragment>
                 <Fragment>
-                    <MobileMenu toggleMenu={this.toggleMenu} myClass={this.state.menuVisable && "visible" } />
+                    <MobileMenu toggleMenu={this.toggleMenu} myClass={this.state.menuVisable && "visible"} />
                 </Fragment>
                 <div className="navbar">
                     <NavbarItems toggleMenu={this.toggleMenu} />
                 </div>
-
             </Fragment>
         );
     }

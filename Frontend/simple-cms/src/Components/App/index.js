@@ -7,12 +7,13 @@ import './style.css';
 import HomePage from '../../Pages/HomePage';
 import AdminPage from '../../Pages/AdminPage';
 import AboutPage from '../../Pages/AboutPage';
+import AddNewpPage from '../../Pages/AddNewpPage';
 
 class App extends Component {
   state = {
     pages: [],
   }
-  
+
   componentDidMount() {
     this.fetchApi();
   }
@@ -33,11 +34,11 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={HomePage}/>
+          <Route path="/" exact component={HomePage} />
           <Route path="/about" component={AboutPage} />
-          <Route path="/admin/" exact component={AdminPage}/>
+          <Route path="/admin/" exact component={AdminPage} />
           <Route path="/admin/:admin" exact component={AdminPage} />
-          <Route path="/admin/:admin/:admin" exact component={AdminPage} />
+          <Route path="/admin/pages/add-page" exact component={AddNewpPage} />
         </Switch>
       </Router>
     );

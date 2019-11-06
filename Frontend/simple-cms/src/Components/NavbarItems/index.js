@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import './style.css';
 
+import './style.css';
 import Logo from '../../images/example-logo.svg'
 import BurgerIcon from '../../images/burger-icon.svg'
 

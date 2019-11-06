@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-
 import './style.css'
 import CrossIcon from '../../images/cross-icon.svg'
 
 class AdminMobileMenu extends Component {
     render() {
-
         const { toggleMenu, myClass } = this.props;
 
         return (

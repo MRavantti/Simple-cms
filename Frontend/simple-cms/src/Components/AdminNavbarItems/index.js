@@ -6,8 +6,9 @@ import Logo from '../../images/example-logo.svg'
 import BurgerIcon from '../../images/burger-icon.svg'
 
 class AdminNavbarItems extends Component {
-    render() {
+    render() {    
         const { toggleMenu } = this.props
+        
         return (
             <Fragment>
                 <div className="logo">

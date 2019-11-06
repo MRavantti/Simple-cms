@@ -34,25 +34,6 @@ class AdminPage extends Component {
             });
     }
 
-    addPost = () => {
-        const api = `http://localhost:5000/api/post`
-
-        fetch(api, {
-            method: 'Post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Post_category: this.state.post_category,
-                Title: this.state.title,
-                Preamble: this.state.preamble,
-                Body_text: this.state.body_text,
-                Post_image_thumbnail: this.state.post_image_thumbnail
-            })
-        })
-    }
-
     deletePage = (id) => {
         if (window.confirm("Are you sure?")) {
 
@@ -80,7 +61,7 @@ class AdminPage extends Component {
                     params.admin === "pages"
                         ? <Fragment>
                             <h1>{params.admin}</h1>
-                            <Link to="pages/add-page">Add new page</Link>
+                            <button><Link to="pages/add-page">Add a new page</Link></button>
                             {
                                 this.state.pages.map((page, key) =>
                                     <div className="page" key={key}>
@@ -98,8 +79,8 @@ class AdminPage extends Component {
                                             )
                                         }
                                         <div className="page-action-list">
-                                            <Link to={`/edit-page/${page.page_id}`}>Edit page</Link>
-                                            <p onClick={() => this.deletePage(page.page_id)}>Delete page</p>
+                                            <button><Link to={`/edit-page/${page.page_id}`}>Edit page</Link></button>
+                                            <button onClick={() => this.deletePage(page.page_id)}>Delete page</button>
                                         </div>
                                     </div>
                                 )

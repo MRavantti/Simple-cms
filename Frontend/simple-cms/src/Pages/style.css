@@ -10,3 +10,13 @@
 .page-action-list a {
     margin: 1rem;
 }
+
+.add-new-page-forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+label {
+    margin: 1rem;
+}

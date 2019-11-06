@@ -51,6 +51,7 @@ class AdminPage extends Component {
 
     render() {
         const { params } = this.props.match;
+        const { pages } = this.state
         console.log(params);
 
 
@@ -63,9 +64,13 @@ class AdminPage extends Component {
                             <h1>{params.admin}</h1>
                             <button><Link to="pages/add-page">Add a new page</Link></button>
                             {
-                                this.state.pages.map((page, key) =>
+                                pages.map((page, key) =>
                                     <div className="page" key={key}>
                                         <h4>{page.page_name} </h4>
+                                        <div className="page-action-list">
+                                            <button><Link to={`/admin/pages/edit-page/${page.page_id}`}>Edit page</Link></button>
+                                            <button onClick={() => this.deletePage(page.page_id)}>Delete page</button>
+                                        </div>
                                         {
                                             page.posts.map((post, postKey) =>
                                                 post === null
@@ -78,10 +83,6 @@ class AdminPage extends Component {
                                                     </div>
                                             )
                                         }
-                                        <div className="page-action-list">
-                                            <button><Link to={`/edit-page/${page.page_id}`}>Edit page</Link></button>
-                                            <button onClick={() => this.deletePage(page.page_id)}>Delete page</button>
-                                        </div>
                                     </div>
                                 )
                             }

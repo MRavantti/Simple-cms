@@ -8,6 +8,7 @@ import HomePage from '../../Pages/HomePage';
 import AdminPage from '../../Pages/AdminPage';
 import AboutPage from '../../Pages/AboutPage';
 import AddNewpPage from '../../Pages/AddNewpPage';
+import EditpPage from '../../Pages/EditpPage';
 
 class App extends Component {
   state = {
@@ -39,6 +40,7 @@ class App extends Component {
           <Route path="/admin/" exact component={AdminPage} />
           <Route path="/admin/:admin" exact component={AdminPage} />
           <Route path="/admin/pages/add-page" exact component={AddNewpPage} />
+          <Route path="/admin/pages/edit-page/:id" exact component={EditpPage} />
         </Switch>
       </Router>
     );

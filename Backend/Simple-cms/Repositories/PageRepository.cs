@@ -38,7 +38,7 @@ namespace Simple_cms.Repositories
                         pageEntry.Posts.Add(post);
                         return pageEntry;
                     },
-                    splitOn: "Post_category")
+                    splitOn: "Post_id")
                     .Distinct()
                     .ToList();
 
@@ -69,7 +69,7 @@ namespace Simple_cms.Repositories
 
                     }, new { key },
 
-                    splitOn: "Post_category")
+                    splitOn: "Post_id")
                     .Distinct()
                     .ToList();
 

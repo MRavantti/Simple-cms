@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react';
-
-import './style.css'
 import { Link } from 'react-router-dom';
-import AdminNavbar from '../Components/AdminNavbar';
 
-class EditpPage extends Component {
+import '../../style.css'
+import AdminNavbar from '../../../Components/AdminNavbar';
+
+class EditPagePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             page: [],
-            pageId: ""
+            pageId: "",
+            pageName: "",
         }
     }
 
@@ -19,6 +20,21 @@ class EditpPage extends Component {
         this.setState({
             pageId: id,
         })
+    }
+
+    deletePost = (id) => {
+        if (window.confirm("Are you sure?")) {
+
+            const api = `http://localhost:5000/api/post/${id}`;
+
+            fetch(api, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            })
+        }
     }
 
     getPageByKey = () => {
@@ -34,17 +50,19 @@ class EditpPage extends Component {
     }
 
     render() {
-
         const { page } = this.state
-
+        console.log(page);
+        
         return (
             <Fragment>
                 <AdminNavbar />
-                <h1></h1>
+                <h1>Edit Page</h1>
                 {
                     page.map((page, key) =>
-                        <div className="page" key={key}>
+                    <div className="page" key={key}>
                             <h4>{page.page_name} </h4>
+                    <h4>Add new post to this page</h4>
+                    <button><Link to={`/admin/posts/add-post/`}>Add new post</Link></button>
                             {
                                 page.posts.map((post, postKey) =>
                                     post === null
@@ -54,12 +72,14 @@ class EditpPage extends Component {
                                             <p>{post.post_image_thumbnail}</p>
                                             <p>{post.preamble}</p>
                                             <p>{post.body_text}</p>
+                                            <div className="page-action-list">
+                                                <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
+                                                <button onClick={() => this.deletePost(page.page_id)}>Delete post</button>
+
+                                            </div>
                                         </div>
                                 )
                             }
-                            <div className="page-action-list">
-                                <button><Link to={`/admin/pages/edit-page/${page.page_id}`}>Edit page</Link></button>
-                            </div>
                         </div>
                     )
                 }
@@ -68,4 +88,4 @@ class EditpPage extends Component {
     }
 }
 
-export default EditpPage;
+export default EditPagePage;

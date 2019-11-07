@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
-import './style.css'
-import AdminNavbar from '../Components/AdminNavbar';
+import '../style.css'
+import AdminNavbar from '../../Components/AdminNavbar'
 import { Link } from 'react-router-dom';
 
 class AdminPage extends Component {
@@ -9,6 +9,7 @@ class AdminPage extends Component {
         super(props)
         this.state = {
             pages: [],
+            posts: [],
             pageName: "",
             post_category: "",
             title: "Hello world",
@@ -20,6 +21,7 @@ class AdminPage extends Component {
 
     componentDidMount() {
         this.fetchPages();
+        this.fetchPosts();
     }
 
     fetchPages = () => {
@@ -30,6 +32,18 @@ class AdminPage extends Component {
             .then(item => {
                 this.setState({
                     pages: item
+                });
+            });
+    }
+
+    fetchPosts = () => {
+        const api = 'http://localhost:5000/api/post/';
+
+        fetch(api)
+            .then(res => res.json())
+            .then(item => {
+                this.setState({
+                    posts: item
                 });
             });
     }
@@ -51,9 +65,7 @@ class AdminPage extends Component {
 
     render() {
         const { params } = this.props.match;
-        const { pages } = this.state
-        console.log(params);
-
+        const { pages, posts } = this.state
 
         return (
             <Fragment>
@@ -66,11 +78,14 @@ class AdminPage extends Component {
                             {
                                 pages.map((page, key) =>
                                     <div className="page" key={key}>
+
                                         <h4>{page.page_name} </h4>
+
                                         <div className="page-action-list">
                                             <button><Link to={`/admin/pages/edit-page/${page.page_id}`}>Edit page</Link></button>
                                             <button onClick={() => this.deletePage(page.page_id)}>Delete page</button>
                                         </div>
+
                                         {
                                             page.posts.map((post, postKey) =>
                                                 post === null
@@ -87,19 +102,43 @@ class AdminPage extends Component {
                                 )
                             }
                         </Fragment>
-                        : params.admin === "add-page"
+
+                        : params.admin === "posts"
                             ? <Fragment>
-
-
-
+                                {
+                                    posts.map((post, key) =>
+                                        <div className="page" key={key}>
+                                            {
+                                                post === null
+                                                    ? "No Posts"
+                                                    : <div key={key}>
+                                                        <h5>{post.title}</h5>
+                                                        <p>{post.post_image_thumbnail}</p>
+                                                        <p>{post.preamble}</p>
+                                                        <p>{post.body_text}</p>
+                                                    </div>
+                                            }
+                                            <div className="page-action-list">
+                                                <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
+                                                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </Fragment>
-                            : params.admin === "edit-page"
-                                ? <Fragment> <h1>Edit page</h1> </Fragment>
-                                : params.admin === this.state.pageName || this.state.pages.page_id
-                                    ? <Fragment>
-                                        <h1>{this.state.pageName}</h1>
-                                    </Fragment>
-                                    : <h1>LOL</h1>
+
+                            : <Fragment>
+                                <h1>Admin page</h1>
+
+                                <h4>Pages</h4>
+                                <button><Link to="/admin/pages">Go to pages administration</Link></button>
+
+                                <h4>Posts</h4>
+                                <button><Link to="/admin/posts">Go to posts administration</Link></button>
+
+                                <h4>Users</h4>
+                                <button><Link to="/admin/users">Go to users administration</Link></button>
+                            </Fragment>
                 }
             </Fragment>
         );

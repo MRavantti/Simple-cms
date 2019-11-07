@@ -16,6 +16,8 @@ class AdminMobileMenu extends Component {
                     <div className="Admin-mobile-menu-items">
                         <Link onClick={toggleMenu} to="/admin">Admin start page</Link>
                         <Link onClick={toggleMenu} to="/admin/pages">Pages</Link>
+                        <Link onClick={toggleMenu} to="/admin/posts">Posts</Link>
+                        <Link onClick={toggleMenu} to="/admin/users">Users</Link>
                     </div>
                 </div>
             </Fragment>

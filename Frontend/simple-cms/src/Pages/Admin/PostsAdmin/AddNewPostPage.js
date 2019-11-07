@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 
-import './style.css'
-import AdminNavbar from '../Components/AdminNavbar';
+import '../../style.css'
+import AdminNavbar from '../../../Components/AdminNavbar';
 
-class AddNewpPage extends Component {
+class AddNewPostPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pageName: "",
+            pages: [],
             postCategory: "",
             postTitle: "",
             preamble: "",
@@ -16,25 +16,25 @@ class AddNewpPage extends Component {
         }
     }
 
-    addPage = () => {
-        const api = `http://localhost:5000/api/page`
+    componentDidMount() {
+        this.fetchPages();
+    }
 
-        fetch(api, {
-            method: 'Post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Page_name: this.state.pageName,
-            })
-        })
+    fetchPages = () => {
+        const api = 'http://localhost:5000/api/page/';
 
-        this.props.history.push(`/admin/pages`);
+        fetch(api)
+            .then(res => res.json())
+            .then(item => {
+                this.setState({
+                    pages: item
+                });
+            });
     }
 
     addPost = () => {
         const api = `http://localhost:5000/api/post`
+        
 
         fetch(api, {
             method: 'Post',
@@ -54,43 +54,35 @@ class AddNewpPage extends Component {
 
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value })
+        console.log(e.target.value);
+        
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        this.addPage();
         this.addPost();
     }
 
     render() {
-        const { pageName, postTitle, preamble, bodyText, postImageThumbnail } = this.state;
-        console.log(this.state);
-
+        const { pages, postTitle, preamble, bodyText, postImageThumbnail } = this.state;
         return (
             <Fragment>
                 <AdminNavbar />
-                <h1>Add new page</h1>
+                <h1>Add new post</h1>
 
                 <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
+                    <h4>Create a new post</h4>
                     <label>
-                        Enter page name:
-                        <input
-                            type="text"
-                            name="pageName"
-                            value={pageName}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <h4>Create your first post for {pageName}</h4>
-                    <label>
-                        Post category:
-                        <input
-                            type="text"
-                            name="postCategory"
-                            value={pageName}
-                            onChange={this.changeHandler}
-                            readOnly
-                        />
+                        Select page:
+                                <select name="pageName" onChange={this.changeHandler}>
+                            <option value="">--- Select an option ---</option>
+                            <option value="Home">Home</option>
+                            {
+                                pages.map((page, key) => {
+                                    return <option key={key} value={page.page_name} >{page.page_name}</option>
+                                })
+                            }
+                        </select>
                     </label>
                     <label>
                         Title:
@@ -135,4 +127,4 @@ class AddNewpPage extends Component {
     }
 }
 
-export default AddNewpPage;
+export default AddNewPostPage;

@@ -5,10 +5,12 @@ import { Route, Switch } from 'react-router';
 import './style.css';
 
 import HomePage from '../../Pages/HomePage';
-import AdminPage from '../../Pages/AdminPage';
 import AboutPage from '../../Pages/AboutPage';
-import AddNewpPage from '../../Pages/AddNewpPage';
-import EditpPage from '../../Pages/EditpPage';
+
+import AdminPage from '../../Pages/Admin/AdminPage';
+import AddNewPagePage from '../../Pages/Admin/PagesAdmin/AddNewPagePage';
+import EditPagePage from '../../Pages/Admin/PagesAdmin/EditPagePage';
+import AddNewPostPage from '../../Pages/Admin/PostsAdmin/AddNewPostPage';
 
 class App extends Component {
   state = {
@@ -39,8 +41,10 @@ class App extends Component {
           <Route path="/about" component={AboutPage} />
           <Route path="/admin/" exact component={AdminPage} />
           <Route path="/admin/:admin" exact component={AdminPage} />
-          <Route path="/admin/pages/add-page" exact component={AddNewpPage} />
-          <Route path="/admin/pages/edit-page/:id" exact component={EditpPage} />
+          <Route path="/admin/pages/add-page" exact component={AddNewPagePage} />
+          <Route path="/admin/pages/edit-page/:id" exact component={EditPagePage} />
+          <Route path="/admin/posts/add-post/" exact component={AddNewPostPage} />
+          <Route path="/admin/posts/add-post/:name" exact component={AddNewPostPage} />
         </Switch>
       </Router>
     );

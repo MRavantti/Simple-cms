@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import './style.css'
 import AdminMobileMenu from '../AdminMobileMenu';
-import NavbarItems from '../NavbarItems'
+import AdminNavbarItems from '../AdminNavbarItems'
 
 class AdminNavbar extends Component {
     state = {
@@ -21,7 +21,7 @@ class AdminNavbar extends Component {
                     <AdminMobileMenu toggleMenu={this.toggleMenu} myClass={this.state.menuVisable && "visible"} />
                 </Fragment>
                 <div className="navbar">
-                    <NavbarItems toggleMenu={this.toggleMenu} />
+                    <AdminNavbarItems toggleMenu={this.toggleMenu} />
                 </div>
 
             </Fragment>

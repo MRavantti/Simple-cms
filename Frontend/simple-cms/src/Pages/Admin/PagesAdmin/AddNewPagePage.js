@@ -48,6 +48,10 @@ class AddNewPagePage extends Component {
                 Post_image_thumbnail: this.state.postImageThumbnail
             })
         })
+        .then(() => {
+            window.location.reload();
+            this.props.history.push(`/admin/pages`);
+        })
     }
 
     changeHandler = e => {
@@ -58,8 +62,6 @@ class AddNewPagePage extends Component {
         e.preventDefault();
         this.addPage();
         this.addPost();
-        this.props.history.push(`/admin/pages`);
-
     }
 
     render() {

@@ -47,7 +47,7 @@ namespace Simple_cms.Services
             newImageName = $"{newPostImage[0]}_{newPostImage[1]}";
             post.Post_image_thumbnail = newImageName;
 
-            this._postRepository.AddPost(post);∫
+            this._postRepository.AddPost(post);
 
             return true;
         }

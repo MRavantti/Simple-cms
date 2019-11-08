@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
+import CreatePost from '../../../Components/CreatePost';
 
 class EditPagePage extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class EditPagePage extends Component {
             pageId: "",
             pageName: "",
             changePageName: false,
+            CreateNewPost: false,
         }
     }
 
@@ -54,9 +56,9 @@ class EditPagePage extends Component {
                 page_name: this.state.pageName,
             })
         })
-        .then(() => {
-            window.location.reload();
-        })
+            .then(() => {
+                window.location.reload();
+            })
 
     }
 
@@ -76,6 +78,12 @@ class EditPagePage extends Component {
         }))
     }
 
+    CreateNewPostCheck = () => {
+        this.setState(prevState => ({
+            CreateNewPost: !prevState.CreateNewPost,
+        }))
+    }
+
     handleSubmit = e => {
         e.preventDefault();
         this.UpdatePageName(this.state.pageId);
@@ -86,12 +94,11 @@ class EditPagePage extends Component {
     }
 
     render() {
-        const { page, changePageName, pageName } = this.state
+        const { page, changePageName, pageName, CreateNewPost } = this.state
 
         return (
             <Fragment>
                 <AdminNavbar />
-                <h1>Edit Page</h1>
                 {
                     page.map((page, key) =>
                         <div className="page" key={key}>
@@ -99,6 +106,7 @@ class EditPagePage extends Component {
                                 changePageName === true
 
                                     ? <Fragment>
+                                        <p>Old page name: "{page.page_name}"</p>
                                         <form onSubmit={this.handleSubmit}>
                                             <label>
                                                 Enter new page name:
@@ -110,31 +118,44 @@ class EditPagePage extends Component {
                                                 />
                                             </label>
                                             <input type="submit" value="Submit" />
+                                            <button onClick={() => this.changePageNameCheck()}>Cancel</button>
                                         </form>
                                     </Fragment>
 
                                     : <Fragment>
-                                        <h4>{page.page_name} </h4>
+                                        <h1>{page.page_name}</h1>
                                         <button onClick={() => this.changePageNameCheck()}>Change name of this page</button>
                                     </Fragment>
                             }
-                            <h4>Add new post to this page</h4>
-                            <button><Link to={`/admin/posts/add-post/`}>Add new post</Link></button>
+                            <h4>Posts for this page:</h4>
+                            <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
                             {
-                                page.posts.map((post, postKey) =>
-                                    post === null
-                                        ? "No Posts"
-                                        : <div key={postKey}>
-                                            <h5>{post.title}</h5>
-                                            <p>{post.post_image_thumbnail}</p>
-                                            <p>{post.preamble}</p>
-                                            <p>{post.body_text}</p>
-                                            <div className="page-action-list">
-                                                <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
-                                                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
-                                            </div>
-                                        </div>
-                                )
+                                CreateNewPost === false
+                                    ? <Fragment>
+                                        {
+                                            page.posts.map((post, postKey) =>
+                                                post === null
+
+                                                    ? "You do not have any posts for this page"
+
+                                                    : <div key={postKey}>
+                                                        <h5>{post.title}</h5>
+                                                        <p>{post.post_image_thumbnail}</p>
+                                                        <p>{post.preamble}</p>
+                                                        <p>{post.body_text}</p>
+                                                        <div className="page-action-list">
+                                                            <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
+                                                            <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                                                        </div>
+                                                    </div>
+                                            )
+                                        }
+                                    </Fragment>
+
+                                    : <Fragment>
+                                        <CreatePost pageName={page.page_name}/>
+                                        <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                    </Fragment>
                             }
                         </div>
                     )

@@ -3,16 +3,15 @@ import React, { Component, Fragment } from 'react';
 import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
 
+import CreatePost from '../../../Components/CreatePost'
+
 class AddNewPagePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             pageName: "",
-            postCategory: "",
-            postTitle: "",
-            preamble: "",
-            bodyText: "",
-            postImageThumbnail: "",
+            pageCreated: false,
+            createNewPost: false,
         }
     }
 
@@ -29,29 +28,11 @@ class AddNewPagePage extends Component {
                 Page_name: this.state.pageName,
             })
         })
-    }
-
-    addPost = () => {
-        const api = `http://localhost:5000/api/post`
-
-        fetch(api, {
-            method: 'Post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Post_category: this.state.pageName,
-                Title: this.state.postTitle,
-                Preamble: this.state.preamble,
-                Body_text: this.state.bodyText,
-                Post_image_thumbnail: this.state.postImageThumbnail
+            .then(() => {
+                this.setState(prevState => ({
+                    pageCreated: !prevState.pageCreated,
+                }))
             })
-        })
-        .then(() => {
-            window.location.reload();
-            this.props.history.push(`/admin/pages`);
-        })
     }
 
     changeHandler = e => {
@@ -61,76 +42,48 @@ class AddNewPagePage extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.addPage();
-        this.addPost();
     }
 
     render() {
-        const { pageName, postTitle, preamble, bodyText, postImageThumbnail } = this.state;
+        const { pageName, pageCreated, createNewPost } = this.state;
 
         return (
             <Fragment>
                 <AdminNavbar />
-                <h1>Add new page</h1>
+                {
+                    pageCreated === true
+                        ? <Fragment>
+                            <h1>{pageName}</h1>
+                            {
+                                createNewPost === true
+                                ?<Fragment>
+                                    <CreatePost pageName={pageName} />
+                                </Fragment>
 
-                <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
-                    <label>
-                        Enter page name:
-                        <input
-                            type="text"
-                            name="pageName"
-                            value={pageName}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <h4>Create your first post for {pageName}</h4>
-                    <label>
-                        Post category:
-                        <input
-                            type="text"
-                            name="postCategory"
-                            value={pageName}
-                            onChange={this.changeHandler}
-                            readOnly
-                        />
-                    </label>
-                    <label>
-                        Title:
-                        <input
-                            type="text"
-                            name="postTitle"
-                            value={postTitle}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <label>
-                        preamble:
-                        <input
-                            type="text"
-                            name="preamble"
-                            value={preamble}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <label>
-                        Body text:
-                        <textarea
-                            type="text"
-                            name="bodyText"
-                            value={bodyText}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <label>
-                        image:
-                        <input
-                            type="text"
-                            name="postImageThumbnail"
-                            value={postImageThumbnail}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                                :<Fragment>
+                                    <p>You do not yet have any post on this page</p>
+                                    <p>Press "Add new post" to create a new post for this page</p>
+                                    <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
+                                </Fragment>
+                            }
+                        </Fragment>
+                        : <Fragment>
+                            <h1>Add new page</h1>
+
+                            <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
+                                <label>
+                                    Enter page name:
+                                        <input
+                                        type="text"
+                                        name="pageName"
+                                        value={pageName}
+                                        onChange={this.changeHandler}
+                                    />
+                                </label>
+                                <input type="submit" value="Submit" />
+                            </form>
+                        </Fragment>
+                }
             </Fragment>
         );
     }

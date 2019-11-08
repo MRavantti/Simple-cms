@@ -5,6 +5,7 @@ using Simple_cms.Interfaces;
 using Simple_cms.Models;
 using Simple_cms.Functions;
 using System.Transactions;
+using System.Text.RegularExpressions;
 
 namespace Simple_cms.Services
 {
@@ -35,10 +36,18 @@ namespace Simple_cms.Services
             }
 
             var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-
             post.Created_date_time = DateTime.Parse(dateTimeNow);
 
-            this._postRepository.AddPost(post);
+            char[] delimiter1 = { '.' };
+            string[] postImage = post.Post_image_thumbnail.Split(delimiter1, StringSplitOptions.None);
+            string newImageName = $"{postImage[0]}_{dateTimeNow}.{postImage[1]}";
+
+            char[] delimiter2 = { ' ' };
+            string[] newPostImage = newImageName.Split(delimiter2, StringSplitOptions.None);
+            newImageName = $"{newPostImage[0]}_{newPostImage[1]}";
+            post.Post_image_thumbnail = newImageName;
+
+            this._postRepository.AddPost(post);∫
 
             return true;
         }
@@ -57,9 +66,7 @@ namespace Simple_cms.Services
                 post.Post_id = Int32.Parse(key);
 
                 var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-
                 post.Updated_at_date_time = DateTime.Parse(dateTimeNow);
-
                 CheckIfFieldIsEmpty.CheckPostField(postExist, post);
 
                 this._postRepository.EditPost(post);

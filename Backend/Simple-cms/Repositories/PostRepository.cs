@@ -37,7 +37,20 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("INSERT INTO Post (Post_category, Title, Preamble, Body_text, Post_image_thumbnail, Created_date_time) VALUES(@Post_category, @Title, @Preamble, @Body_text, @Post_image_thumbnail, @Created_date_time)", post);
+                connection.Execute("INSERT INTO Post " +
+                    "(Post_category, " +
+                    "Title, " +
+                    "Preamble, " +
+                    "Body_text, " +
+                    "Post_image_thumbnail, " +
+                    "Created_date_time) " +
+                    "VALUES" +
+                    "(@Post_category, " +
+                    "@Title, " +
+                    "@Preamble, " +
+                    "@Body_text, " +
+                    "@Post_image_thumbnail, " +
+                    "@Created_date_time)", post);
             }
         }
 

@@ -36,7 +36,6 @@ namespace Simple_cms.Services
             }
 
             var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-
             page.Created_date_time = DateTime.Parse(dateTimeNow);
 
             this._pageRepository.AddPage(page);
@@ -58,13 +57,11 @@ namespace Simple_cms.Services
                 page.Page_id = Int32.Parse(key);
 
                 var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-
                 page.Updated_at_date_time = DateTime.Parse(dateTimeNow);
 
                 CheckIfFieldIsEmpty.CheckPageField(pageExist, page);
 
                 this._pageRepository.EditPage(page);
-
                 transaction.Complete();
 
                 return true;

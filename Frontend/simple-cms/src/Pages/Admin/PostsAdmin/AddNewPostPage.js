@@ -50,12 +50,18 @@ class AddNewPostPage extends Component {
                 Post_image_thumbnail: this.state.postImageThumbnail
             })
         })
+        .then(res => {
+            this.props.history.push(`/admin/posts/`);
+            window.location.reload();
+        })
     }
 
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value })
-        console.log(e.target.value);
-        
+    }
+
+    fileSelectedHandler = e => {
+        this.setState({ [e.target.name]: e.target.files[0].name})
     }
 
     handleSubmit = e => {
@@ -64,7 +70,8 @@ class AddNewPostPage extends Component {
     }
 
     render() {
-        const { pages, postTitle, preamble, bodyText, postImageThumbnail } = this.state;
+        const { pages, postTitle, preamble, bodyText } = this.state;
+
         return (
             <Fragment>
                 <AdminNavbar />
@@ -110,14 +117,12 @@ class AddNewPostPage extends Component {
                             value={bodyText}
                             onChange={this.changeHandler}
                         />
-                    </label>
-                    <label>
+                    </label><label>
                         image:
                         <input
-                            type="text"
+                            type="file"
                             name="postImageThumbnail"
-                            value={postImageThumbnail}
-                            onChange={this.changeHandler}
+                            onChange={this.fileSelectedHandler}
                         />
                     </label>
                     <input type="submit" value="Submit" />

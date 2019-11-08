@@ -48,10 +48,10 @@ class AdminPage extends Component {
             });
     }
 
-    deletePage = (id) => {
+    delete = (type, id) => {
         if (window.confirm("Are you sure?")) {
 
-            const api = `http://localhost:5000/api/page/${id}`;
+            const api = `http://localhost:5000/api/${type}/${id}`;
 
             fetch(api, {
                 method: 'DELETE',
@@ -59,6 +59,9 @@ class AdminPage extends Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
+            })
+            .then(() => {
+                window.location.reload();
             })
         }
     }
@@ -83,7 +86,7 @@ class AdminPage extends Component {
 
                                         <div className="page-action-list">
                                             <button><Link to={`/admin/pages/edit-page/${page.page_id}`}>Edit page</Link></button>
-                                            <button onClick={() => this.deletePage(page.page_id)}>Delete page</button>
+                                            <button onClick={() => this.delete("page", page.page_id)}>Delete page</button>
                                         </div>
 
                                         {
@@ -120,7 +123,7 @@ class AdminPage extends Component {
                                             }
                                             <div className="page-action-list">
                                                 <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
-                                                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                                                <button onClick={() => this.delete("post", post.post_id)}>Delete post</button>
                                             </div>
                                         </div>
                                     )

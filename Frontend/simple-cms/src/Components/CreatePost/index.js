@@ -7,10 +7,13 @@ class CreatePost extends Component {
             pageName: this.props.pageName,
             postCategory: "",
             postTitle: "",
-            preamble: "",
             bodyText: "",
             postImageThumbnail: "",
         }
+    }
+
+    componentDidMount() {
+        this.setState({ pages: this.props.pages })
     }
 
     addPost = () => {
@@ -25,15 +28,14 @@ class CreatePost extends Component {
             body: JSON.stringify({
                 Post_category: this.state.pageName,
                 Title: this.state.postTitle,
-                Preamble: this.state.preamble,
                 Body_text: this.state.bodyText,
                 Post_image_thumbnail: this.state.postImageThumbnail
             })
         })
-        .then(() => {
-            window.location.reload();
-            this.props.history.push(`admin/pages/edit-page/${this.state.pageName}`);
-        })
+            .then(() => {
+                window.location.reload();
+                this.props.history.push(`admin/pages/edit-page/${this.state.pageName}`);
+            })
     }
 
     changeHandler = e => {
@@ -45,38 +47,56 @@ class CreatePost extends Component {
         this.addPost();
     }
 
+    fileSelectedHandler = e => {
+        this.setState({ [e.target.name]: e.target.files[0].name })
+    }
+
     render() {
-        const { pageName, postTitle, preamble, bodyText, postImageThumbnail } = this.state;
+        
+        const { pageName, postTitle, bodyText } = this.state;
+        const { pages } = this.props;
 
         return (
             <Fragment>
                 <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
-                    <h4>Create post for {pageName}</h4>
-                    <label>
-                        Post category:
-                        <input
-                            type="text"
-                            name="postCategory"
-                            value={pageName}
-                            onChange={this.changeHandler}
-                            readOnly
-                        />
-                    </label>
+                    {
+                        pageName !== undefined
+                            ? <h4>Create new post for {pageName}</h4>
+                            : <h4>Create new post</h4>
+                    }
+
+                    {
+                        pageName === undefined
+                            ? <label>
+                                Select page:
+                                <select name="pageName" onChange={this.changeHandler}>
+                                    <option value="">--- Select an option ---</option>
+                                    <option value="Home">Home</option>
+                                    {
+                                        pages.map((page, key) => {
+                                            return <option key={key} value={page.page_name} >{page.page_name}</option>
+                                        })
+                                    }
+                                </select>
+                            </label>
+                            : <label>
+                                Post category:
+                                        <input
+                                    type="text"
+                                    name="postCategory"
+                                    value={pageName}
+                                    onChange={this.changeHandler}
+                                    readOnly
+                                />
+                            </label>
+                    }
+
                     <label>
                         Title:
                         <input
                             type="text"
                             name="postTitle"
                             value={postTitle}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <label>
-                        preamble:
-                        <input
-                            type="text"
-                            name="preamble"
-                            value={preamble}
                             onChange={this.changeHandler}
                         />
                     </label>
@@ -92,10 +112,9 @@ class CreatePost extends Component {
                     <label>
                         image:
                         <input
-                            type="text"
+                            type="file"
                             name="postImageThumbnail"
-                            value={postImageThumbnail}
-                            onChange={this.changeHandler}
+                            onChange={this.fileSelectedHandler}
                         />
                     </label>
                     <input type="submit" value="Submit" />

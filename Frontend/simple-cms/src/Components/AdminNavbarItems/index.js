@@ -16,7 +16,7 @@ class AdminNavbarItems extends Component {
                 </div>
                 <div className="burger-menu">
                     <img onClick={toggleMenu} src={BurgerIcon} alt="Burger Icon" />
-                    Menu
+                    <p>Menu</p>
                 </div>
             </Fragment>
         )

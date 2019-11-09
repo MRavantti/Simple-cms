@@ -118,8 +118,8 @@ class EditPagePage extends Component {
                                                 />
                                             </label>
                                             <input type="submit" value="Submit" />
-                                            <button onClick={() => this.changePageNameCheck()}>Cancel</button>
                                         </form>
+                                            <button onClick={() => this.changePageNameCheck()}>Cancel</button>
                                     </Fragment>
 
                                     : <Fragment>
@@ -128,20 +128,19 @@ class EditPagePage extends Component {
                                     </Fragment>
                             }
                             <h4>Posts for this page:</h4>
-                            <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
                             {
                                 CreateNewPost === false
-                                    ? <Fragment>
+                                ? <Fragment>
+                                <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
                                         {
                                             page.posts.map((post, postKey) =>
                                                 post === null
 
-                                                    ? "You do not have any posts for this page"
+                                                    ? <p>You do not have any posts for this page</p>
 
                                                     : <div key={postKey}>
                                                         <h5>{post.title}</h5>
                                                         <p>{post.post_image_thumbnail}</p>
-                                                        <p>{post.preamble}</p>
                                                         <p>{post.body_text}</p>
                                                         <div className="page-action-list">
                                                             <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
@@ -153,8 +152,8 @@ class EditPagePage extends Component {
                                     </Fragment>
 
                                     : <Fragment>
-                                        <CreatePost pageName={page.page_name}/>
                                         <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                        <CreatePost pageName={page.page_name}/>
                                     </Fragment>
                             }
                         </div>

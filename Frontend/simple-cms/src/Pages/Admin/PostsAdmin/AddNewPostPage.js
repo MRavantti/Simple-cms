@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
+import CreatePost from '../../../Components/CreatePost';
 
 class AddNewPostPage extends Component {
     constructor(props) {
@@ -70,63 +71,13 @@ class AddNewPostPage extends Component {
     }
 
     render() {
-        const { pages, postTitle, preamble, bodyText } = this.state;
+        const { pages } = this.state;
 
         return (
             <Fragment>
                 <AdminNavbar />
-                <h1>Add new post</h1>
-
-                <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
-                    <h4>Create a new post</h4>
-                    <label>
-                        Select page:
-                                <select name="pageName" onChange={this.changeHandler}>
-                            <option value="">--- Select an option ---</option>
-                            <option value="Home">Home</option>
-                            {
-                                pages.map((page, key) => {
-                                    return <option key={key} value={page.page_name} >{page.page_name}</option>
-                                })
-                            }
-                        </select>
-                    </label>
-                    <label>
-                        Title:
-                        <input
-                            type="text"
-                            name="postTitle"
-                            value={postTitle}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <label>
-                        preamble:
-                        <input
-                            type="text"
-                            name="preamble"
-                            value={preamble}
-                            onChange={this.changeHandler}
-                        />
-                    </label>
-                    <label>
-                        Body text:
-                        <textarea
-                            type="text"
-                            name="bodyText"
-                            value={bodyText}
-                            onChange={this.changeHandler}
-                        />
-                    </label><label>
-                        image:
-                        <input
-                            type="file"
-                            name="postImageThumbnail"
-                            onChange={this.fileSelectedHandler}
-                        />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                <CreatePost pages={pages} />
+                
             </Fragment>
         );
     }

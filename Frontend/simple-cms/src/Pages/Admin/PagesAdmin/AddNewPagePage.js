@@ -44,8 +44,15 @@ class AddNewPagePage extends Component {
         this.addPage();
     }
 
+    CreateNewPostCheck = () => {
+        this.setState(prevState => ({
+            createNewPost: !prevState.createNewPost,
+        }))
+    }
+
     render() {
         const { pageName, pageCreated, createNewPost } = this.state;
+        
 
         return (
             <Fragment>
@@ -56,15 +63,17 @@ class AddNewPagePage extends Component {
                             <h1>{pageName}</h1>
                             {
                                 createNewPost === true
-                                ?<Fragment>
-                                    <CreatePost pageName={pageName} />
-                                </Fragment>
+                                    ? <Fragment>
+                                        <CreatePost pageName={pageName} />
+                                        <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                    </Fragment>
 
-                                :<Fragment>
-                                    <p>You do not yet have any post on this page</p>
-                                    <p>Press "Add new post" to create a new post for this page</p>
-                                    <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
-                                </Fragment>
+                                    : <Fragment>
+                                        <p>You do not yet have any post on this page</p>
+                                        <p>Press "Add new post" to create a new post for this page</p>
+                                        <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
+
+                                    </Fragment>
                             }
                         </Fragment>
                         : <Fragment>

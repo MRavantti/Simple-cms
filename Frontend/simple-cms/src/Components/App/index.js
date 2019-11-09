@@ -11,6 +11,7 @@ import AdminPage from '../../Pages/Admin/AdminPage';
 import AddNewPagePage from '../../Pages/Admin/PagesAdmin/AddNewPagePage';
 import EditPagePage from '../../Pages/Admin/PagesAdmin/EditPagePage';
 import AddNewPostPage from '../../Pages/Admin/PostsAdmin/AddNewPostPage';
+import EditPostPage from '../../Pages/Admin/PostsAdmin/EditPostPage';
 
 class App extends Component {
   state = {
@@ -45,6 +46,7 @@ class App extends Component {
           <Route path="/admin/pages/edit-page/:id" exact component={EditPagePage} />
           <Route path="/admin/posts/add-post/" exact component={AddNewPostPage} />
           <Route path="/admin/posts/add-post/:name" exact component={AddNewPostPage} />
+          <Route path="/admin/posts/edit-post/:id" exact component={EditPostPage} />
         </Switch>
       </Router>
     );

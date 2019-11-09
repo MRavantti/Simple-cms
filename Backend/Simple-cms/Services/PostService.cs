@@ -30,7 +30,7 @@ namespace Simple_cms.Services
 
         public bool AddPost(Post post)
         {
-            if (string.IsNullOrEmpty(post?.Post_category) || string.IsNullOrEmpty(post?.Title) || string.IsNullOrEmpty(post?.Preamble) || string.IsNullOrEmpty(post?.Body_text))
+            if (string.IsNullOrEmpty(post?.Post_category) || string.IsNullOrEmpty(post?.Title) || string.IsNullOrEmpty(post?.Body_text))
             {
                 return false;
             }

@@ -10,8 +10,6 @@ namespace Simple_cms.Models
 
         public string Title { get; set; }
 
-        public string Preamble { get; set; }
-
         public string Body_text { get; set; }
 
         public string Post_image_thumbnail { get; set; }

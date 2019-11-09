@@ -40,14 +40,12 @@ namespace Simple_cms.Repositories
                 connection.Execute("INSERT INTO Post " +
                     "(Post_category, " +
                     "Title, " +
-                    "Preamble, " +
                     "Body_text, " +
                     "Post_image_thumbnail, " +
                     "Created_date_time) " +
                     "VALUES" +
                     "(@Post_category, " +
                     "@Title, " +
-                    "@Preamble, " +
                     "@Body_text, " +
                     "@Post_image_thumbnail, " +
                     "@Created_date_time)", post);
@@ -62,7 +60,6 @@ namespace Simple_cms.Repositories
                     "SET Post_id = @Post_id, " +
                     "Post_category = @Post_category, " +
                     "Title = @Title, " +
-                    "Preamble = @Preamble, " +
                     "Body_text = @Body_text, " +
                     "Post_image_thumbnail = @Post_image_thumbnail, " +
                     "Updated_at_date_time = @Updated_at_date_time " +

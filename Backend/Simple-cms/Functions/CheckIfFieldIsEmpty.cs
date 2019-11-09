@@ -50,11 +50,6 @@ namespace Simple_cms.Functions
                 post.Title = postExist.Title;
             }
 
-            if (string.IsNullOrEmpty(post?.Preamble))
-            {
-                post.Preamble = postExist.Preamble;
-            }
-
             if (string.IsNullOrEmpty(post?.Body_text))
             {
                 post.Body_text = postExist.Body_text;

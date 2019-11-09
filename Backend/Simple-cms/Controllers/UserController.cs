@@ -60,7 +60,7 @@ namespace Simple_cms.Controllers
 
             if (!result)
             {
-                return BadRequest("Wrong");
+                return BadRequest();
             }
 
             return Ok();
@@ -75,7 +75,7 @@ namespace Simple_cms.Controllers
 
             if (!result)
             {
-                return BadRequest("You SUCK");
+                return BadRequest();
             }
 
             return Ok();
@@ -90,7 +90,7 @@ namespace Simple_cms.Controllers
 
             if (!result)
             {
-                return NotFound("You SUCK");
+                return NotFound();
             }
 
             return Ok();

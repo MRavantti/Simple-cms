@@ -22,11 +22,11 @@ class AdminPage extends Component {
     }
 
     componentDidMount() {
-        this.fetchPages();
-        this.fetchPosts();
+        this.getPages();
+        this.getPosts();
     }
 
-    fetchPages = () => {
+    getPages = () => {
         const api = 'http://localhost:5000/api/page/';
 
         fetch(api)
@@ -34,30 +34,12 @@ class AdminPage extends Component {
             .then(item => { this.setState({ pages: item }); });
     }
 
-    fetchPosts = () => {
+    getPosts = () => {
         const api = 'http://localhost:5000/api/post/';
 
         fetch(api)
             .then(res => res.json())
             .then(item => { this.setState({ posts: item }); });
-    }
-
-    delete = (type, id) => {
-        if (window.confirm("Are you sure?")) {
-
-            const api = `http://localhost:5000/api/${type}/${id}`;
-
-            const options = {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            }
-            
-            fetch(api, options)
-                .then(() => { window.location.reload(); })
-        }
     }
 
     CreateNewPostCheck = () => { this.setState(prevState => ({ createNewPost: !prevState.createNewPost, })) }
@@ -67,6 +49,7 @@ class AdminPage extends Component {
         const { params } = this.props.match;
         const { pages, posts, createNewPost } = this.state
 
+
         return (
             <Fragment>
                 <AdminNavbar />
@@ -75,6 +58,19 @@ class AdminPage extends Component {
                         ? <Fragment>
                             <h1>{params.admin}</h1>
                             <button><Link to="pages/add-page">Add a new page</Link></button>
+                            {
+                                posts.filter(function (post) { return post.post_category === "Home" }).map((post, key) => {
+                                    return (
+                                        <div key={key}>
+                                            <h4>{post.post_category}</h4>
+                                            <button><Link to={`/admin/pages/edit-page/Home`}>Edit page</Link></button>
+                                            <h5>{post.title}</h5>
+                                            <p>{post.body_text}</p>
+                                            <p>{post.post_image_thumbnail}</p>
+                                        </div>
+                                    )
+                                })
+                            }
                             {
                                 pages.length === 0
                                     ? <h3>You do not have any pages yet</h3>
@@ -87,7 +83,6 @@ class AdminPage extends Component {
 
                                                     <div className="page-action-list">
                                                         <button><Link to={`/admin/pages/edit-page/${page.page_id}`}>Edit page</Link></button>
-                                                        <button onClick={() => this.delete("page", page.page_id)}>Delete page</button>
                                                     </div>
 
                                                     {
@@ -97,8 +92,11 @@ class AdminPage extends Component {
                                                                 : <div key={postKey}>
                                                                     <h5>{post.title}</h5>
                                                                     <p>{post.post_image_thumbnail}</p>
-                                                                    <p>{post.preamble}</p>
-                                                                    <p>{post.body_text}</p>
+                                                                    {
+                                                                        post.body_text.split('\n').map((bodyText, i) => {
+                                                                            return <p key={i}>{bodyText}</p>
+                                                                        })
+                                                                    }
                                                                 </div>
                                                         )
                                                     }

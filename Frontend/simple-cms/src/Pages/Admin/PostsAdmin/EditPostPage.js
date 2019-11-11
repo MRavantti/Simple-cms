@@ -64,8 +64,11 @@ class EditPostPage extends Component {
         return (
             <Fragment>
                 <AdminNavbar />
-                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                <button onClick={() => this.props.history.goBack()}>Cancel</button>
                 <EditPost pages={pages} post={post} id={this.props.match.params.id} />
+                <div>
+                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                </div>
             </Fragment>
         );
     }

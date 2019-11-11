@@ -12,28 +12,10 @@ import AddNewPagePage from '../../Pages/Admin/PagesAdmin/AddNewPagePage';
 import EditPagePage from '../../Pages/Admin/PagesAdmin/EditPagePage';
 import AddNewPostPage from '../../Pages/Admin/PostsAdmin/AddNewPostPage';
 import EditPostPage from '../../Pages/Admin/PostsAdmin/EditPostPage';
+import AddNewUserPage from '../../Pages/Admin/UsersAdmin/AddNewUserPage';
+import EditUserPage from '../../Pages/Admin/UsersAdmin/EditUserPage';
 
 class App extends Component {
-  state = {
-    pages: [],
-  }
-
-  componentDidMount() {
-    this.fetchApi();
-  }
-
-  fetchApi = () => {
-    const api = 'http://localhost:5000/api/page/';
-
-    fetch(api)
-      .then(res => res.json())
-      .then(item => {
-
-        this.setState({
-          pages: item
-        })
-      })
-  }
   render() {
     return (
       <Router>
@@ -47,6 +29,8 @@ class App extends Component {
           <Route path="/admin/posts/add-post/" exact component={AddNewPostPage} />
           <Route path="/admin/posts/add-post/:name" exact component={AddNewPostPage} />
           <Route path="/admin/posts/edit-post/:id" exact component={EditPostPage} />
+          <Route path="/admin/users/add-user/" exact component={AddNewUserPage} />
+          <Route path="/admin/users/edit-user/:id" exact component={EditUserPage} />
         </Switch>
       </Router>
     );

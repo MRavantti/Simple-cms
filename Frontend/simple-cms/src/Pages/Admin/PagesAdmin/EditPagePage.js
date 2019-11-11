@@ -140,16 +140,15 @@ class EditPagePage extends Component {
                                     ? <Fragment>
                                         <button onClick={() => this.CreateNewPostCheck()}>Create new post</button>
                                         {
-                                            homePagePosts.filter(function (post) { return post.post_category === "Home" }).map((post, key) => {
-                                                return (<div key={key}>
+                                            homePagePosts.filter(function (post) { return post.post_category === "Home" }).map((post, key) =>
+                                                <div key={key}>
                                                     <h4>{post.post_category}</h4>
                                                     <h5>{post.title}</h5>
                                                     <p>{post.body_text}</p>
                                                     <p>{post.post_image_thumbnail}</p>
                                                     <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
                                                 </div>
-                                                )
-                                            })
+                                            )
                                         }
                                     </Fragment>
                                     : <Fragment>

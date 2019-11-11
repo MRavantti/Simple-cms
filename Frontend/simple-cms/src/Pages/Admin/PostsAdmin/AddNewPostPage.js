@@ -18,10 +18,10 @@ class AddNewPostPage extends Component {
     }
 
     componentDidMount() {
-        this.fetchPages();
+        this.getPages();
     }
 
-    fetchPages = () => {
+    getPages = () => {
         const api = 'http://localhost:5000/api/page/';
 
         fetch(api)

@@ -12,6 +12,7 @@ class AdminPage extends Component {
         this.state = {
             pages: [],
             posts: [],
+            users: [],
             createNewPost: false,
             pageName: "",
             post_category: "",
@@ -24,6 +25,7 @@ class AdminPage extends Component {
     componentDidMount() {
         this.getPages();
         this.getPosts();
+        this.getUsers();
     }
 
     getPages = () => {
@@ -32,6 +34,14 @@ class AdminPage extends Component {
         fetch(api)
             .then(res => res.json())
             .then(item => { this.setState({ pages: item }); });
+    }
+
+    getUsers = () => {
+        const api = 'http://localhost:5000/api/user/';
+
+        fetch(api)
+            .then(res => res.json())
+            .then(item => { this.setState({ users: item }); });
     }
 
     getPosts = () => {
@@ -47,7 +57,7 @@ class AdminPage extends Component {
     render() {
 
         const { params } = this.props.match;
-        const { pages, posts, createNewPost } = this.state
+        const { pages, posts, users, createNewPost } = this.state
 
 
         return (
@@ -59,17 +69,15 @@ class AdminPage extends Component {
                             <h1>{params.admin}</h1>
                             <button><Link to="pages/add-page">Add a new page</Link></button>
                             {
-                                posts.filter(function (post) { return post.post_category === "Home" }).map((post, key) => {
-                                    return (
-                                        <div key={key}>
-                                            <h4>{post.post_category}</h4>
-                                            <button><Link to={`/admin/pages/edit-page/Home`}>Edit page</Link></button>
-                                            <h5>{post.title}</h5>
-                                            <p>{post.body_text}</p>
-                                            <p>{post.post_image_thumbnail}</p>
-                                        </div>
-                                    )
-                                })
+                                posts.filter(function (post) { return post.post_category === "Home" }).map((post, key) =>
+                                    <div key={key}>
+                                        <h4>{post.post_category}</h4>
+                                        <button><Link to={`/admin/pages/edit-page/Home`}>Edit page</Link></button>
+                                        <h5>{post.title}</h5>
+                                        <p>{post.body_text}</p>
+                                        <p>{post.post_image_thumbnail}</p>
+                                    </div>
+                                )
                             }
                             {
                                 pages.length === 0
@@ -93,9 +101,9 @@ class AdminPage extends Component {
                                                                     <h5>{post.title}</h5>
                                                                     <p>{post.post_image_thumbnail}</p>
                                                                     {
-                                                                        post.body_text.split('\n').map((bodyText, i) => {
-                                                                            return <p key={i}>{bodyText}</p>
-                                                                        })
+                                                                        post.body_text.split('\n').map((bodyText, i) =>
+                                                                            <p key={i}>{bodyText}</p>
+                                                                        )
                                                                     }
                                                                 </div>
                                                         )
@@ -130,9 +138,9 @@ class AdminPage extends Component {
                                                                                 <h4>Title: {post.title}</h4>
                                                                                 <h5>Page: {post.post_category}</h5>
                                                                                 {
-                                                                                    post.body_text.split('\n').map((bodyText, i) => {
-                                                                                        return <p key={i}>{bodyText}</p>
-                                                                                    })
+                                                                                    post.body_text.split('\n').map((bodyText, i) =>
+                                                                                        <p key={i}>{bodyText}</p>
+                                                                                    )
                                                                                 }
                                                                             </div>
                                                                     }
@@ -157,6 +165,19 @@ class AdminPage extends Component {
                             : params.admin === "users"
                                 ? <Fragment>
                                     <h1>{params.admin}</h1>
+                                    <button><Link to={`/admin/users/add-user/`}>Create new user</Link></button>
+                                    {
+                                        users.map((user, key) =>
+                                            <div key={key}>
+                                                <h2>{user.username}</h2>
+                                                <p>{user.first_name}</p>
+                                                <p>{user.last_name}</p>
+                                                <p>{user.email}</p>
+                                                <p>{user.user_image_thumbnail}</p>
+                                                <button><Link to={`/admin/users/edit-user/${user.id}`}>Edit user</Link></button>
+                                            </div>
+                                        )
+                                    }
 
                                 </Fragment>
                                 : <Fragment>

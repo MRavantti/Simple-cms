@@ -17,16 +17,12 @@ class EditPost extends Component {
         }
     }
 
-    fetchPages = () => {
+    getPages = () => {
         const api = 'http://localhost:5000/api/page/';
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    pages: item
-                });
-            });
+            .then(item => { this.setState({ pages: item }); });
     }
 
     getPostByKey = () => {
@@ -34,20 +30,13 @@ class EditPost extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    post: item
-                });
-            })
+            .then(item => { this.setState({ post: item }); })
     }
 
     editPost = () => {
         const api = `http://localhost:5000/api/post/${this.props.id}`
 
-        console.log(this.state.bodyText);
-
-
-        fetch(api, {
+        const option = {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -59,66 +48,40 @@ class EditPost extends Component {
                 Body_text: this.state.bodyText,
                 Post_image_thumbnail: this.state.postImageThumbnail
             })
-        })
-            .then(() => {
+        }
 
-            })
-    }
-
-    changePageNameChecker = () => {
-        this.setState(prevState => ({
-            editPageName: !prevState.editPageName,
-        }))
+        fetch(api, option)
+            .then(() => { window.location.reload(); })
     }
 
-    changeTitleChecker = () => {
-        this.setState(prevState => ({
-            editTitle: !prevState.editTitle,
-        }))
-    }
+    changePageNameChecker = () => { this.setState(prevState => ({ editPageName: !prevState.editPageName })) }
 
-    changeBodyTextChecker = () => {
-        this.setState(prevState => ({
-            editBodyText: !prevState.editBodyText,
-        }))
-    }
-    changeEditImageChecker = () => {
-        this.setState(prevState => ({
-            editImage: !prevState.editImage,
-        }))
-    }
+    changeTitleChecker = () => { this.setState(prevState => ({ editTitle: !prevState.editTitle, })) }
 
-    changePageName = e => {
-        console.log(e);
-        
-        this.setState({ pageName: this.refs.pageName.value })
-    }
+    changeBodyTextChecker = () => { this.setState(prevState => ({ editBodyText: !prevState.editBodyText, })) }
 
-    EditBodyText = () => {
-        this.setState({ bodyText: this.refs.bodyText.value })
-    }
+    changeEditImageChecker = () => { this.setState(prevState => ({ editImage: !prevState.editImage, })) }
 
-    EditTitle = () => {
-        this.setState({ postTitle: this.refs.postTitle.value })
-    }
+    editPageNameHandler = () => { this.setState({ pageName: this.refs.pageName.value }) }
+
+    editBodyTextHandler = () => { this.setState({ bodyText: this.refs.bodyText.value }) }
+
+    editTitleHandler = () => { this.setState({ postTitle: this.refs.postTitle.value }) }
+
+    fileSelectedHandler = e => { this.setState({ [e.target.name]: e.target.files[0].name }) }
 
     handleSubmit = e => {
         e.preventDefault();
-
         this.editPost();
     }
 
-    fileSelectedHandler = e => {
-        this.setState({ [e.target.name]: e.target.files[0].name })
-    }
 
     render() {
-
         const { editImage, editTitle, editBodyText, editPageName } = this.state;
         const { pages, post } = this.props;
+
         return (
             <Fragment>
-
                 <h4>Create new post</h4>
                 {
                     editPageName === false
@@ -129,10 +92,11 @@ class EditPost extends Component {
 
                         : <Fragment>
                             <button onClick={() => this.changePageNameChecker()}>Cancel</button>
+
                             <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
                                 <label>
                                     Select page:
-                                <select name="pageName" ref="pageName" onChange={this.changePageName}>
+                                <select name="pageName" ref="pageName" onChange={this.editPageNameHandler}>
                                         <option value="">--- Select an option ---</option>
                                         <option value="Home">Home</option>
                                         {
@@ -148,6 +112,7 @@ class EditPost extends Component {
                 }
                 {
                     editTitle === false
+
                         ? <Fragment>
                             <p>{post.title}</p>
                             <button onClick={() => this.changeTitleChecker()}>Edit</button>
@@ -155,15 +120,17 @@ class EditPost extends Component {
 
                         : <Fragment>
                             <button onClick={() => this.changeTitleChecker()}>Cancel</button>
+
                             <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
+
                                 <label>
                                     Title:
-                                        <input
+                                    <input
                                         type="text"
                                         name="postTitle"
                                         defaultValue={post.title}
                                         ref="postTitle"
-                                        onChange={this.EditTitle}
+                                        onChange={this.editTitleHandler}
                                     />
                                 </label>
                                 <input type="submit" value="Submit" />
@@ -179,15 +146,16 @@ class EditPost extends Component {
 
                         : <Fragment>
                             <button onClick={() => this.changeBodyTextChecker()}>Cancel</button>
+
                             <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
                                 <label>
                                     Body text:
-                                        <textarea
+                                    <textarea
                                         type="text"
                                         name="bodyText"
                                         ref="bodyText"
                                         defaultValue={post.body_text}
-                                        onChange={this.EditBodyText}
+                                        onChange={this.editBodyTextHandler}
                                     />
                                 </label>
                                 <input type="submit" value="Submit" />
@@ -205,8 +173,10 @@ class EditPost extends Component {
                             <button onClick={() => this.changeEditImageChecker()}>Cancel</button>
                             <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
                                 <label>
+
                                     image:
-                                        <input
+
+                                    <input
                                         type="file"
                                         name="postImageThumbnail"
                                         onChange={this.fileSelectedHandler}
@@ -216,13 +186,6 @@ class EditPost extends Component {
                             </form>
                         </Fragment>
                 }
-
-
-
-                <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
-
-
-                </form>
             </Fragment >
         )
     }

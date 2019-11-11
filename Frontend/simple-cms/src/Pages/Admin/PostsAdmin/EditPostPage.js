@@ -18,11 +18,10 @@ class EditPostPage extends Component {
 
     componentDidMount() {
         const { id } = this.props.match.params;
+        this.setState({ postId: id, })
+
         this.getPostByKey();
         this.fetchPages();
-        this.setState({
-            postId: id,
-        })
     }
 
     fetchPages = () => {
@@ -30,11 +29,7 @@ class EditPostPage extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    pages: item
-                });
-            });
+            .then(item => { this.setState({ pages: item }); });
     }
 
     deletePost = (id) => {
@@ -42,16 +37,16 @@ class EditPostPage extends Component {
 
             const api = `http://localhost:5000/api/post/${id}`;
 
-            fetch(api, {
+            const options = {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-            })
-                .then(() => {
-                    window.location.reload();
-                })
+            }
+
+            fetch(api, options)
+                .then(() => { window.location.reload(); })
         }
     }
 
@@ -60,22 +55,17 @@ class EditPostPage extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    post: item
-                });
-            })
+            .then(item => { this.setState({ post: item }); })
     }
 
     render() {
         const { post, pages } = this.state
 
-
         return (
             <Fragment>
                 <AdminNavbar />
-                    <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
-                <EditPost pages={pages} post={post} id={this.props.match.params.id}/>
+                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                <EditPost pages={pages} post={post} id={this.props.match.params.id} />
             </Fragment>
         );
     }

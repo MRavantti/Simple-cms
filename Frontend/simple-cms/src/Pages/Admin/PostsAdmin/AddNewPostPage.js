@@ -26,16 +26,12 @@ class AddNewPostPage extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    pages: item
-                });
-            });
+            .then(item => { this.setState({ pages: item }); });
     }
 
     addPost = () => {
         const api = `http://localhost:5000/api/post`
-        
+
 
         fetch(api, {
             method: 'Post',
@@ -51,19 +47,15 @@ class AddNewPostPage extends Component {
                 Post_image_thumbnail: this.state.postImageThumbnail
             })
         })
-        .then(res => {
-            this.props.history.push(`/admin/posts/`);
-            window.location.reload();
-        })
+            .then(res => {
+                this.props.history.push(`/admin/posts/`);
+                window.location.reload();
+            })
     }
 
-    changeHandler = e => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
+    changeHandler = e => { this.setState({ [e.target.name]: e.target.value }) }
 
-    fileSelectedHandler = e => {
-        this.setState({ [e.target.name]: e.target.files[0].name})
-    }
+    fileSelectedHandler = e => { this.setState({ [e.target.name]: e.target.files[0].name }) }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -77,7 +69,7 @@ class AddNewPostPage extends Component {
             <Fragment>
                 <AdminNavbar />
                 <CreatePost pages={pages} />
-                
+
             </Fragment>
         );
     }

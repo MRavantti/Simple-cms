@@ -31,11 +31,7 @@ class AdminPage extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    pages: item
-                });
-            });
+            .then(item => { this.setState({ pages: item }); });
     }
 
     fetchPosts = () => {
@@ -43,11 +39,7 @@ class AdminPage extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({
-                    posts: item
-                });
-            });
+            .then(item => { this.setState({ posts: item }); });
     }
 
     delete = (type, id) => {
@@ -55,24 +47,20 @@ class AdminPage extends Component {
 
             const api = `http://localhost:5000/api/${type}/${id}`;
 
-            fetch(api, {
+            const options = {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-            })
-                .then(() => {
-                    window.location.reload();
-                })
+            }
+            
+            fetch(api, options)
+                .then(() => { window.location.reload(); })
         }
     }
 
-    CreateNewPostCheck = () => {
-        this.setState(prevState => ({
-            createNewPost: !prevState.createNewPost,
-        }))
-    }
+    CreateNewPostCheck = () => { this.setState(prevState => ({ createNewPost: !prevState.createNewPost, })) }
 
     render() {
 
@@ -123,6 +111,7 @@ class AdminPage extends Component {
 
                         : params.admin === "posts"
                             ? <Fragment>
+                                <h1>{params.admin}</h1>
                                 <p>Would you like to add a post?</p>
                                 {
                                     createNewPost === false
@@ -167,19 +156,23 @@ class AdminPage extends Component {
                                 }
 
                             </Fragment>
+                            : params.admin === "users"
+                                ? <Fragment>
+                                    <h1>{params.admin}</h1>
 
-                            : <Fragment>
-                                <h1>Admin page</h1>
+                                </Fragment>
+                                : <Fragment>
+                                    <h1>Admin page</h1>
 
-                                <h4>Pages</h4>
-                                <button><Link to="/admin/pages">Go to pages administration</Link></button>
+                                    <h4>Pages</h4>
+                                    <button><Link to="/admin/pages">Go to pages administration</Link></button>
 
-                                <h4>Posts</h4>
-                                <button><Link to="/admin/posts">Go to posts administration</Link></button>
+                                    <h4>Posts</h4>
+                                    <button><Link to="/admin/posts">Go to posts administration</Link></button>
 
-                                <h4>Users</h4>
-                                <button><Link to="/admin/users">Go to users administration</Link></button>
-                            </Fragment>
+                                    <h4>Users</h4>
+                                    <button><Link to="/admin/users">Go to users administration</Link></button>
+                                </Fragment>
                 }
             </Fragment>
         );

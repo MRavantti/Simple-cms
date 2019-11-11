@@ -25,14 +25,6 @@ class EditPost extends Component {
             .then(item => { this.setState({ pages: item }); });
     }
 
-    getPostByKey = () => {
-        const api = `http://localhost:5000/api/post/${this.props.id}`;
-
-        fetch(api)
-            .then(res => res.json())
-            .then(item => { this.setState({ post: item }); })
-    }
-
     editPost = () => {
         const api = `http://localhost:5000/api/post/${this.props.id}`
 
@@ -140,7 +132,18 @@ class EditPost extends Component {
                 {
                     editBodyText === false
                         ? <Fragment>
-                            <p>{post.body_text}</p>
+                            {
+                                post.body_text === undefined
+                                    ? <p>body text does not exist</p>
+                                    : <Fragment>
+                                        {
+                                            post.body_text.split('\n').map((bodyText, i) => {
+                                                return <p key={i}>{bodyText}</p>
+                                            })
+                                        }
+                                    </Fragment>
+                            }
+
                             <button onClick={() => this.changeBodyTextChecker()}>Edit</button>
                         </Fragment>
 

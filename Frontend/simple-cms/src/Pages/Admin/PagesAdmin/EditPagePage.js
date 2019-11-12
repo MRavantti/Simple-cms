@@ -45,7 +45,7 @@ class EditPagePage extends Component {
         }
     }
 
-    UpdatePageName = (id) => {
+    updatePageName = (id) => {
         const api = `http://localhost:5000/api/page/${id}`;
 
         fetch(api, {
@@ -89,7 +89,7 @@ class EditPagePage extends Component {
         }))
     }
 
-    CreateNewPostCheck = () => {
+    createNewPostCheck = () => {
         this.setState(prevState => ({
             CreateNewPost: !prevState.CreateNewPost,
         }))
@@ -97,7 +97,7 @@ class EditPagePage extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.UpdatePageName(this.state.pageId);
+        this.updatePageName(this.state.pageId);
     }
 
     changeHandler = e => {
@@ -120,7 +120,7 @@ class EditPagePage extends Component {
                             {
                                 CreateNewPost === false
                                     ? <Fragment>
-                                        <button onClick={() => this.CreateNewPostCheck()}>Create new post</button>
+                                        <button onClick={() => this.createNewPostCheck()}>Create new post</button>
                                         {
                                             homePagePosts.filter(function (post) { return post.post_category === "Home" }).map((post, key) =>
                                                 <div key={key}>
@@ -134,7 +134,7 @@ class EditPagePage extends Component {
                                         }
                                     </Fragment>
                                     : <Fragment>
-                                        <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                        <button onClick={() => this.createNewPostCheck()}>Cancel</button>
                                         <CreatePost pageName={"Home"} />
                                     </Fragment>
                             }
@@ -174,7 +174,7 @@ class EditPagePage extends Component {
                                         {
                                             CreateNewPost === false
                                                 ? <Fragment>
-                                                    <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
+                                                    <button onClick={() => this.createNewPostCheck()}>Add new post</button>
                                                     {
                                                         page.posts.map((post, postKey) =>
                                                             post === null
@@ -195,7 +195,7 @@ class EditPagePage extends Component {
                                                 </Fragment>
 
                                                 : <Fragment>
-                                                    <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                                    <button onClick={() => this.createNewPostCheck()}>Cancel</button>
                                                     <CreatePost pageName={page.page_name} />
                                                 </Fragment>
                                         }

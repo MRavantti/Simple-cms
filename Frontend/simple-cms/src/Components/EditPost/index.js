@@ -46,21 +46,39 @@ class EditPost extends Component {
             .then(() => { window.location.reload(); })
     }
 
-    changePageNameChecker = () => { this.setState(prevState => ({ editPageName: !prevState.editPageName })) }
+    changePageNameChecker = () => {
+        this.setState(prevState => ({
+            editPageName: !prevState.editPageName
+        }))
+    }
 
-    changeTitleChecker = () => { this.setState(prevState => ({ editTitle: !prevState.editTitle, })) }
+    changeTitleChecker = () => {
+        this.setState(prevState => ({
+            editTitle: !prevState.editTitle,
+        }))
+    }
 
-    changeBodyTextChecker = () => { this.setState(prevState => ({ editBodyText: !prevState.editBodyText, })) }
+    changeBodyTextChecker = () => {
+        this.setState(prevState => ({
+            editBodyText: !prevState.editBodyText,
+        }))
+    }
 
-    changeEditImageChecker = () => { this.setState(prevState => ({ editImage: !prevState.editImage, })) }
+    changeEditImageChecker = () => {
+        this.setState(prevState => ({
+            editImage: !prevState.editImage,
+        }))
+    }
 
-    editPageNameHandler = () => { this.setState({ pageName: this.refs.pageName.value }) }
+    fileSelectedHandler = e => {
+        this.setState({
+            [e.target.name]: e.target.files[0].name
+        })
+    }
 
-    editBodyTextHandler = () => { this.setState({ bodyText: this.refs.bodyText.value }) }
-
-    editTitleHandler = () => { this.setState({ postTitle: this.refs.postTitle.value }) }
-
-    fileSelectedHandler = e => { this.setState({ [e.target.name]: e.target.files[0].name }) }
+    changeHandler = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -88,7 +106,7 @@ class EditPost extends Component {
                             <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
                                 <label>
                                     Select page:
-                                <select name="pageName" ref="pageName" onChange={this.editPageNameHandler}>
+                                <select name="pageName" ref="pageName" onChange={this.changeHandler}>
                                         <option value="">--- Select an option ---</option>
                                         <option value="Home">Home</option>
                                         {
@@ -122,7 +140,7 @@ class EditPost extends Component {
                                         name="postTitle"
                                         defaultValue={post.title}
                                         ref="postTitle"
-                                        onChange={this.editTitleHandler}
+                                        onChange={this.changeHandler}
                                     />
                                 </label>
                                 <input type="submit" value="Submit" />
@@ -158,7 +176,7 @@ class EditPost extends Component {
                                         name="bodyText"
                                         ref="bodyText"
                                         defaultValue={post.body_text}
-                                        onChange={this.editBodyTextHandler}
+                                        onChange={this.changeHandler}
                                     />
                                 </label>
                                 <input type="submit" value="Submit" />

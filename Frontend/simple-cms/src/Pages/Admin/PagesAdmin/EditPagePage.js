@@ -27,24 +27,6 @@ class EditPagePage extends Component {
         })
     }
 
-    deletePost = (id) => {
-        if (window.confirm("Are you sure?")) {
-
-            const api = `http://localhost:5000/api/post/${id}`;
-
-            fetch(api, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(() => {
-                    window.location.reload();
-                })
-        }
-    }
-
     delete = (type, id) => {
         if (window.confirm("Are you sure?")) {
 
@@ -146,7 +128,7 @@ class EditPagePage extends Component {
                                                     <h5>{post.title}</h5>
                                                     <p>{post.body_text}</p>
                                                     <p>{post.post_image_thumbnail}</p>
-                                                    <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                                                    <button onClick={() => this.delete("post", post.post_id)}>Delete post</button>
                                                 </div>
                                             )
                                         }
@@ -205,7 +187,7 @@ class EditPagePage extends Component {
                                                                     <p>{post.body_text}</p>
                                                                     <div className="page-action-list">
                                                                         <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
-                                                                        <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                                                                        <button onClick={() => this.delete("post", post.post_id)}>Delete post</button>
                                                                     </div>
                                                                 </div>
                                                         )

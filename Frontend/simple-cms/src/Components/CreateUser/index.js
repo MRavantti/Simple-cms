@@ -1,23 +1,22 @@
 import React, { Component, Fragment } from 'react';
 
+import './style.css'
+
 class CreateUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
             username: "",
-            firstName: "",
-            lastName: "",
             email: "",
             password: "",
-            userImageThumbnail: "",
+            passwordConfirm: "",
         }
     }
 
     addUser = () => {
         const api = `http://localhost:5000/api/user`
 
-
-        fetch(api, {
+        const options = {
             method: 'Post',
             headers: {
                 'Accept': 'application/json',
@@ -25,23 +24,74 @@ class CreateUser extends Component {
             },
             body: JSON.stringify({
                 Username: this.state.username,
-                First_name: this.state.firstName,
-                Last_name: this.state.lastName,
                 Email: this.state.email,
                 Password: this.state.password,
-                User_image_thumbnail: this.state.userImageThumbnail
             })
-        })
+        }
+
+
+        fetch(api, options)
             .then(res => {
-                this.props.history.goBack();
                 window.location.reload();
             })
     }
 
+    changeHandler = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.addUser();
+    }
+
     render() {
+        const { username, email, password, passwordConfirm } = this.state;
 
         return (
             <Fragment>
+                <h4>Create new user</h4>
+                <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
+
+
+                    <label>
+                        username:
+                                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            onChange={this.changeHandler}
+                        />
+                    </label>
+                    <label>
+                        email:
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={this.changeHandler}
+                        />
+                    </label>
+                    <label>
+                        password:
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={this.changeHandler}
+                        />
+                    </label>
+                    <label>
+                        confirm password:
+                        <input
+                            type="password"
+                            name="password"
+                            value={passwordConfirm}
+                            onChange={this.changeHandler}
+                        />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
             </Fragment>
         )
     }

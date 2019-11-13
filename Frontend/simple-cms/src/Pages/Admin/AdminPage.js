@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import AdminNavbar from '../../Components/AdminNavbar'
 import CreatePost from '../../Components/CreatePost';
-
+import PagesList from '../../Components/PagesList'
 class AdminPage extends Component {
     constructor(props) {
         super(props)
@@ -66,53 +66,8 @@ class AdminPage extends Component {
                 {
                     params.admin === "pages"
                         ? <Fragment>
-                            <h1>{params.admin}</h1>
-                            <button><Link to="pages/add-page">Add a new page</Link></button>
-                            {
-                                posts.filter(function (post) { return post.post_category === "Home" }).map((post, key) =>
-                                    <div key={key}>
-                                        <h4>{post.post_category}</h4>
-                                        <button><Link to={`/admin/pages/edit-page/Home`}>Edit page</Link></button>
-                                        <h5>{post.title}</h5>
-                                        <p>{post.body_text}</p>
-                                        <p>{post.post_image_thumbnail}</p>
-                                    </div>
-                                )
-                            }
-                            {
-                                pages.length === 0
-                                    ? <h3>You do not have any pages yet</h3>
-                                    : <Fragment>
-                                        {
-                                            pages.map((page, key) =>
-                                                <div className="page" key={key}>
-
-                                                    <h4>{page.page_name} </h4>
-
-                                                    <div className="page-action-list">
-                                                        <button><Link to={`/admin/pages/edit-page/${page.page_id}`}>Edit page</Link></button>
-                                                    </div>
-
-                                                    {
-                                                        page.posts.map((post, postKey) =>
-                                                            post === null
-                                                                ? <div key={postKey}> <p>You do not have any posts for this page yet</p></div>
-                                                                : <div key={postKey}>
-                                                                    <h5>{post.title}</h5>
-                                                                    <p>{post.post_image_thumbnail}</p>
-                                                                    {
-                                                                        post.body_text.split('\n').map((bodyText, i) =>
-                                                                            <p key={i}>{bodyText}</p>
-                                                                        )
-                                                                    }
-                                                                </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            )
-                                        }
-                                    </Fragment>
-                            }
+                            <PagesList pages={pages} posts={posts}/>
+                            
                         </Fragment>
 
                         : params.admin === "posts"
@@ -184,12 +139,15 @@ class AdminPage extends Component {
                                     <h1>Admin page</h1>
 
                                     <h4>Pages</h4>
+                                    <p>Administration of pages, to add, edit and delete pages</p>
                                     <button><Link to="/admin/pages">Go to pages administration</Link></button>
 
                                     <h4>Posts</h4>
+                                    <p>Administration of posts, to add, edit and delete pages</p>
                                     <button><Link to="/admin/posts">Go to posts administration</Link></button>
 
                                     <h4>Users</h4>
+                                    <p>Administration of users, to add, edit and delete users</p>
                                     <button><Link to="/admin/users">Go to users administration</Link></button>
                                 </Fragment>
                 }

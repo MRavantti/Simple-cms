@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import './style.css'
-import CrossIcon from '../../images/cross-icon.svg'
+import CrossIcon from '../../images/admin-cross-icon.svg'
 
 class AdminMobileMenu extends Component {
     render() {
@@ -10,7 +10,7 @@ class AdminMobileMenu extends Component {
 
         return (
             <Fragment>
-                <div className={`mobile-menu ${myClass}`}>
+                <div className={`admin-mobile-menu ${myClass}`}>
                     <img className="cross-icon" onClick={toggleMenu} src={CrossIcon} alt="Cross Icon" />
 
                     <div className="Admin-mobile-menu-items">

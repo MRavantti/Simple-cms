@@ -1,0 +1,13 @@
+.admin-navbar {
+    background-color: #262933;
+    height: 9vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.admin-navbar p {
+    color: #fcfcfc;
+}

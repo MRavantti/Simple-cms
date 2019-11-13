@@ -1,0 +1,52 @@
+.page-list-item {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #F1F1F1;
+    height: 5vh;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.page-list-content {
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+.post-title {
+    margin-right: 4rem;
+}
+
+.edit-button,
+.show-more-button {
+    max-width: fit-content;
+    max-height: 5vh;
+    background-color: lightgray;
+}
+
+.edit-button a {
+    font-weight: bold;
+}
+
+.page-list-item-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-created-at,
+.post-updated-at {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-created-at p,
+.post-updated-at p{
+    margin-right: .2rem;
+}
+
+.pages-list {
+    padding: 1rem;
+    background-color: #fcfcfc;
+}

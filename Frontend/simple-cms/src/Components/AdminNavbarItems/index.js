@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-import Logo from '../../images/example-logo.svg'
-import BurgerIcon from '../../images/burger-icon.svg'
+import Logo from '../../images/simple-cms-logo.svg'
+import BurgerIcon from '../../images/admin-burger-icon.svg'
 
 class AdminNavbarItems extends Component {
     render() {    
@@ -12,7 +12,7 @@ class AdminNavbarItems extends Component {
         return (
             <Fragment>
                 <div className="logo">
-                    <Link to="/"><img src={Logo} alt="logo" /></Link>
+                    <Link to="/admin"><img src={Logo} alt="logo" /></Link>
                 </div>
                 <div className="burger-menu">
                     <img onClick={toggleMenu} src={BurgerIcon} alt="Burger Icon" />

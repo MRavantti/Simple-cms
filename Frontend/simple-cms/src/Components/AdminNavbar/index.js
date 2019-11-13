@@ -20,7 +20,7 @@ class AdminNavbar extends Component {
                 <Fragment>
                     <AdminMobileMenu toggleMenu={this.toggleMenu} myClass={this.state.menuVisable && "visible"} />
                 </Fragment>
-                <div className="navbar">
+                <div className="admin-navbar">
                     <AdminNavbarItems toggleMenu={this.toggleMenu} />
                 </div>
 

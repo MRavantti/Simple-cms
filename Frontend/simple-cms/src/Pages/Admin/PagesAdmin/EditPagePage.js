@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
 import CreatePost from '../../../Components/CreatePost';
+import BackButton from '../../../Components/BackButton';
+import LinkButton from '../../../Components/LinkButton';
+import Button from '../../../Components/Button';
 
 class EditPagePage extends Component {
     constructor(props) {
@@ -114,13 +117,15 @@ class EditPagePage extends Component {
                 {
                     params.id === "Home"
                         ? <Fragment>
+                            <BackButton onClick={() => this.props.history.goBack()} />
+
                             <h1>Home</h1>
                             <h4>Posts for this page:</h4>
 
                             {
                                 CreateNewPost === false
                                     ? <Fragment>
-                                        <button onClick={() => this.createNewPostCheck()}>Create new post</button>
+                                        <Button onClick={() => this.createNewPostCheck()} text="Create new post" backgroundColor="#262933" />
                                         {
                                             homePagePosts.filter(function (post) { return post.post_category === "Home" }).map((post, key) =>
                                                 <div key={key}>
@@ -128,13 +133,13 @@ class EditPagePage extends Component {
                                                     <h5>{post.title}</h5>
                                                     <p>{post.body_text}</p>
                                                     <p>{post.post_image_thumbnail}</p>
-                                                    <button onClick={() => this.delete("post", post.post_id)}>Delete post</button>
+                                                    <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323" />
                                                 </div>
                                             )
                                         }
                                     </Fragment>
                                     : <Fragment>
-                                        <button onClick={() => this.createNewPostCheck()}>Cancel</button>
+                                        <Button onClick={() => this.createNewPostCheck()} text="Cancel" backgroundColor="#262933" />
                                         <CreatePost pageName={"Home"} />
                                     </Fragment>
                             }
@@ -142,6 +147,7 @@ class EditPagePage extends Component {
                         </Fragment>
 
                         : <Fragment>
+                            <BackButton onClick={() => this.props.history.goBack()} />
                             {
                                 page.map((page, key) =>
                                     <div className="page" key={key}>
@@ -162,19 +168,20 @@ class EditPagePage extends Component {
                                                         </label>
                                                         <input type="submit" value="Submit" />
                                                     </form>
-                                                    <button onClick={() => this.changePageNameCheck()}>Cancel</button>
+                                                    <Button onClick={() => this.changePageNameCheck()} text="Cancel" backgroundColor="#262933" />
                                                 </Fragment>
 
                                                 : <Fragment>
                                                     <h1>{page.page_name}</h1>
-                                                    <button onClick={() => this.changePageNameCheck()}>Change name of this page</button>
+                                                    <Button onClick={() => this.changePageNameCheck()} text="Change name of this page" backgroundColor="#262933" />
+
                                                 </Fragment>
                                         }
                                         <h4>Posts for this page:</h4>
                                         {
                                             CreateNewPost === false
                                                 ? <Fragment>
-                                                    <button onClick={() => this.createNewPostCheck()}>Add new post</button>
+                                                    <Button onClick={() => this.createNewPostCheck()} text="Add new post" backgroundColor="#008000" />
                                                     {
                                                         page.posts.map((post, postKey) =>
                                                             post === null
@@ -186,8 +193,9 @@ class EditPagePage extends Component {
                                                                     <p>{post.post_image_thumbnail}</p>
                                                                     <p>{post.body_text}</p>
                                                                     <div className="page-action-list">
-                                                                        <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
-                                                                        <button onClick={() => this.delete("post", post.post_id)}>Delete post</button>
+                                                                        <LinkButton link={`/admin/posts/edit-post/${post.post_id}`} text="Edit post" />
+                                                                        <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323" />
+
                                                                     </div>
                                                                 </div>
                                                         )
@@ -195,14 +203,15 @@ class EditPagePage extends Component {
                                                 </Fragment>
 
                                                 : <Fragment>
-                                                    <button onClick={() => this.createNewPostCheck()}>Cancel</button>
+                                                    <Button onClick={() => this.createNewPostCheck()} text="Cancel" backgroundColor="#262933" />
                                                     <CreatePost pageName={page.page_name} />
                                                 </Fragment>
                                         }
+                                        <Button onClick={() => this.delete("page", page.page_id)} text="Delete page" backgroundColor="#D72323" />
                                     </div>
                                 )
                             }
-                            <button onClick={() => this.delete("page", page.page_id)}>Delete page</button>
+
                         </Fragment>
                 }
 

@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react';
 
 import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
-
+import Button from '../../../Components/Button';
 import CreatePost from '../../../Components/CreatePost'
+import BackButton from '../../../Components/BackButton';
 
 class AddNewPagePage extends Component {
     constructor(props) {
@@ -65,19 +66,20 @@ class AddNewPagePage extends Component {
                                 createNewPost === true
                                     ? <Fragment>
                                         <CreatePost pageName={pageName} />
-                                        <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                        <Button onClick={() => this.CreateNewPostCheck()} text="Cancel" backgroundColor="#262933" />
                                     </Fragment>
 
                                     : <Fragment>
                                         <p>You do not yet have any post on this page</p>
                                         <p>Press "Add new post" to create a new post for this page</p>
-                                        <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
+                                        <Button onClick={() => this.CreateNewPostCheck()} text="Add new post" backgroundColor="#008000" />
 
                                     </Fragment>
                             }
                         </Fragment>
                         : <Fragment>
                             <h1>Add new page</h1>
+                            <BackButton onClick={() => this.props.history.goBack()} />
 
                             <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
                                 <label>

@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
 import EditPost from '../../../Components/EditPost';
+import BackButton from '../../../Components/BackButton'
 
 class EditPostPage extends Component {
     constructor(props) {
@@ -64,7 +65,7 @@ class EditPostPage extends Component {
         return (
             <Fragment>
                 <AdminNavbar />
-                <button onClick={() => this.props.history.goBack()}>Cancel</button>
+                <BackButton onClick={() => this.props.history.goBack()}/>
                 <EditPost pages={pages} post={post} id={this.props.match.params.id} />
                 <div>
                 <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>

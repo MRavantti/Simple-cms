@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 
 import AdminNavbar from '../../Components/AdminNavbar'
 import CreatePost from '../../Components/CreatePost';
-import PagesList from '../../Components/PagesList'
+import PagesList from '../../Components/PagesList';
+import LinkButton from '../../Components/LinkButton'
+import Button from '../../Components/Button'
+import BackButton from '../../Components/BackButton'
+
+
 class AdminPage extends Component {
     constructor(props) {
         super(props)
@@ -52,7 +57,29 @@ class AdminPage extends Component {
             .then(item => { this.setState({ posts: item }); });
     }
 
-    CreateNewPostCheck = () => { this.setState(prevState => ({ createNewPost: !prevState.createNewPost, })) }
+    delete = (type, id) => {
+        if (window.confirm("Are you sure?")) {
+
+            const api = `http://localhost:5000/api/${type}/${id}`;
+
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            }
+
+            fetch(api, options)
+                .then(() => { window.location.reload(); })
+        }
+    }
+
+    CreateNewPostCheck = () => {
+        this.setState(prevState => ({
+            createNewPost: !prevState.createNewPost,
+        }))
+    }
 
     render() {
 
@@ -66,19 +93,19 @@ class AdminPage extends Component {
                 {
                     params.admin === "pages"
                         ? <Fragment>
-                            <PagesList pages={pages} posts={posts}/>
-                            
+                            <PagesList pages={pages} posts={posts} />
+
                         </Fragment>
 
                         : params.admin === "posts"
                             ? <Fragment>
                                 <h1>{params.admin}</h1>
-                                <p>Would you like to add a post?</p>
                                 {
                                     createNewPost === false
-
-                                        ? <Fragment>
-                                            <button onClick={() => this.CreateNewPostCheck()}>Add new post</button>
+                                    
+                                    ? <Fragment>
+                                            <p>Would you like to add a post?</p>
+                                            <Button onClick={() => this.CreateNewPostCheck()} text="Add new post" backgroundColor="#008000"/>
                                             {
                                                 posts.length === 0
                                                     ? <h3>You do not have any posts yet</h3>
@@ -100,8 +127,9 @@ class AdminPage extends Component {
                                                                             </div>
                                                                     }
                                                                     <div className="page-action-list">
-                                                                        <button><Link to={`/admin/posts/edit-post/${post.post_id}`}>Edit post</Link></button>
-                                                                        <button onClick={() => this.delete("post", post.post_id)}>Delete post</button>
+                                                                        <LinkButton text="Edit post" link={`/admin/posts/edit-post/${post.post_id}`} backgroundColor="#262832"/>
+                                                                        <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323"/>
+
                                                                     </div>
                                                                 </div>
                                                             )
@@ -111,7 +139,7 @@ class AdminPage extends Component {
                                         </Fragment>
 
                                         : <Fragment>
-                                            <button onClick={() => this.CreateNewPostCheck()}>Cancel</button>
+                                            <BackButton onClick={() => this.CreateNewPostCheck()}/>
                                             <CreatePost pages={pages} />
                                         </Fragment>
                                 }
@@ -120,7 +148,7 @@ class AdminPage extends Component {
                             : params.admin === "users"
                                 ? <Fragment>
                                     <h1>{params.admin}</h1>
-                                    <button><Link to={`/admin/users/add-user/`}>Create new user</Link></button>
+                                    <LinkButton text="Create new user" link={`/admin/users/add-user/`} backgroundColor="#008000"/>
                                     {
                                         users.map((user, key) =>
                                             <div key={key}>
@@ -129,7 +157,7 @@ class AdminPage extends Component {
                                                 <p>{user.last_name}</p>
                                                 <p>{user.email}</p>
                                                 <p>{user.user_image_thumbnail}</p>
-                                                <button><Link to={`/admin/users/edit-user/${user.id}`}>Edit user</Link></button>
+                                                <LinkButton text="Edit user" link={`/admin/users/edit-user/${user.id}`} />
                                             </div>
                                         )
                                     }
@@ -140,15 +168,15 @@ class AdminPage extends Component {
 
                                     <h4>Pages</h4>
                                     <p>Administration of pages, to add, edit and delete pages</p>
-                                    <button><Link to="/admin/pages">Go to pages administration</Link></button>
+                                    <LinkButton text="Go to pages administration" link={`/admin/pages`} />
 
                                     <h4>Posts</h4>
                                     <p>Administration of posts, to add, edit and delete pages</p>
-                                    <button><Link to="/admin/posts">Go to posts administration</Link></button>
+                                    <LinkButton text="Go to posts administration" link={`/admin/posts`} />
 
                                     <h4>Users</h4>
                                     <p>Administration of users, to add, edit and delete users</p>
-                                    <button><Link to="/admin/users">Go to users administration</Link></button>
+                                    <LinkButton text="Go to users administration" link={`/admin/users`} />
                                 </Fragment>
                 }
             </Fragment>

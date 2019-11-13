@@ -14,6 +14,7 @@ class AdminMobileMenu extends Component {
                     <img className="cross-icon" onClick={toggleMenu} src={CrossIcon} alt="Cross Icon" />
 
                     <div className="Admin-mobile-menu-items">
+                        <Link onClick={toggleMenu} to="/">Return to start page</Link>
                         <Link onClick={toggleMenu} to="/admin">Admin start page</Link>
                         <Link onClick={toggleMenu} to="/admin/pages">Pages</Link>
                         <Link onClick={toggleMenu} to="/admin/posts">Posts</Link>

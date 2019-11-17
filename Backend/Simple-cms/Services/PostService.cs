@@ -38,15 +38,6 @@ namespace Simple_cms.Services
             var dateTimeNow = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
             post.Created_date_time = DateTime.Parse(dateTimeNow);
 
-            char[] delimiter1 = { '.' };
-            string[] postImage = post.Post_image_thumbnail.Split(delimiter1, StringSplitOptions.None);
-            string newImageName = $"{postImage[0]}_{dateTimeNow}.{postImage[1]}";
-
-            char[] delimiter2 = { ' ' };
-            string[] newPostImage = newImageName.Split(delimiter2, StringSplitOptions.None);
-            newImageName = $"{newPostImage[0]}_{newPostImage[1]}";
-            post.Post_image_thumbnail = newImageName;
-
             this._postRepository.AddPost(post);
 
             return true;

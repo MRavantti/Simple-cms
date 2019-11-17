@@ -1,5 +1,22 @@
-.page {
-    margin: 1rem;
+input,
+textarea,
+select  {
+    outline: none;
+    border: 1px solid #d6d2d2;
+    font-size: 1rem;
+}
+
+textarea {
+    min-width: 70vw;
+    min-height: 20vh;
+    font-size: 1rem;
+    resize: none;
+}
+
+.pages,
+.posts,
+.users {
+    margin: 1.5rem;
 }
 
 .page-action-list {
@@ -15,8 +32,77 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 1rem;
+}
+
+.add-new-page-forms .submit {
+    margin: 1rem auto;
 }
 
 label {
-    margin: 1rem;
+    margin: .7rem;
+}
+
+.submit {
+    background-color: #008000;
+    width: 10vh;
+    border: none;
+    color: #fcfcfc
+}
+
+.action-buttons {
+    display: flex;
+    padding: 0 10vw;
+    justify-content: center;
+}
+
+.action-buttons button{
+    margin: 4vh 6vw;
+}
+
+.post-item {
+    margin-bottom: 10vh;
+}
+
+.post-container {
+    background-color: #d2cfcf;
+    border-radius: .2rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.line {
+    height: 1px;
+    width: 40vw;
+    background-color: #a7a4a4;
+    margin: 1.5rem 0;
+}
+
+.post-top {
+    margin-bottom: 2rem;
+}
+
+.page-posts {
+    background-color: #d2cfcf;
+    border-radius: .2rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.page-button-container {
+    margin-top: 1rem;
+}
+
+.edit-name-form {
+    background-color: #d2cfcf;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    align-items: center;
+    padding: .5rem;
+    border-radius: .2rem;
+}
+
+.edit-name-form .submit{
+    margin-top: 1rem;
 }

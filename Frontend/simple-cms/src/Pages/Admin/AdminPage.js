@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
 import '../style.css'
-import { Link } from 'react-router-dom';
 
 import AdminNavbar from '../../Components/AdminNavbar'
 import CreatePost from '../../Components/CreatePost';
@@ -23,7 +22,6 @@ class AdminPage extends Component {
             post_category: "",
             title: "",
             body_text: "",
-            post_image_thumbnail: "",
         }
     }
 
@@ -92,43 +90,54 @@ class AdminPage extends Component {
                 <AdminNavbar />
                 {
                     params.admin === "pages"
-                        ? <Fragment>
+                        ? <div className="pages">
                             <PagesList pages={pages} posts={posts} />
 
-                        </Fragment>
+                        </div>
 
                         : params.admin === "posts"
-                            ? <Fragment>
+                            ? <div className="posts">
                                 <h1>{params.admin}</h1>
                                 {
                                     createNewPost === false
-                                    
-                                    ? <Fragment>
-                                            <p>Would you like to add a post?</p>
-                                            <Button onClick={() => this.CreateNewPostCheck()} text="Add new post" backgroundColor="#008000"/>
+
+                                        ? <Fragment>
+                                            <div className="post-top">
+                                                <Button onClick={() => this.CreateNewPostCheck()} text="Add new post" backgroundColor="#008000" />
+                                            </div>
                                             {
                                                 posts.length === 0
                                                     ? <h3>You do not have any posts yet</h3>
                                                     : <Fragment>
                                                         {
                                                             posts.map((post, key) =>
-                                                                <div className="page" key={key}>
+                                                                <div className="post-container" key={key}>
                                                                     {
                                                                         post === null
                                                                             ? <p>You do not have any posts yet</p>
-                                                                            : <div key={key}>
-                                                                                <h4>Title: {post.title}</h4>
+                                                                            : <Fragment>
                                                                                 <h5>Page: {post.post_category}</h5>
-                                                                                {
-                                                                                    post.body_text.split('\n').map((bodyText, i) =>
-                                                                                        <p key={i}>{bodyText}</p>
-                                                                                    )
-                                                                                }
-                                                                            </div>
+                                                                                <div className="line"></div>
+                                                                                <h3>{post.title}</h3>
+
+                                                                                <div className="line"></div>
+
+                                                                                <div className="body-text">
+                                                                                    {
+
+                                                                                        post.body_text.split('\n').map((bodyText, i) =>
+                                                                                            <p key={i}>{bodyText}</p>
+                                                                                        )
+                                                                                    }
+                                                                                </div>
+
+                                                                                <div className="line"></div>
+
+                                                                            </Fragment>
                                                                     }
-                                                                    <div className="page-action-list">
-                                                                        <LinkButton text="Edit post" link={`/admin/posts/edit-post/${post.post_id}`} backgroundColor="#262832"/>
-                                                                        <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323"/>
+                                                                    <div className="action-buttons">
+                                                                        <LinkButton text="Edit post" link={`/admin/posts/edit-post/${post.post_id}`} backgroundColor="#262832" />
+                                                                        <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323" />
 
                                                                     </div>
                                                                 </div>
@@ -139,30 +148,29 @@ class AdminPage extends Component {
                                         </Fragment>
 
                                         : <Fragment>
-                                            <BackButton onClick={() => this.CreateNewPostCheck()}/>
+                                            <BackButton onClick={() => this.CreateNewPostCheck()} />
                                             <CreatePost pages={pages} />
                                         </Fragment>
                                 }
 
-                            </Fragment>
+                            </div>
                             : params.admin === "users"
-                                ? <Fragment>
+                                ? <div className="users">
                                     <h1>{params.admin}</h1>
-                                    <LinkButton text="Create new user" link={`/admin/users/add-user/`} backgroundColor="#008000"/>
+                                    <LinkButton text="Create new user" link={`/admin/users/add-user/`} backgroundColor="#008000" />
                                     {
                                         users.map((user, key) =>
-                                            <div key={key}>
+                                            <div className="" key={key}>
                                                 <h2>{user.username}</h2>
                                                 <p>{user.first_name}</p>
                                                 <p>{user.last_name}</p>
                                                 <p>{user.email}</p>
-                                                <p>{user.user_image_thumbnail}</p>
                                                 <LinkButton text="Edit user" link={`/admin/users/edit-user/${user.id}`} />
                                             </div>
                                         )
                                     }
 
-                                </Fragment>
+                                </div>
                                 : <Fragment>
                                     <h1>Admin page</h1>
 

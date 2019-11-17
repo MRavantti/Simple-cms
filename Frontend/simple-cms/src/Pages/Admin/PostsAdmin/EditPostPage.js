@@ -5,6 +5,7 @@ import '../../style.css'
 import AdminNavbar from '../../../Components/AdminNavbar';
 import EditPost from '../../../Components/EditPost';
 import BackButton from '../../../Components/BackButton'
+import Button from '../../../Components/Button'
 
 class EditPostPage extends Component {
     constructor(props) {
@@ -65,10 +66,13 @@ class EditPostPage extends Component {
         return (
             <Fragment>
                 <AdminNavbar />
-                <BackButton onClick={() => this.props.history.goBack()}/>
-                <EditPost pages={pages} post={post} id={this.props.match.params.id} />
-                <div>
-                <button onClick={() => this.deletePost(post.post_id)}>Delete post</button>
+                <BackButton onClick={() => this.props.history.goBack()} />
+                <div className="posts">
+
+                    <EditPost pages={pages} post={post} id={this.props.match.params.id} />
+                    <div className="action-buttons">
+                        <Button onClick={() => this.deletePost(post.post_id)} text="Delete post" backgroundColor="#D72323" />
+                    </div>
                 </div>
             </Fragment>
         );

@@ -1,0 +1,18 @@
+.add-new-page-forms {
+    background-color: #d2cfcf;
+    padding: 2vh 0;
+    border-radius: .2rem;
+}
+
+.add-new-page-forms .submit {
+    background-color: #008000;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-new-page-forms-top-title {
+    margin-left: 1rem;
+}

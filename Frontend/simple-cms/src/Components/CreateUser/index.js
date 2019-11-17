@@ -10,6 +10,8 @@ class CreateUser extends Component {
             email: "",
             password: "",
             passwordConfirm: "",
+            passwordTryMatch: false,
+            passwordIsMatch: false,
         }
     }
 
@@ -42,11 +44,17 @@ class CreateUser extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.addUser();
+        if (this.state.password === this.state.passwordConfirm) {
+            this.addUser();
+        }
+        else {
+            this.setState({ passwordTryMatch: true, passwordIsMatch: false})
+
+        }
     }
 
     render() {
-        const { username, email, password, passwordConfirm } = this.state;
+        const { username, email, password, passwordConfirm, passwordTryMatch, passwordIsMatch } = this.state;
 
         return (
             <Fragment>
@@ -55,8 +63,8 @@ class CreateUser extends Component {
 
 
                     <label>
-                        username:
-                                        <input
+                        <p className="label">username:</p>
+                        <input
                             type="text"
                             name="username"
                             value={username}
@@ -64,7 +72,7 @@ class CreateUser extends Component {
                         />
                     </label>
                     <label>
-                        email:
+                        <p className="label">email:</p>
                         <input
                             type="email"
                             name="email"
@@ -73,7 +81,7 @@ class CreateUser extends Component {
                         />
                     </label>
                     <label>
-                        password:
+                        <p className="label">password:</p>
                         <input
                             type="password"
                             name="password"
@@ -82,15 +90,26 @@ class CreateUser extends Component {
                         />
                     </label>
                     <label>
-                        confirm password:
+                        <p className="label">confirm password:</p>
                         <input
                             type="password"
-                            name="password"
+                            name="passwordConfirm"
                             value={passwordConfirm}
                             onChange={this.changeHandler}
                         />
                     </label>
-                    <input type="submit" value="Submit" />
+                    {
+                        passwordTryMatch === true
+                            ? <Fragment>
+                                {
+                                    passwordIsMatch === false
+                                        ? <p>Password must match!</p>
+                                        : null
+                                }
+                            </Fragment>
+                            : null
+                    }
+                    <input className="submit" type="submit" value="Submit" />
                 </form>
             </Fragment>
         )

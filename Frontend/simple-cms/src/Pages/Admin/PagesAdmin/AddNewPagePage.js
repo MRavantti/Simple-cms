@@ -83,15 +83,16 @@ class AddNewPagePage extends Component {
 
                             <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
                                 <label>
-                                    Enter page name:
+                                    <p className="label">Enter page name:</p>
                                         <input
                                         type="text"
                                         name="pageName"
+                                        placeholder="enter page name..."
                                         value={pageName}
                                         onChange={this.changeHandler}
                                     />
                                 </label>
-                                <input type="submit" value="Submit" />
+                                <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }

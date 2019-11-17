@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import './style.css'
+
 class CreatePost extends Component {
     constructor(props) {
         super(props)
@@ -8,7 +10,6 @@ class CreatePost extends Component {
             postCategory: "",
             postTitle: "",
             bodyText: "",
-            postImageThumbnail: "",
         }
     }
 
@@ -17,7 +18,7 @@ class CreatePost extends Component {
     }
 
     addPost = () => {
-        const api = `http://localhost:5000/api/post`
+        const api = `http://localhost:5000/api/post`;
 
         fetch(api, {
             method: 'Post',
@@ -29,12 +30,10 @@ class CreatePost extends Component {
                 Post_category: this.state.pageName,
                 Title: this.state.postTitle,
                 Body_text: this.state.bodyText,
-                Post_image_thumbnail: this.state.postImageThumbnail
             })
         })
             .then(() => {
                 window.location.reload();
-                this.props.history.push(`admin/pages/edit-page/${this.state.pageName}`);
             })
     }
 
@@ -47,30 +46,28 @@ class CreatePost extends Component {
         this.addPost();
     }
 
-    fileSelectedHandler = e => {
-        this.setState({ [e.target.name]: e.target.files[0].name })
-    }
-
     render() {
-        
+
         const { pageName, postTitle, bodyText } = this.state;
         const { pages } = this.props;
 
         return (
             <Fragment>
                 <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
-                    {
-                        pageName !== undefined
-                            ? <h4>Create new post for {pageName}</h4>
-                            : <h4>Create new post</h4>
-                    }
+                    <div className="add-new-page-forms-top-title">
+                        {
+                            pageName !== undefined
+                                ? <h4>Create new post for {pageName}</h4>
+                                : <h4>Create new post</h4>
+                        }
+                    </div>
 
                     {
                         pageName === undefined
                             ? <label>
-                                Select page:
+                                <p className="label">Select page:</p>
                                 <select name="pageName" onChange={this.changeHandler}>
-                                    <option value="">--- Select an option ---</option>
+                                    <option value="">--- Select a page ---</option>
                                     <option value="Home">Home</option>
                                     {
                                         pages.map((page, key) => {
@@ -80,8 +77,8 @@ class CreatePost extends Component {
                                 </select>
                             </label>
                             : <label>
-                                Post category:
-                                        <input
+                                <p className="label">Post category:</p>
+                                <input
                                     type="text"
                                     name="postCategory"
                                     value={pageName}
@@ -92,32 +89,28 @@ class CreatePost extends Component {
                     }
 
                     <label>
-                        Title:
+                        <p className="label">Title:</p>
                         <input
                             type="text"
                             name="postTitle"
+                            placeholder="Enter title..."
                             value={postTitle}
                             onChange={this.changeHandler}
                         />
                     </label>
                     <label>
-                        Body text:
+                        <p className="label">Body text:</p>
                         <textarea
                             type="text"
                             name="bodyText"
+                            placeholder="Enter body text..."
                             value={bodyText}
                             onChange={this.changeHandler}
                         />
                     </label>
-                    <label>
-                        image:
-                        <input
-                            type="file"
-                            name="postImageThumbnail"
-                            onChange={this.fileSelectedHandler}
-                        />
-                    </label>
-                    <input type="submit" value="Submit" />
+                    <div className="submit-button-container">
+                        <input className="submit" type="submit" value="Submit" />
+                    </div>
                 </form>
             </Fragment>
         )

@@ -11,13 +11,11 @@ class EditUser extends Component {
             lastName: "",
             email: "",
             password: "",
-            userImageThumbnail: "",
             editUsername: false,
             editFirstName: false,
             editLastName: false,
             editEmail: false,
             editPassword: false,
-            editImage: false,
         }
     }
 
@@ -36,7 +34,6 @@ class EditUser extends Component {
                 Last_name: this.state.lastName,
                 Email: this.state.email,
                 Password: this.state.password,
-                user_image_thumbnail: this.state.userImageThumbnail,
             })
         }
 
@@ -51,10 +48,6 @@ class EditUser extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.editUser();
-    }
-
-    fileSelectedHandler = e => {
-        this.setState({ [e.target.name]: e.target.files[0].name })
     }
 
     editUsernameChecker = () => {
@@ -81,12 +74,6 @@ class EditUser extends Component {
         }))
     }
 
-    editImageChecker = () => {
-        this.setState(prevState => ({
-            editImage: !prevState.editImage,
-        }))
-    }
-
     editPasswordChecker = () => {
         this.setState(prevState => ({
             editPassword: !prevState.editPassword,
@@ -95,7 +82,7 @@ class EditUser extends Component {
 
 
     render() {
-        const { password, userImageThumbnail, editUsername, editFirstName, editLastName, editEmail, editImage, editPassword } = this.state;
+        const { password, editUsername, editFirstName, editLastName, editEmail, editPassword } = this.state;
         const { user } = this.props;
 
         return (
@@ -118,7 +105,7 @@ class EditUser extends Component {
                                         onChange={this.changeHandler}
                                     />
                                 </label>
-                                <input type="submit" value="Submit" />
+                                <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }
@@ -140,7 +127,7 @@ class EditUser extends Component {
                                         onChange={this.changeHandler}
                                     />
                                 </label>
-                                <input type="submit" value="Submit" />
+                                <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }
@@ -163,7 +150,7 @@ class EditUser extends Component {
                                         onChange={this.changeHandler}
                                     />
                                 </label>
-                                <input type="submit" value="Submit" />
+                                <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }
@@ -186,7 +173,7 @@ class EditUser extends Component {
                                         onChange={this.changeHandler}
                                     />
                                 </label>
-                                <input type="submit" value="Submit" />
+                                <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }
@@ -209,29 +196,7 @@ class EditUser extends Component {
                                         onChange={this.changeHandler}
                                     />
                                 </label>
-                                <input type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
-                {
-                    editImage === false
-                        ? <Fragment>
-                            <p>{user.user_image_thumbnail}</p>
-                            <button onClick={() => this.editImageChecker()}>Change Image</button>
-                        </Fragment>
-                        : <Fragment>
-                            <button onClick={() => this.editImageChecker()}>Cancel</button>
-                            <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
-                                <label>
-                                    Profile image:
-                                    <input
-                                        type="file"
-                                        name="userImageThumbnail"
-                                        value={userImageThumbnail}
-                                        onChange={this.fileSelectedHandler}
-                                    />
-                                </label>
-                                <input type="submit" value="Submit" />
+                                <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }

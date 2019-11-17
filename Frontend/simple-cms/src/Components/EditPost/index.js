@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
+import './style.css'
+import Button from '../Button';
+
 class EditPost extends Component {
     constructor(props) {
         super(props)
@@ -9,11 +12,9 @@ class EditPost extends Component {
             postCategory: "",
             postTitle: "",
             bodyText: "",
-            postImageThumbnail: "",
             editPageName: false,
             editTitle: false,
             editBodyText: false,
-            editImage: false,
         }
     }
 
@@ -38,7 +39,6 @@ class EditPost extends Component {
                 Post_category: this.state.pageName,
                 Title: this.state.postTitle,
                 Body_text: this.state.bodyText,
-                Post_image_thumbnail: this.state.postImageThumbnail
             })
         }
 
@@ -64,18 +64,6 @@ class EditPost extends Component {
         }))
     }
 
-    changeEditImageChecker = () => {
-        this.setState(prevState => ({
-            editImage: !prevState.editImage,
-        }))
-    }
-
-    fileSelectedHandler = e => {
-        this.setState({
-            [e.target.name]: e.target.files[0].name
-        })
-    }
-
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -87,126 +75,105 @@ class EditPost extends Component {
 
 
     render() {
-        const { editImage, editTitle, editBodyText, editPageName } = this.state;
+        const { editTitle, editBodyText, editPageName } = this.state;
         const { pages, post } = this.props;
 
         return (
             <Fragment>
-                <h4>Create new post</h4>
-                {
-                    editPageName === false
-                        ? <Fragment>
-                            <p>{post.post_category}</p>
-                            <button onClick={() => this.changePageNameChecker()}>Edit</button>
-                        </Fragment>
+                <h1>Edit post</h1>
+                <div className="edit-post-container">
 
-                        : <Fragment>
-                            <button onClick={() => this.changePageNameChecker()}>Cancel</button>
+                    {
+                        editPageName === false
+                            ? <Fragment>
+                                <p>{post.post_category}</p>
+                                <Button onClick={() => this.changePageNameChecker()} text="Edit" backgroundColor="#262832" />
+                            </Fragment>
 
-                            <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
-                                <label>
-                                    Select page:
-                                <select name="pageName" ref="pageName" onChange={this.changeHandler}>
-                                        <option value="">--- Select an option ---</option>
-                                        <option value="Home">Home</option>
-                                        {
-                                            pages.map((page, key) => {
-                                                return <option key={key} value={page.page_name} >{page.page_name}</option>
-                                            })
-                                        }
-                                    </select>
-                                </label>
-                                <input type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
-                {
-                    editTitle === false
+                            : <Fragment>
 
-                        ? <Fragment>
-                            <p>{post.title}</p>
-                            <button onClick={() => this.changeTitleChecker()}>Edit</button>
-                        </Fragment>
+                                <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        <p className="label">Select page:</p>
+                                        <select name="pageName" ref="pageName" onChange={this.changeHandler}>
+                                            <option value="">--- Select an option ---</option>
+                                            <option value="Home">Home</option>
+                                            {
+                                                pages.map((page, key) => {
+                                                    return <option key={key} value={page.page_name} >{page.page_name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </label>
+                                    <input className="submit" type="submit" value="Save" />
+                                </form>
+                                <Button onClick={() => this.changePageNameChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    {
+                        editTitle === false
 
-                        : <Fragment>
-                            <button onClick={() => this.changeTitleChecker()}>Cancel</button>
+                            ? <Fragment>
+                                <p>{post.title}</p>
+                                <Button onClick={() => this.changeTitleChecker()} text="Edit" backgroundColor="#262832" />
 
-                            <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
+                            </Fragment>
 
-                                <label>
-                                    Title:
-                                    <input
-                                        type="text"
-                                        name="postTitle"
-                                        defaultValue={post.title}
-                                        ref="postTitle"
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
-                {
-                    editBodyText === false
-                        ? <Fragment>
-                            {
-                                post.body_text === undefined
-                                    ? <p>body text does not exist</p>
-                                    : <Fragment>
-                                        {
-                                            post.body_text.split('\n').map((bodyText, i) => {
-                                                return <p key={i}>{bodyText}</p>
-                                            })
-                                        }
-                                    </Fragment>
-                            }
+                            : <Fragment>
 
-                            <button onClick={() => this.changeBodyTextChecker()}>Edit</button>
-                        </Fragment>
+                                <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
 
-                        : <Fragment>
-                            <button onClick={() => this.changeBodyTextChecker()}>Cancel</button>
+                                    <label>
+                                        <p className="label">Title:</p>
+                                        <input
+                                            type="text"
+                                            name="postTitle"
+                                            defaultValue={post.title}
+                                            ref="postTitle"
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Save" />
+                                </form>
+                                <Button onClick={() => this.changeTitleChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    {
+                        editBodyText === false
+                            ? <Fragment>
+                                {
+                                    post.body_text === undefined
+                                        ? <p>body text does not exist</p>
+                                        : <Fragment>
+                                            {
+                                                post.body_text.split('\n').map((bodyText, i) => {
+                                                    return <p key={i}>{bodyText}</p>
+                                                })
+                                            }
+                                        </Fragment>
+                                }
+                                <Button onClick={() => this.changeBodyTextChecker()} text="edit" backgroundColor="#262832" />
+                            </Fragment>
 
-                            <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
-                                <label>
-                                    Body text:
-                                    <textarea
-                                        type="text"
-                                        name="bodyText"
-                                        ref="bodyText"
-                                        defaultValue={post.body_text}
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
-                {
-                    editImage === false
-                        ? <Fragment>
-                            <p>{post.post_image_thumbnail}</p>
-                            <button onClick={() => this.changeEditImageChecker()}>Edit</button>
-                        </Fragment>
+                            : <Fragment>
 
-                        : <Fragment>
-                            <button onClick={() => this.changeEditImageChecker()}>Cancel</button>
-                            <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
-                                <label>
-
-                                    image:
-
-                                    <input
-                                        type="file"
-                                        name="postImageThumbnail"
-                                        onChange={this.fileSelectedHandler}
-                                    />
-                                </label>
-                                <input type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
+                                <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        <p className="label">Body text:</p>
+                                        <textarea
+                                            type="text"
+                                            name="bodyText"
+                                            ref="bodyText"
+                                            defaultValue={post.body_text}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Save" />
+                                </form>
+                                <Button onClick={() => this.changeBodyTextChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                </div>
             </Fragment >
         )
     }

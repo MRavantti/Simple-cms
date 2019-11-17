@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     background-color: #fcfcfc;
-    height: 5vh;
     justify-content: center;
     margin-bottom: .4rem;
 }
@@ -21,7 +20,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 3.5vh;
+    padding: 0 0 0 .3rem ;
     align-items: center;
+    background-color: #9a9999;
+    border-radius: .2rem;
 }
 
 .post-created-at,
@@ -37,11 +40,14 @@
 
 .pages-list {
     padding: 1rem;
+    background-color: #d2cfcf;
+    margin-bottom: 2vh;
+    border-radius: .2rem;
 }
 
 .page-list-component {
-    background-color: #f1f1f1;
-    height: 100vh;
+    background-color: #fcfcfc;
+    min-height: 100vh;
 }
 
 .page-name-container {
@@ -52,4 +58,8 @@
 
 .page-name {
     margin-right: 10vw;
+}
+
+.pages-list-top {
+    margin-bottom: 10vh;
 }

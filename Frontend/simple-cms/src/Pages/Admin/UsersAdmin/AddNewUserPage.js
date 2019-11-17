@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import AdminNavbar from '../../../Components/AdminNavbar';
 import CreateUser from '../../../Components/CreateUser';
+import BackButton from '../../../Components/BackButton';
 
 class AddNewUserPage extends Component {
     constructor(props) {
@@ -21,8 +22,10 @@ class AddNewUserPage extends Component {
         return (
             <Fragment>
                 <AdminNavbar />
-                <CreateUser />
-
+                <div>
+                    <BackButton onClick={() => this.props.history.goBack()}/>
+                    <CreateUser />
+                </div>
             </Fragment>
         )
     }

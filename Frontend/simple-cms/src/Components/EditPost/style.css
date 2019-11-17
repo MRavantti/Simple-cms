@@ -1,0 +1,9 @@
+.edit-post-container {
+    background-color: #d2cfcf;
+    padding: 1rem;
+    border-radius: .2rem;
+}
+
+.edit-post-container  .submit {
+    margin: 1rem;
+}

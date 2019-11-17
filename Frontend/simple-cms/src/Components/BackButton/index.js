@@ -6,7 +6,7 @@ class BackButton extends Component {
 render() {
     return (
         <Fragment>
-            <img src={backArrow} onClick={this.props.onClick} />            
+            <img src={backArrow} onClick={this.props.onClick} alt="Back button" />            
         </Fragment>
     )
 }

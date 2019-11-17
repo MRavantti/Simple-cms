@@ -5,7 +5,6 @@ import './style.css'
 class Button extends Component {
     render() {
         const { text, onClick, backgroundColor } = this.props
-        console.log(this.props);
 
         return (
             <Fragment>

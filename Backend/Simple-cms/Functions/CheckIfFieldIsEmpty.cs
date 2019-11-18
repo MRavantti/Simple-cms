@@ -68,5 +68,42 @@ namespace Simple_cms.Functions
                 page.Page_name = pageExist.Page_name;
             }
         }
+
+        public static void CheckCompanyInformationField(CompanyInformation CompanyInformationExist, CompanyInformation CompanyInformation)
+        {
+            if (string.IsNullOrEmpty(CompanyInformation?.Name))
+            {
+                CompanyInformation.Name = CompanyInformationExist.Name;
+            }
+
+            if (string.IsNullOrEmpty(CompanyInformation?.Phone))
+            {
+                CompanyInformation.Phone = CompanyInformationExist.Phone;
+            }
+
+            if (string.IsNullOrEmpty(CompanyInformation?.Adress))
+            {
+                CompanyInformation.Adress = CompanyInformationExist.Adress;
+            }
+
+            if (string.IsNullOrEmpty(CompanyInformation?.Zipcode))
+            {
+                CompanyInformation.Zipcode = CompanyInformationExist.Zipcode;
+            }
+
+            if (string.IsNullOrEmpty(CompanyInformation?.Email))
+            {
+                CompanyInformation.Email = CompanyInformationExist.Email;
+            }
+
+            if (string.IsNullOrEmpty(CompanyInformation?.Province))
+            {
+                CompanyInformation.Province = CompanyInformationExist.Province;
+            }
+            if (string.IsNullOrEmpty(CompanyInformation?.Country))
+            {
+                CompanyInformation.Country = CompanyInformationExist.Country;
+            }
+        }
     }
 }

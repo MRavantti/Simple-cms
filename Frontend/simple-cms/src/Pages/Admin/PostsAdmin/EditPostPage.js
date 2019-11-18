@@ -48,7 +48,7 @@ class EditPostPage extends Component {
             }
 
             fetch(api, options)
-                .then(() => { window.location.reload(); })
+                .then(() => { this.props.history.goBack(); })
         }
     }
 

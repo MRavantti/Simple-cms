@@ -26,13 +26,30 @@ class EditUserPage extends Component {
             })
     }
 
+    deleteUser = (id) => {
+        if (window.confirm("Are you sure?")) {
+
+            const api = `http://localhost:5000/api/user/${id}`;
+
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            }
+            fetch(api, options)
+                .then(() => { this.props.history.push('/admin/users/'); })
+        }
+    }
+
     render() {
         const { user } = this.state
         return (
             <Fragment>
                 <AdminNavBar />
                 <BackButton onClick={() => this.props.history.goBack()} />
-                <EditUser user={user} id={user.id} />
+                <EditUser user={user} id={user.id} onClick={() => this.deleteUser(user.id)} />
             </Fragment>
         )
     }

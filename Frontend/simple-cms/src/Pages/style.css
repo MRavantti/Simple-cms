@@ -32,7 +32,6 @@ textarea {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 1rem;
 }
 
 .add-new-page-forms .submit {
@@ -105,4 +104,33 @@ label {
 
 .edit-name-form .submit{
     margin-top: 1rem;
+}
+
+.user-content {
+    background-color: #d2cfcf;
+    padding: 1rem;
+    margin: 1rem auto;
+    border-radius: .2rem;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.forms .submit {
+    margin: auto auto
+}
+
+
+.action-button {
+    margin-top: 2rem;
+}
+
+.forms-container {
+    margin: 1.5rem;
+    background-color: #d2cfcf;
+    padding: 1rem;
+    border-radius: .2rem;
 }

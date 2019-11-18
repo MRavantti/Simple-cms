@@ -110,6 +110,7 @@ class EditPost extends Component {
                                 <Button onClick={() => this.changePageNameChecker()} text="Cancel" backgroundColor="#262832" />
                             </Fragment>
                     }
+                    <div className="line" />
                     {
                         editTitle === false
 
@@ -138,6 +139,7 @@ class EditPost extends Component {
                                 <Button onClick={() => this.changeTitleChecker()} text="Cancel" backgroundColor="#262832" />
                             </Fragment>
                     }
+                    <div className="line" />
                     {
                         editBodyText === false
                             ? <Fragment>

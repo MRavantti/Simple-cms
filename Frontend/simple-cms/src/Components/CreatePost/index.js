@@ -87,7 +87,7 @@ class CreatePost extends Component {
                                 />
                             </label>
                     }
-
+                    <div className="line" />
                     <label>
                         <p className="label">Title:</p>
                         <input
@@ -98,6 +98,7 @@ class CreatePost extends Component {
                             onChange={this.changeHandler}
                         />
                     </label>
+                    <div className="line" />
                     <label>
                         <p className="label">Body text:</p>
                         <textarea

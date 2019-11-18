@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 
-import './style.css'
-
 class CreateUser extends Component {
     constructor(props) {
         super(props)
@@ -57,9 +55,9 @@ class CreateUser extends Component {
         const { username, email, password, passwordConfirm, passwordTryMatch, passwordIsMatch } = this.state;
 
         return (
-            <Fragment>
+            <div className="forms-container">
                 <h4>Create new user</h4>
-                <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
+                <form className="forms" onSubmit={this.handleSubmit}>
 
 
                     <label>
@@ -67,6 +65,7 @@ class CreateUser extends Component {
                         <input
                             type="text"
                             name="username"
+                            placeholder="Username..."
                             value={username}
                             onChange={this.changeHandler}
                         />
@@ -76,6 +75,7 @@ class CreateUser extends Component {
                         <input
                             type="email"
                             name="email"
+                            placeholder="Email@example.com..."
                             value={email}
                             onChange={this.changeHandler}
                         />
@@ -85,6 +85,7 @@ class CreateUser extends Component {
                         <input
                             type="password"
                             name="password"
+                            placeholder="****"
                             value={password}
                             onChange={this.changeHandler}
                         />
@@ -94,6 +95,7 @@ class CreateUser extends Component {
                         <input
                             type="password"
                             name="passwordConfirm"
+                            placeholder="****"
                             value={passwordConfirm}
                             onChange={this.changeHandler}
                         />
@@ -111,7 +113,7 @@ class CreateUser extends Component {
                     }
                     <input className="submit" type="submit" value="Submit" />
                 </form>
-            </Fragment>
+            </div>
         )
     }
 }

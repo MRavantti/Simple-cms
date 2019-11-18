@@ -69,7 +69,6 @@ class AddNewPostPage extends Component {
             <Fragment>
                 <AdminNavbar />
                 <CreatePost pages={pages} />
-
             </Fragment>
         );
     }

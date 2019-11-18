@@ -22,10 +22,8 @@ class AddNewUserPage extends Component {
         return (
             <Fragment>
                 <AdminNavbar />
-                <div>
-                    <BackButton onClick={() => this.props.history.goBack()}/>
-                    <CreateUser />
-                </div>
+                <BackButton onClick={() => this.props.history.goBack()} />
+                <CreateUser />
             </Fragment>
         )
     }

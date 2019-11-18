@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
-import './style.css'
+import './style.css';
+import Button from '../Button';
 
 class EditUser extends Component {
     constructor(props) {
@@ -11,6 +12,11 @@ class EditUser extends Component {
             lastName: "",
             email: "",
             password: "",
+            oldPassword: "",
+            newPassword: "",
+            confirmNewPassword: "",
+            passwordTryMatch: false,
+            passwordMatch: false,
             editUsername: false,
             editFirstName: false,
             editLastName: false,
@@ -33,7 +39,6 @@ class EditUser extends Component {
                 First_name: this.state.firstName,
                 Last_name: this.state.lastName,
                 Email: this.state.email,
-                Password: this.state.password,
             })
         }
 
@@ -41,8 +46,41 @@ class EditUser extends Component {
             .then(() => { window.location.reload(); })
     }
 
+    ChangePassword = () => {
+        const api = `http://localhost:5000/api/user/${this.props.id}`
+
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Password: this.state.newPassword,
+            })
+        }
+
+        fetch(api, options)
+            .then(() => { window.location.reload(); })
+    }
+
+    handleSubmitChangePassword = e => {
+        e.preventDefault();
+        if (this.state.oldPassword === this.props.user.password) {
+            if (this.state.newPassword === this.state.confirmNewPassword) {
+                this.ChangePassword();
+            }
+        }
+        if (this.state.oldPassword !== this.props.user.password) {
+            this.setState({ passwordTryMatch: true });
+        }
+        if (this.state.newPassword !== this.state.confirmNewPassword) {
+            this.setState({ passwordTryMatch: true, passwordMatch: true })
+        }
+    }
+
     changeHandler = e => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value, passwordTryMatch: false, passwordMatch: false })
     }
 
     handleSubmit = e => {
@@ -82,125 +120,177 @@ class EditUser extends Component {
 
 
     render() {
-        const { password, editUsername, editFirstName, editLastName, editEmail, editPassword } = this.state;
+        const { oldPasswordCheck, editUsername, editFirstName, editLastName, editEmail, editPassword, oldPassword, newPassword, confirmNewPassword, passwordTryMatch, passwordMatch } = this.state;
         const { user } = this.props;
+
+        console.log(passwordMatch);
+
 
         return (
             <Fragment>
-                {
-                    editUsername === false
-                        ? <Fragment>
-                            <h1>{user.username}</h1>
-                            <button onClick={() => this.editUsernameChecker()}>Change username</button>
-                        </Fragment>
-                        : <Fragment>
-                            <button onClick={() => this.editUsernameChecker()}>Cancel</button>
-                            <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
-                                <label>
-                                    username:
+                <h1>Edit user</h1>
+                <div className="forms-container">
+                    {
+                        editUsername === false
+                            ? <Fragment>
+                                <h1>{user.username}</h1>
+                                <Button onClick={() => this.editUsernameChecker()} text="Change username" backgroundColor="#262832" />
+                            </Fragment>
+                            : <Fragment>
+                                <form className="forms" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        username:
                                     <input
-                                        type="text"
-                                        name="username"
-                                        defaultValue={user.username}
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input className="submit" type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
-                {
-                    editFirstName === false
-                        ? <Fragment>
-                            <p>First name: {user.first_name}</p>
-                            <button onClick={() => this.editFirstNameChecker()}>Change first name</button>
-                        </Fragment>
-                        : <Fragment>
-                            <button onClick={() => this.editFirstNameChecker()}>Cancel</button>
-                            <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
-                                <label>
-                                    First name:
+                                            type="text"
+                                            name="username"
+                                            placeholder="Username"
+                                            defaultValue={user.username}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Submit" />
+                                </form>
+                                <Button onClick={() => this.editUsernameChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    <div className="line" />
+                    {
+                        editFirstName === false
+                            ? <Fragment>
+                                <p>First name: {user.first_name}</p>
+                                <Button onClick={() => this.editFirstNameChecker()} text="Change first name" backgroundColor="#262832" />
+                            </Fragment>
+                            : <Fragment>
+                                <form className="forms" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        First name:
                                     <input
-                                        type="text"
-                                        name="firstName"
-                                        defaultValue={user.first_name}
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input className="submit" type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
+                                            type="text"
+                                            name="firstName"
+                                            placeholder="First name...."
+                                            defaultValue={user.first_name}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Submit" />
+                                </form>
+                                <Button onClick={() => this.editFirstNameChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    <div className="line" />
+                    {
+                        editLastName === false
+                            ? <Fragment>
+                                <p>Last name: {user.last_name}</p>
+                                <Button onClick={() => this.editLastNameChecker()} text="Edit last name" backgroundColor="#262832" />
+                            </Fragment>
+                            : <Fragment>
+                                <form className="forms" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        Last name:
+                                    <input
+                                            type="text"
+                                            name="lastName"
+                                            placeholder="Last name...."
+                                            defaultValue={user.last_name}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Submit" />
+                                </form>
+                                <Button onClick={() => this.editLastNameChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    <div className="line" />
+                    {
+                        editEmail === false
+                            ? <Fragment>
+                                <p>Email: {user.email}</p>
+                                <Button onClick={() => this.editEmailChecker()} text="Change email" backgroundColor="#262832" />
 
-                {
-                    editLastName === false
-                        ? <Fragment>
-                            <p>Last name: {user.last_name}</p>
-                            <button onClick={() => this.editLastNameChecker()}>Change last name</button>
-                        </Fragment>
-                        : <Fragment>
-                            <button onClick={() => this.editLastNameChecker()}>Cancel</button>
-                            <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
-                                <label>
-                                    Last name:
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        defaultValue={user.last_name}
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input className="submit" type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
+                            </Fragment>
+                            : <Fragment>
+                                <form className="forms" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        <p>Email: </p>
 
-                {
-                    editEmail === false
-                        ? <Fragment>
-                            <p>Email: {user.email}</p>
-                            <button onClick={() => this.editEmailChecker()}>Change email</button>
-                        </Fragment>
-                        : <Fragment>
-                            <button onClick={() => this.editEmailChecker()}>Cancel</button>
-                            <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
-                                <label>
-                                    email:
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        defaultValue={user.email}
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input className="submit" type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            placeholder="Email@example.com..."
+                                            defaultValue={user.email}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Submit" />
+                                </form>
+                                <Button onClick={() => this.editEmailChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    <div className="line" />
+                    {
+                        editPassword === false
+                            ? <Fragment>
+                                <p>Change password</p>
+                                <Button onClick={() => this.editPasswordChecker()} text="Change password" backgroundColor="#262832" />
+                            </Fragment>
+                            : <Fragment>
+                                {
+                                    passwordTryMatch === true
+                                        ? oldPasswordCheck === false
+                                            ? <p>Incorrect password</p>
+                                            : null
+                                        : null
+                                }
+                                {
+                                    passwordTryMatch === true
+                                        ? passwordMatch === true
+                                            ? <p>Password did not match</p>
+                                            : null
+                                        : null
+                                }
+                                <form className="forms" onSubmit={this.handleSubmitChangePassword}>
+                                    <label>
+                                        <p>Old password: </p>
+                                        <input
+                                            type="password"
+                                            name="oldPassword"
+                                            placeholder="***"
+                                            value={oldPassword}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <label>
+                                        <p>New password: </p>
+                                        <input
+                                            type="password"
+                                            name="newPassword"
+                                            placeholder="***"
+                                            value={newPassword}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <label>
+                                        <p>Confirm password: </p>
+                                        <input
+                                            type="password"
+                                            name="confirmNewPassword"
+                                            placeholder="***"
+                                            value={confirmNewPassword}
+                                            onChange={this.changeHandler}
+                                        />
+                                    </label>
+                                    <input className="submit" type="submit" value="Submit" />
+                                </form>
+                                <Button onClick={() => this.editPasswordChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+                    <div className="action-button">
+                        <Button onClick={this.props.onClick} text="Delete user" backgroundColor="#D72323" />
+                    </div>
 
-                {
-                    editPassword === false
-                        ? <Fragment>
-                            <p>Change password</p>
-                            <button onClick={() => this.editPasswordChecker()}>Change password</button>
-                        </Fragment>
-                        : <Fragment>
-                            <button onClick={() => this.editPasswordChecker()}>Cancel</button>
-                            <form className="add-new-user-forms" onSubmit={this.handleSubmit}>
-                                <label>
-                                    password:
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={password}
-                                        onChange={this.changeHandler}
-                                    />
-                                </label>
-                                <input className="submit" type="submit" value="Submit" />
-                            </form>
-                        </Fragment>
-                }
-            </Fragment >
+                </div >
+            </Fragment>
         )
     }
 }

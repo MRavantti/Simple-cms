@@ -117,10 +117,12 @@ class AdminPage extends Component {
                                                                             ? <p>You do not have any posts yet</p>
                                                                             : <Fragment>
                                                                                 <h5>Page: {post.post_category}</h5>
-                                                                                <div className="line"></div>
+
+                                                                                <div className="line" />
+
                                                                                 <h3>{post.title}</h3>
 
-                                                                                <div className="line"></div>
+                                                                                <div className="line" />
 
                                                                                 <div className="body-text">
                                                                                     {
@@ -131,7 +133,7 @@ class AdminPage extends Component {
                                                                                     }
                                                                                 </div>
 
-                                                                                <div className="line"></div>
+                                                                                <div className="line" />
 
                                                                             </Fragment>
                                                                     }
@@ -160,12 +162,17 @@ class AdminPage extends Component {
                                     <LinkButton text="Create new user" link={`/admin/users/add-user/`} backgroundColor="#008000" />
                                     {
                                         users.map((user, key) =>
-                                            <div className="" key={key}>
+                                            <div className="user-content" key={key}>
                                                 <h2>{user.username}</h2>
-                                                <p>{user.first_name}</p>
-                                                <p>{user.last_name}</p>
+
+                                                <div className="line" />
+
+                                                <p>{user.first_name} {user.last_name}</p>
+
+                                                <div className="line" />
+
                                                 <p>{user.email}</p>
-                                                <LinkButton text="Edit user" link={`/admin/users/edit-user/${user.id}`} />
+                                                <LinkButton text="Edit user" link={`/admin/users/edit-user/${user.id}`} backgroundColor="#262832" />
                                             </div>
                                         )
                                     }

@@ -123,9 +123,6 @@ class EditUser extends Component {
         const { oldPasswordCheck, editUsername, editFirstName, editLastName, editEmail, editPassword, oldPassword, newPassword, confirmNewPassword, passwordTryMatch, passwordMatch } = this.state;
         const { user } = this.props;
 
-        console.log(passwordMatch);
-
-
         return (
             <Fragment>
                 <h1>Edit user</h1>

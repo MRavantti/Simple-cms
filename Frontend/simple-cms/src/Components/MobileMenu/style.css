@@ -1,6 +1,20 @@
+.mobile-menu-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-menu-items a {
+    margin: 1rem 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+
+}
+
 .mobile-menu {
-	position: fixed;
+    background-color: #fcfcfc;
 	z-index: 2;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,20 +24,11 @@
     transform: translate(100%, 0);
     height: 100%;
     width: 100%;
-    background-color: #fcfcfc;
-	color: #fff;
     transition: transform 0.4s ease-in-out;
 }
 
 .mobile-menu.visible {
     transform: none;
-}
-
-.mobile-menu-items {
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    padding: 1rem 1rem 1rem 3.813rem;
 }
 
 .cross-icon {
@@ -33,3 +38,4 @@
     right: 0;
     height: 3.3rem;
 }
+

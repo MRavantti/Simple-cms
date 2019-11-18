@@ -4,8 +4,7 @@ import { Route, Switch } from 'react-router';
 
 import './style.css';
 
-import HomePage from '../../Pages/HomePage';
-import AboutPage from '../../Pages/AboutPage';
+import Page from '../../Pages/Page';
 
 import AdminPage from '../../Pages/Admin/AdminPage';
 import AddNewPagePage from '../../Pages/Admin/PagesAdmin/AddNewPagePage';
@@ -20,8 +19,8 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/about" component={AboutPage} />
+          <Route path="/" exact component={Page} />
+          <Route path="/:page" exact component={Page} />
           <Route path="/admin/" exact component={AdminPage} />
           <Route path="/admin/:admin" exact component={AdminPage} />
           <Route path="/admin/pages/add-page" exact component={AddNewPagePage} />

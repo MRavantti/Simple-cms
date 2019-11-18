@@ -35,6 +35,7 @@ class MobileMenu extends Component {
                     <img className="cross-icon" onClick={toggleMenu} src={CrossIcon} alt="Cross Icon" />
 
                     <div className="mobile-menu-items">
+                        <Link to="/" onClick={toggleMenu} ><p>Home</p></Link>
                         {this.state.pages.map((page, key) =>
                             <Link to={page.page_name} onClick={toggleMenu} key={key}>
                                 <p >{page.page_name} </p>

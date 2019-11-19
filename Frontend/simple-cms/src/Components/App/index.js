@@ -14,6 +14,7 @@ import EditPostPage from '../../Pages/Admin/PostsAdmin/EditPostPage';
 import AddNewUserPage from '../../Pages/Admin/UsersAdmin/AddNewUserPage';
 import EditUserPage from '../../Pages/Admin/UsersAdmin/EditUserPage';
 import CompanyInformationPage from '../../Pages/Admin/CompanyInformation/CompanyInformationPage';
+import Footer from '../Footer';
 
 class App extends Component {
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
           <Route path="/admin/users/edit-user/:id" exact component={EditUserPage} />
           <Route path="/admin/info/company-information" exact component={CompanyInformationPage} />
         </Switch>
+        <Footer />
       </Router>
     );
   }

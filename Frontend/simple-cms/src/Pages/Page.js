@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 
 import Navbar from '../Components/Navbar';
 import PostViewBox from '../Components/PostViewBox';
-import Footer from '../Components/Footer';
 import Hero from '../Components/Hero';
 
 class Page extends Component {
@@ -42,12 +41,9 @@ class Page extends Component {
             <Fragment>
                 <Navbar />
                 <div className="page-container">
-                    <Hero pageName={page} pages={pages}
-                    />
-                    {}
+                    <Hero pageName={page} pages={pages} />
                     <PostViewBox posts={posts} pageName={page} />
                 </div>
-                <Footer />
             </Fragment>
         )
     }

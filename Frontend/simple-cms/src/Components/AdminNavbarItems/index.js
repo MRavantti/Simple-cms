@@ -12,7 +12,7 @@ class AdminNavbarItems extends Component {
         return (
             <Fragment>
                 <div className="logo">
-                    <Link to="/admin"><img src={Logo} alt="logo" /></Link>
+                    <Link to="/admin/start"><img src={Logo} alt="logo" /></Link>
                 </div>
                 <div className="burger-menu">
                     <img onClick={toggleMenu} src={BurgerIcon} alt="Burger Icon" />

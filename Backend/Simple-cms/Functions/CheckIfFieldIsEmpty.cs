@@ -96,10 +96,16 @@ namespace Simple_cms.Functions
                 CompanyInformation.Email = CompanyInformationExist.Email;
             }
 
+            if (string.IsNullOrEmpty(CompanyInformation?.City))
+            {
+                CompanyInformation.City = CompanyInformationExist.City;
+            }
+
             if (string.IsNullOrEmpty(CompanyInformation?.Province))
             {
                 CompanyInformation.Province = CompanyInformationExist.Province;
             }
+
             if (string.IsNullOrEmpty(CompanyInformation?.Country))
             {
                 CompanyInformation.Country = CompanyInformationExist.Country;

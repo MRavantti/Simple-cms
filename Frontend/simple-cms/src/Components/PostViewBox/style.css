@@ -1,0 +1,11 @@
+.post-view-box-container {
+    margin: 1rem;
+}
+
+.post-view-box {
+    padding: 0 1rem;
+    margin-top: 1rem;
+    background-color: #eaeaea;
+    border-radius: .2rem;
+    border: 1px solid #dcdcdc;
+}

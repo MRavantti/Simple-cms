@@ -36,7 +36,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("INSERT INTO Company_information (Name, Phone, Email, Adress, Zipcode, Province, Country) VALUES(@Name, @Phone, @Email, @Adress, @Zipcode, @Province, @Country)", companyInformation);
+                connection.Execute("INSERT INTO Company_information (Name, Phone, Email, Adress, Zipcode, City, Province, Country) VALUES(@Name, @Phone, @Email, @Adress, @Zipcode, @City, @Province, @Country)", companyInformation);
             }
         }
 
@@ -51,6 +51,7 @@ namespace Simple_cms.Repositories
                     "Email = @Email, " +
                     "Adress = @Adress, " +
                     "Zipcode = @Zipcode, " +
+                    "City = @City, " +
                     "Province = @Province, " +
                     "Country = @Country " +
                     "WHERE Id = @id", companyInformation);

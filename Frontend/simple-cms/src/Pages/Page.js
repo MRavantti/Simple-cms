@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import Navbar from '../Components/Navbar';
 import PostViewBox from '../Components/PostViewBox';
+import Footer from '../Components/Footer';
 
 class HomePage extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class HomePage extends Component {
             <Fragment>
                 <Navbar />
                 <PostViewBox posts={posts} pageName={page} />
+                <Footer />
             </Fragment>
         )
     }

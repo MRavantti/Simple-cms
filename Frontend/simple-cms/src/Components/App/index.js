@@ -13,6 +13,7 @@ import AddNewPostPage from '../../Pages/Admin/PostsAdmin/AddNewPostPage';
 import EditPostPage from '../../Pages/Admin/PostsAdmin/EditPostPage';
 import AddNewUserPage from '../../Pages/Admin/UsersAdmin/AddNewUserPage';
 import EditUserPage from '../../Pages/Admin/UsersAdmin/EditUserPage';
+import CompanyInformationPage from '../../Pages/Admin/CompanyInformation/CompanyInformationPage';
 
 class App extends Component {
   render() {
@@ -21,7 +22,7 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={Page} />
           <Route path="/:page" exact component={Page} />
-          <Route path="/admin/" exact component={AdminPage} />
+          <Route path="/admin/start" exact component={AdminPage} />
           <Route path="/admin/:admin" exact component={AdminPage} />
           <Route path="/admin/pages/add-page" exact component={AddNewPagePage} />
           <Route path="/admin/pages/edit-page/:id" exact component={EditPagePage} />
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/admin/posts/edit-post/:id" exact component={EditPostPage} />
           <Route path="/admin/users/add-user/" exact component={AddNewUserPage} />
           <Route path="/admin/users/edit-user/:id" exact component={EditUserPage} />
+          <Route path="/admin/info/company-information" exact component={CompanyInformationPage} />
         </Switch>
       </Router>
     );

@@ -134,3 +134,8 @@ label {
     padding: 1rem;
     border-radius: .2rem;
 }
+
+.page-container {
+    min-height: 100vh;
+    margin-bottom: 3rem;
+}

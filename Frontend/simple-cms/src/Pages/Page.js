@@ -31,7 +31,10 @@ class HomePage extends Component {
         return (
             <Fragment>
                 <Navbar />
+                <div className="page-container">
+
                 <PostViewBox posts={posts} pageName={page} />
+                </div>
                 <Footer />
             </Fragment>
         )

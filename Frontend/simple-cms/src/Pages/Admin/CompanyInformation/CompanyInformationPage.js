@@ -37,7 +37,6 @@ class CompanyInformtationPage extends Component {
         fetch(api)
             .then(res => res.json())
             .then(item => {this.setState({ companyInformation: item });})
-            .then(() => {window.location.reload()})
     }
 
     addCompanyInformation = () => {

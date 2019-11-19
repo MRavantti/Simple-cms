@@ -123,11 +123,11 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter phone nr:</p>
                                                 <input
                                                     type="text"
                                                     name="phone"
-                                                    placeholder="enter company phone nr..."
+                                                    placeholder="enter phone nr..."
                                                     defaultValue={companyInfo.phone}
                                                     onChange={this.changeHandler}
                                                 />
@@ -148,11 +148,11 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter email:</p>
                                                 <input
                                                     type="email"
                                                     name="email"
-                                                    placeholder="enter company email"
+                                                    placeholder="enter email"
                                                     defaultValue={companyInfo.email}
                                                     onChange={this.changeHandler}
                                                 />
@@ -173,11 +173,11 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter adress:</p>
                                                 <input
                                                     type="text"
                                                     name="adress"
-                                                    placeholder="enter company adress..."
+                                                    placeholder="enter adress..."
                                                     defaultValue={companyInfo.adress}
                                                     onChange={this.changeHandler}
                                                 />
@@ -198,11 +198,11 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter zipcode:</p>
                                                 <input
                                                     type="text"
                                                     name="zipcode"
-                                                    placeholder="enter company zipcode..."
+                                                    placeholder="enter zipcode..."
                                                     defaultValue={companyInfo.zipcode}
                                                     onChange={this.changeHandler}
                                                 />
@@ -223,7 +223,7 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter city:</p>
                                                 <input
                                                     type="text"
                                                     name="city"
@@ -248,7 +248,7 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter province:</p>
                                                 <input
                                                     type="text"
                                                     name="province"
@@ -273,11 +273,11 @@ class EditCompanyInfo extends Component {
                                     ? <Fragment>
                                         <form className="forms" onSubmit={this.handleSubmit}>
                                             <label>
-                                                <p className="label">Enter company name:</p>
+                                                <p className="label">Enter country:</p>
                                                 <input
                                                     type="text"
                                                     name="country"
-                                                    placeholder="enter province..."
+                                                    placeholder="enter country..."
                                                     defaultValue={companyInfo.country}
                                                     onChange={this.changeHandler}
                                                 />

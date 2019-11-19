@@ -9,6 +9,8 @@ namespace Simple_cms.Models
 
         public string Page_name { get; set; }
 
+        public string Hero_text { get; set; }
+
         public List<Post> Posts { get; set; }
 
         public DateTime Created_date_time { get; set; }

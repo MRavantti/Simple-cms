@@ -135,6 +135,11 @@ class AdminPage extends Component {
 
                                                                                 <div className="line" />
 
+                                                                                <p>{post.link_to !== "" ? `This post links to : ${post.link_to}` : "this post does not link to another page"}</p>
+
+
+                                                                                <div className="line" />
+
                                                                             </Fragment>
                                                                     }
                                                                     <div className="action-buttons">
@@ -179,19 +184,30 @@ class AdminPage extends Component {
 
                                 </div>
                                 : <Fragment>
-                                    <h1>Admin page</h1>
+                                    <div className="pages">
+                                        <h1>Admin page</h1>
+                                    </div>
 
-                                    <h4>Pages</h4>
-                                    <p>Administration of pages, to add, edit and delete pages</p>
-                                    <LinkButton text="Go to pages administration" link={`/admin/pages`} />
-
-                                    <h4>Posts</h4>
-                                    <p>Administration of posts, to add, edit and delete pages</p>
-                                    <LinkButton text="Go to posts administration" link={`/admin/posts`} />
-
-                                    <h4>Users</h4>
-                                    <p>Administration of users, to add, edit and delete users</p>
-                                    <LinkButton text="Go to users administration" link={`/admin/users`} />
+                                    <div className="admin-start-page-item">
+                                        <h4>Pages</h4>
+                                        <p>Administration of pages, to add, edit and delete pages</p>
+                                        <LinkButton text="Go to pages administration" link={`/admin/pages`} backgroundColor="#262832" />
+                                    </div>
+                                    <div className="admin-start-page-item">
+                                        <h4>Posts</h4>
+                                        <p>Administration of posts, to add, edit and delete pages</p>
+                                        <LinkButton text="Go to posts administration" link={`/admin/posts`} backgroundColor="#262832" />
+                                    </div>
+                                    <div className="admin-start-page-item">
+                                        <h4>Users</h4>
+                                        <p>Administration of users, to add, edit and delete users</p>
+                                        <LinkButton text="Go to users administration" link={`/admin/users`} backgroundColor="#262832" />
+                                    </div>
+                                    <div className="admin-start-page-item">
+                                        <h4>Company information</h4>
+                                        <p>Administration of company information, to add and edit</p>
+                                        <LinkButton text="Go to company information administration" link={`/admin/info/company-information`} backgroundColor="#262832" />
+                                    </div>
                                 </Fragment>
                 }
             </Fragment>

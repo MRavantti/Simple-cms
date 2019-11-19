@@ -1,0 +1,16 @@
+.hero-container {
+    height: 30vh;
+    display: flex;
+}
+
+.hero-item-container {
+    z-index: 0;
+    color: #fcfcfc;
+    margin: 1vh 5vw;
+}
+.hero-item-container p {
+    color: #fcfcfc;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 56vw;
+}

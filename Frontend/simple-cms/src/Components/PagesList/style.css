@@ -50,7 +50,7 @@
     min-height: 100vh;
 }
 
-.page-name-container {
+.page-top-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -62,4 +62,8 @@
 
 .pages-list-top {
     margin-bottom: 10vh;
+}
+
+.page-top-item p{
+    width: 63vw;
 }

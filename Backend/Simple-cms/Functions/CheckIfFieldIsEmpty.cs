@@ -59,6 +59,11 @@ namespace Simple_cms.Functions
             {
                 post.Post_image_thumbnail = postExist.Post_image_thumbnail;
             }
+
+            if (string.IsNullOrEmpty(post?.Link_to))
+            {
+                post.Link_to = postExist.Link_to;
+            }
         }
 
         public static void CheckPageField(Page pageExist, Page page)
@@ -66,6 +71,11 @@ namespace Simple_cms.Functions
             if (string.IsNullOrEmpty(page?.Page_name))
             {
                 page.Page_name = pageExist.Page_name;
+            }
+
+            if (string.IsNullOrEmpty(page?.Hero_text))
+            {
+                page.Hero_text = pageExist.Hero_text;
             }
         }
 

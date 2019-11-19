@@ -48,6 +48,7 @@ class EditCompanyInfo extends Component {
                 adress: this.state.adress,
                 zipcode: this.state.zipcode,
                 city: this.state.city,
+                province: this.state.province,
                 country: this.state.country,
             })
         }

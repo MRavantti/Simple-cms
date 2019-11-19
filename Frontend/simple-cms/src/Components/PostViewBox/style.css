@@ -9,3 +9,7 @@
     border-radius: .2rem;
     border: 1px solid #dcdcdc;
 }
+
+.link-to-button-container {
+    margin-bottom: 1rem;
+}

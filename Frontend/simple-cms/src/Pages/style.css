@@ -128,7 +128,8 @@ label {
     margin-top: 2rem;
 }
 
-.forms-container {
+.forms-container,
+.admin-start-page-item {
     margin: 1.5rem;
     background-color: #d2cfcf;
     padding: 1rem;
@@ -138,4 +139,9 @@ label {
 .page-container {
     min-height: 100vh;
     margin-bottom: 3rem;
+}
+
+.page-info {
+    background-color: #d2cfcf;
+    padding: 1rem;
 }

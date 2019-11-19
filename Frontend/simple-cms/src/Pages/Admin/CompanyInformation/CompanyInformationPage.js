@@ -55,6 +55,7 @@ class CompanyInformtationPage extends Component {
                 adress: this.state.adress,
                 zipcode: this.state.zipcode,
                 city: this.state.city,
+                province: this.state.province,
                 country: this.state.country,
             })
         }
@@ -75,7 +76,7 @@ class CompanyInformtationPage extends Component {
     }
 
     render() {
-        const { companyInformation, name, phone, email, adress, zipcode, city, country } = this.state;
+        const { companyInformation, name, phone, email, adress, zipcode, city, country, province } = this.state;
 
         return (
             <Fragment>
@@ -99,17 +100,17 @@ class CompanyInformtationPage extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p className="label">Enter company phone: </p>
+                                            <p className="label">Enter phone nr: </p>
                                             <input
                                                 type="text"
                                                 name="phone"
-                                                placeholder="enter company phone nr..."
+                                                placeholder="enter phone nr..."
                                                 value={phone}
                                                 onChange={this.changeHandler}
                                             />
                                         </label>
                                         <label>
-                                            <p className="label">Enter company email: </p>
+                                            <p className="label">Enter email: </p>
                                             <input
                                                 type="email"
                                                 name="email"
@@ -119,11 +120,11 @@ class CompanyInformtationPage extends Component {
                                             />
                                         </label>
                                         <label>
-                                            <p className="label">Enter componay adress: </p>
+                                            <p className="label">Enter adress: </p>
                                             <input
                                                 type="text"
                                                 name="adress"
-                                                placeholder="enter componay adress..."
+                                                placeholder="enter adress..."
                                                 value={adress}
                                                 onChange={this.changeHandler}
                                             />
@@ -145,6 +146,16 @@ class CompanyInformtationPage extends Component {
                                                 name="city"
                                                 placeholder="enter city..."
                                                 value={city}
+                                                onChange={this.changeHandler}
+                                            />
+                                        </label>
+                                        <label>
+                                            <p className="label">Enter province: </p>
+                                            <input
+                                                type="text"
+                                                name="province"
+                                                placeholder="enter province..."
+                                                value={province}
                                                 onChange={this.changeHandler}
                                             />
                                         </label>

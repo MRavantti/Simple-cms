@@ -12,9 +12,11 @@ class EditPost extends Component {
             postCategory: "",
             postTitle: "",
             bodyText: "",
+            linkTo: "",
             editPageName: false,
             editTitle: false,
             editBodyText: false,
+            editLinkTo: false,
         }
     }
 
@@ -64,6 +66,12 @@ class EditPost extends Component {
         }))
     }
 
+    changeLinkToChecker = () => {
+        this.setState(prevState => ({
+            editLinkTo: !prevState.editLinkTo,
+        }))
+    }
+
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -75,7 +83,7 @@ class EditPost extends Component {
 
 
     render() {
-        const { editTitle, editBodyText, editPageName } = this.state;
+        const { editTitle, editBodyText, editPageName, editLinkTo } = this.state;
         const { pages, post } = this.props;
 
         return (
@@ -86,7 +94,7 @@ class EditPost extends Component {
                     {
                         editPageName === false
                             ? <Fragment>
-                                <p>{post.post_category}</p>
+                                <p>page: {post.post_category}</p>
                                 <Button onClick={() => this.changePageNameChecker()} text="Edit" backgroundColor="#262832" />
                             </Fragment>
 
@@ -97,7 +105,6 @@ class EditPost extends Component {
                                         <p className="label">Select page:</p>
                                         <select name="pageName" ref="pageName" onChange={this.changeHandler}>
                                             <option value="">--- Select an option ---</option>
-                                            <option value="Home">Home</option>
                                             {
                                                 pages.map((page, key) => {
                                                     return <option key={key} value={page.page_name} >{page.page_name}</option>
@@ -115,7 +122,7 @@ class EditPost extends Component {
                         editTitle === false
 
                             ? <Fragment>
-                                <p>{post.title}</p>
+                                <h3>{post.title}</h3>
                                 <Button onClick={() => this.changeTitleChecker()} text="Edit" backgroundColor="#262832" />
 
                             </Fragment>
@@ -173,6 +180,32 @@ class EditPost extends Component {
                                     <input className="submit" type="submit" value="Save" />
                                 </form>
                                 <Button onClick={() => this.changeBodyTextChecker()} text="Cancel" backgroundColor="#262832" />
+                            </Fragment>
+                    }
+
+                    {
+                        editLinkTo === false
+                            ? <Fragment>
+                                <p>{post.link_to !== "" ? `This post links to : ${post.link_to}` : "this post does not link to another page"}</p>
+                                <Button onClick={() => this.changeLinkToChecker()} text="Edit" backgroundColor="#262832" />
+                            </Fragment>
+                            : <Fragment>
+                                <form className="edit-page-name-form" onSubmit={this.handleSubmit}>
+                                    <label>
+                                        <p className="label">Would you like to link to another page?</p>
+                                        <select name="linkTo" onChange={this.changeHandler}>
+                                            <option value="noLink">--- Select a page ---</option>
+                                            {
+                                                pages.map((page, key) => {
+                                                    return <option key={key} value={page.page_name} >{page.page_name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </label>
+                                    
+                                    <input className="submit" type="submit" value="Save" />
+                                </form>
+                                <Button onClick={() => this.changeLinkToChecker()} text="Cancel" backgroundColor="#262832" />
                             </Fragment>
                     }
                 </div>

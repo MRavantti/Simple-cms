@@ -81,7 +81,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("INSERT INTO Page (Page_name, Created_date_time) VALUES(@Page_name, @Created_date_time)", page);
+                connection.Execute("INSERT INTO Page (Page_name, Hero_text, Created_date_time) VALUES(@Page_name, @Hero_text, @Created_date_time)", page);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Simple_cms.Repositories
         {
             using (MySqlConnection connection = new MySqlConnection(this.connectionString))
             {
-                connection.Execute("UPDATE Page SET Page_name = @Page_name, Updated_at_date_time = @Updated_at_date_time  WHERE Page_id = @Page_id", page);
+                connection.Execute("UPDATE Page SET Page_name = @Page_name, Hero_text = @Hero_text, Updated_at_date_time = @Updated_at_date_time  WHERE Page_id = @Page_id", page);
             }
         }
 

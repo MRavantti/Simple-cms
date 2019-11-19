@@ -42,12 +42,14 @@ namespace Simple_cms.Repositories
                     "Title, " +
                     "Body_text, " +
                     "Post_image_thumbnail, " +
+                    "Link_to, " +
                     "Created_date_time) " +
                     "VALUES" +
                     "(@Post_category, " +
                     "@Title, " +
                     "@Body_text, " +
                     "@Post_image_thumbnail, " +
+                    "@Link_to," +
                     "@Created_date_time)", post);
             }
         }
@@ -62,6 +64,7 @@ namespace Simple_cms.Repositories
                     "Title = @Title, " +
                     "Body_text = @Body_text, " +
                     "Post_image_thumbnail = @Post_image_thumbnail, " +
+                    "Link_to = @Link_to, " +
                     "Updated_at_date_time = @Updated_at_date_time " +
                     "WHERE Post_id = @Post_id", post);
             }

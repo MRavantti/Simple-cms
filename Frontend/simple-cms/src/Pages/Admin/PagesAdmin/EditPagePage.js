@@ -11,8 +11,8 @@ class EditPagePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            homePagePosts: [],
             page: [],
+            pages: [],
             pageId: "",
             pageName: "",
             changePageName: false,
@@ -23,7 +23,7 @@ class EditPagePage extends Component {
     componentDidMount() {
         const { id } = this.props.match.params;
         this.getPageByKey(id);
-        this.getHomePagePosts();
+        this.getPages(id);
         this.setState({
             pageId: id,
         })
@@ -50,7 +50,7 @@ class EditPagePage extends Component {
     updatePageName = (id) => {
         const api = `http://localhost:5000/api/page/${id}`;
 
-        fetch(api, {
+        const options = {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -58,21 +58,13 @@ class EditPagePage extends Component {
             },
             body: JSON.stringify({
                 page_name: this.state.pageName,
+                hero_text: this.state.heroText,
             })
-        })
-            .then(() => {
-                window.location.reload();
-            })
+        }
 
-    }
-    getHomePagePosts = () => {
-        const api = `http://localhost:5000/api/post/`;
+        fetch(api, options)
+            .then(() => { window.location.reload(); })
 
-        fetch(api)
-            .then(res => res.json())
-            .then(item => {
-                this.setState({ homePagePosts: item });
-            })
     }
 
     getPageByKey = (id) => {
@@ -80,15 +72,23 @@ class EditPagePage extends Component {
 
         fetch(api)
             .then(res => res.json())
-            .then(item => {
-                this.setState({ page: item });
-            })
+            .then(item => { this.setState({ page: item }); })
+    }
+
+    getPages = () => {
+        const api = `http://localhost:5000/api/page/`;
+
+        fetch(api)
+            .then(res => res.json())
+            .then(item => { this.setState({ pages: item }); })
     }
 
     changePageNameCheck = () => {
-        this.setState(prevState => ({
-            changePageName: !prevState.changePageName,
-        }))
+        this.setState(prevState => ({ changePageName: !prevState.changePageName }))
+    }
+
+    changeHeroTextCheck = () => {
+        this.setState(prevState => ({ changeHeroText: !prevState.changeHeroText }))
     }
 
     createNewPostCheck = () => {
@@ -107,117 +107,119 @@ class EditPagePage extends Component {
     }
 
     render() {
-        const { page, changePageName, CreateNewPost, homePagePosts } = this.state
-        const { params } = this.props.match;
+        const { page, changePageName, CreateNewPost, pages, changeHeroText } = this.state
 
         return (
             <Fragment>
                 <AdminNavbar />
                 <BackButton onClick={() => this.props.history.goBack()} />
-                {
-                    params.id === "Home"
-                        ? <div className="posts">
+                <Fragment>
+                    {
+                        page.map((page, key) =>
+                            <div className="posts" key={key}>
+                                <div className="page-info">
+                                    {
+                                        changePageName === true
 
-                            <h1>Home</h1>
+                                            ? <Fragment>
+                                                <form className="forms" onSubmit={this.handleSubmit}>
+                                                    <label>
+                                                        Enter new page name:
+                                                            <input
+                                                            type="text"
+                                                            name="pageName"
+                                                            placeholder="Enter page name..."
+                                                            defaultValue={page.page_name}
+                                                            onChange={this.changeHandler}
+                                                        />
+                                                    </label>
+                                                    <input className="submit" type="submit" value="Save" />
+                                                </form>
+                                                <Button onClick={() => this.changePageNameCheck()} text="Cancel" backgroundColor="#262933" />
+                                            </Fragment>
 
-                            {
-                                CreateNewPost === false
-                                    ? <Fragment>
-                                        <Button onClick={() => this.createNewPostCheck()} text="Create new post" backgroundColor="#008000" />
-                                        {
-                                            homePagePosts.filter(function (post) { return post.post_category === "Home" }).map((post, key) =>
-                                                <div className="page-posts" key={key}>
-                                                    <h2>{post.title}</h2>
-                                                    <div className="line" />
+                                            : <Fragment>
+                                                <h1>{page.page_name}</h1>
+                                                <Button onClick={() => this.changePageNameCheck()} text="Change name of this page" backgroundColor="#262933" />
 
-                                                    <p>{post.body_text}</p>
-                                                    <div className="action-buttons">
-                                                        <LinkButton text="Edit post" link={`/admin/posts/edit-post/${post.post_id}`} backgroundColor="#262832" />
-                                                        <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323" />
-                                                    </div>
-                                                </div>
-                                            )
-                                        }
-                                    </Fragment>
-                                    : <Fragment>
-                                        <Button onClick={() => this.createNewPostCheck()} text="Cancel" backgroundColor="#262933" />
-                                        <CreatePost pageName={"Home"} />
-                                    </Fragment>
-                            }
-                        </div>
+                                            </Fragment>
+                                    }
+                                    {
+                                        changeHeroText === true
 
-                        : <Fragment>
-                            {
-                                page.map((page, key) =>
-                                    <div className="posts" key={key}>
-                                        {
-                                            changePageName === true
+                                            ? <Fragment>
+                                                <form className="forms" onSubmit={this.handleSubmit}>
+                                                    <label>
+                                                        <p className="label">Enter hero text:</p>
+                                                        <textarea
+                                                            type="text"
+                                                            name="heroText"
+                                                            placeholder="enter hero text..."
+                                                            defaultValue={page.hero_text}
+                                                            onChange={this.changeHandler}
+                                                        />
+                                                    </label>
+                                                    <input className="submit" type="submit" value="Save" />
+                                                </form>
+                                                <Button onClick={() => this.changeHeroTextCheck()} text="Cancel" backgroundColor="#262933" />
+                                            </Fragment>
 
-                                                ? <Fragment>
-                                                    <form className="edit-name-form" onSubmit={this.handleSubmit}>
-                                                        <label>
-                                                            Enter new page name:
-                                                    <input
-                                                                type="text"
-                                                                name="pageName"
-                                                                placeholder="Enter page name..."
-                                                                defaultValue={page.page_name}
-                                                                onChange={this.changeHandler}
-                                                            />
-                                                        </label>
-                                                        <input className="submit" type="submit" value="Save" />
-                                                    </form>
-                                                    <Button onClick={() => this.changePageNameCheck()} text="Cancel" backgroundColor="#262933" />
-                                                </Fragment>
+                                            : <Fragment>
+                                                <p>{page.hero_text === "" ? "No hero text" : page.hero_text}</p>
+                                                <Button onClick={() => this.changeHeroTextCheck()} text="Change hero text" backgroundColor="#262933" />
 
-                                                : <Fragment>
-                                                    <h1>{page.page_name}</h1>
-                                                    <Button onClick={() => this.changePageNameCheck()} text="Change name of this page" backgroundColor="#262933" />
+                                            </Fragment>
+                                    }
+                                </div>
 
-                                                </Fragment>
-                                        }
-                                        {
-                                            CreateNewPost === false
-                                                ? <Fragment>
-                                                    <div className="page-button-container">
-                                                        <Button onClick={() => this.createNewPostCheck()} text="Add new post" backgroundColor="#008000" />
-                                                    </div>
-                                                    {
-                                                        page.posts.map((post, postKey) =>
-                                                            post === null
+                                <div className="line" />
+                                {
+                                    CreateNewPost === false
+                                        ? <Fragment>
+                                            <div className="page-button-container">
+                                                <Button onClick={() => this.createNewPostCheck()} text="Add new post" backgroundColor="#008000" />
+                                            </div>
+                                            {
+                                                page.posts.map((post, postKey) =>
+                                                    post === null
 
-                                                                ? <p key={postKey}>You do not have any posts for this page</p>
+                                                        ? <p key={postKey}>You do not have any posts for this page</p>
 
-                                                                : <div className="page-posts" key={postKey}>
-                                                                    <h2>{post.title}</h2>
-                                                                    <div className="line"></div>
+                                                        : <div className="page-posts" key={postKey}>
+                                                            <h2>{post.title}</h2>
+                                                            <div className="line"></div>
+                                                            {
+                                                                post.body_text.split('\n').map((bodyText, i) => {
+                                                                    return <p key={i}>{bodyText}</p>
+                                                                })
+                                                            }
+                                                            <div className="line" />
+                                                            <p>{post.link_to !== "" ? `This post links to : ${post.link_to}` : "this post does not link to another page"}</p>
+                                                            <div className="action-buttons">
+                                                                <LinkButton link={`/admin/posts/edit-post/${post.post_id}`} text="Edit post" backgroundColor="#262933" />
+                                                                <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323" />
+                                                            </div>
+                                                        </div>
+                                                )
+                                            }
+                                        </Fragment>
 
-                                                                    <p>{post.body_text}</p>
-                                                                    <div className="action-buttons">
-                                                                        <LinkButton link={`/admin/posts/edit-post/${post.post_id}`} text="Edit post" backgroundColor="#262933" />
-                                                                        <Button onClick={() => this.delete("post", post.post_id)} text="Delete post" backgroundColor="#D72323" />
-                                                                    </div>
-                                                                </div>
-                                                        )
-                                                    }
-                                                </Fragment>
+                                        : <Fragment>
+                                            <div className="page-button-container">
+                                                <Button onClick={() => this.createNewPostCheck()} text="Cancel" backgroundColor="#262933" />
+                                            </div>
+                                            <CreatePost pageName={page.page_name} pages={pages} />
+                                        </Fragment>
+                                }
+                                <div className="action-buttons">
+                                    <Button onClick={() => this.delete("page", page.page_id)} text="Delete page" backgroundColor="#D72323" />
+                                </div>
+                            </div>
+                        )
+                    }
 
-                                                : <Fragment>
-                                                    <div className="page-button-container">
-                                                        <Button onClick={() => this.createNewPostCheck()} text="Cancel" backgroundColor="#262933" />
-                                                    </div>
-                                                    <CreatePost pageName={page.page_name} />
-                                                </Fragment>
-                                        }
-                                        <div className="action-buttons">
-                                            <Button onClick={() => this.delete("page", page.page_id)} text="Delete page" backgroundColor="#D72323" />
-                                        </div>
-                                    </div>
-                                )
-                            }
+                </Fragment>
 
-                        </Fragment>
-                }
 
             </Fragment>
         );

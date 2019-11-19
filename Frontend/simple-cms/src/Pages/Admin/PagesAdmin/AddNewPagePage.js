@@ -10,16 +10,21 @@ class AddNewPagePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            pages: [],
             pageName: "",
+            heroText: "",
             pageCreated: false,
             createNewPost: false,
         }
     }
 
+    componentDidMount() {
+        this.getPages();
+    }
+
     addPage = () => {
         const api = `http://localhost:5000/api/page`
-
-        fetch(api, {
+        const options = {
             method: 'Post',
             headers: {
                 'Accept': 'application/json',
@@ -27,13 +32,22 @@ class AddNewPagePage extends Component {
             },
             body: JSON.stringify({
                 Page_name: this.state.pageName,
+                Hero_text: this.state.heroText,
             })
-        })
+        }
+
+        fetch(api, options)
             .then(() => {
-                this.setState(prevState => ({
-                    pageCreated: !prevState.pageCreated,
-                }))
+                this.setState(prevState => ({ pageCreated: !prevState.pageCreated, }))
             })
+    }
+
+    getPages = () => {
+        const api = `http://localhost:5000/api/page/`;
+
+        fetch(api)
+            .then(res => res.json())
+            .then(item => { this.setState({ pages: item }); })
     }
 
     changeHandler = e => {
@@ -52,12 +66,13 @@ class AddNewPagePage extends Component {
     }
 
     render() {
-        const { pageName, pageCreated, createNewPost } = this.state;
-        
+        const { pageName, pageCreated, createNewPost, heroText, pages } = this.state;
+
 
         return (
             <Fragment>
                 <AdminNavbar />
+                <div className="posts">
                 {
                     pageCreated === true
                         ? <Fragment>
@@ -65,7 +80,7 @@ class AddNewPagePage extends Component {
                             {
                                 createNewPost === true
                                     ? <Fragment>
-                                        <CreatePost pageName={pageName} />
+                                        <CreatePost pageName={pageName} pages={pages} />
                                         <Button onClick={() => this.CreateNewPostCheck()} text="Cancel" backgroundColor="#262933" />
                                     </Fragment>
 
@@ -84,7 +99,7 @@ class AddNewPagePage extends Component {
                             <form className="add-new-page-forms" onSubmit={this.handleSubmit}>
                                 <label>
                                     <p className="label">Enter page name:</p>
-                                        <input
+                                    <input
                                         type="text"
                                         name="pageName"
                                         placeholder="enter page name..."
@@ -92,10 +107,21 @@ class AddNewPagePage extends Component {
                                         onChange={this.changeHandler}
                                     />
                                 </label>
+                                <label>
+                                    <p className="label">Enter hero text:</p>
+                                    <textarea
+                                        type="text"
+                                        name="heroText"
+                                        placeholder="enter hero text..."
+                                        value={heroText}
+                                        onChange={this.changeHandler}
+                                    />
+                                </label>
                                 <input className="submit" type="submit" value="Submit" />
                             </form>
                         </Fragment>
                 }
+                </div>
             </Fragment>
         );
     }

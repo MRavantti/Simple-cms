@@ -10,6 +10,7 @@ class CreatePost extends Component {
             postCategory: "",
             postTitle: "",
             bodyText: "",
+            linkTo: "",
         }
     }
 
@@ -19,9 +20,8 @@ class CreatePost extends Component {
 
     addPost = () => {
         const api = `http://localhost:5000/api/post`;
-
-        fetch(api, {
-            method: 'Post',
+        const options = {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -30,11 +30,12 @@ class CreatePost extends Component {
                 Post_category: this.state.pageName,
                 Title: this.state.postTitle,
                 Body_text: this.state.bodyText,
+                Link_to: this.state.linkTo,
             })
-        })
-            .then(() => {
-                window.location.reload();
-            })
+        }
+
+        fetch(api, options)
+            .then(() => { window.location.reload(); })
     }
 
     changeHandler = e => {
@@ -50,6 +51,9 @@ class CreatePost extends Component {
 
         const { pageName, postTitle, bodyText } = this.state;
         const { pages } = this.props;
+
+        console.log(this.state.linkTo);
+
 
         return (
             <Fragment>
@@ -68,7 +72,6 @@ class CreatePost extends Component {
                                 <p className="label">Select page:</p>
                                 <select name="pageName" onChange={this.changeHandler}>
                                     <option value="">--- Select a page ---</option>
-                                    <option value="Home">Home</option>
                                     {
                                         pages.map((page, key) => {
                                             return <option key={key} value={page.page_name} >{page.page_name}</option>
@@ -108,6 +111,17 @@ class CreatePost extends Component {
                             value={bodyText}
                             onChange={this.changeHandler}
                         />
+                    </label>
+                    <label>
+                        <p className="label">Would you like to link to another page?</p>
+                        <select name="linkTo" onChange={this.changeHandler}>
+                            <option value="noLink">--- Select a page ---</option>
+                            {
+                                pages.map((page, key) => {
+                                    return <option key={key} value={page.page_name} >{page.page_name}</option>
+                                })
+                            }
+                        </select>
                     </label>
                     <div className="submit-button-container">
                         <input className="submit" type="submit" value="Submit" />

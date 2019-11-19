@@ -3,8 +3,9 @@ import React, { Component, Fragment } from 'react';
 import Navbar from '../Components/Navbar';
 import PostViewBox from '../Components/PostViewBox';
 import Footer from '../Components/Footer';
+import Hero from '../Components/Hero';
 
-class HomePage extends Component {
+class Page extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,6 +15,7 @@ class HomePage extends Component {
 
     componentDidMount() {
         this.getPosts();
+        this.getPage();
     }
 
     getPosts = () => {
@@ -24,16 +26,26 @@ class HomePage extends Component {
             .then(item => { this.setState({ posts: item }); });
     }
 
+    getPage = () => {
+        const api = 'http://localhost:5000/api/page/';
+
+        fetch(api)
+            .then(res => res.json())
+            .then(item => { this.setState({ pages: item }); });
+    }
+
     render() {
-        const { posts } = this.state;
-        const { page } = this.props.match.params
-        
+        const { posts, pages } = this.state;
+        const { page } = this.props.match.params;
+
         return (
             <Fragment>
                 <Navbar />
                 <div className="page-container">
-
-                <PostViewBox posts={posts} pageName={page} />
+                    <Hero pageName={page} pages={pages}
+                    />
+                    {}
+                    <PostViewBox posts={posts} pageName={page} />
                 </div>
                 <Footer />
             </Fragment>
@@ -41,4 +53,4 @@ class HomePage extends Component {
     }
 };
 
-export default HomePage;
+export default Page;

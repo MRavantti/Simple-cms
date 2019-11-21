@@ -166,47 +166,63 @@ class AdminPage extends Component {
                                     <h1>{params.admin}</h1>
                                     <LinkButton text="Create new user" link={`/admin/users/add-user/`} backgroundColor="#008000" />
                                     {
-                                        users.map((user, key) =>
-                                            <div className="user-content" key={key}>
-                                                <h2>{user.username}</h2>
+                                        users.length < 1
 
-                                                <div className="line" />
+                                            ? <p>There are no users</p>
 
-                                                <p>{user.first_name} {user.last_name}</p>
+                                            : users.map((user, key) =>
+                                                <div className="user-content" key={key}>
+                                                    <h2>{user.username}</h2>
 
-                                                <div className="line" />
+                                                    <div className="line" />
 
-                                                <p>{user.email}</p>
-                                                <LinkButton text="Edit user" link={`/admin/users/edit-user/${user.id}`} backgroundColor="#262832" />
-                                            </div>
-                                        )
+                                                    <p>Name: {user.first_name === null && user.last_name === null ? `Name is not known` : `${user.first_name} ${user.last_name}`}</p>
+
+                                                    <div className="line" />
+
+                                                    <p>Email: {user.email}</p>
+                                                    <LinkButton text="Edit user" link={`/admin/users/edit-user/${user.id}`} backgroundColor="#262832" />
+                                                </div>
+                                            )
                                     }
 
                                 </div>
                                 : <Fragment>
                                     <div className="pages">
                                         <h1>Admin page</h1>
-                                    </div>
 
-                                    <div className="admin-start-page-item">
-                                        <h4>Pages</h4>
-                                        <p>Administration of pages, to add, edit and delete pages</p>
-                                        <LinkButton text="Go to pages administration" link={`/admin/pages`} backgroundColor="#262832" />
-                                    </div>
-                                    <div className="admin-start-page-item">
-                                        <h4>Posts</h4>
-                                        <p>Administration of posts, to add, edit and delete pages</p>
-                                        <LinkButton text="Go to posts administration" link={`/admin/posts`} backgroundColor="#262832" />
-                                    </div>
-                                    <div className="admin-start-page-item">
-                                        <h4>Users</h4>
-                                        <p>Administration of users, to add, edit and delete users</p>
-                                        <LinkButton text="Go to users administration" link={`/admin/users`} backgroundColor="#262832" />
-                                    </div>
-                                    <div className="admin-start-page-item">
-                                        <h4>Company information</h4>
-                                        <p>Administration of company information, to add and edit</p>
-                                        <LinkButton text="Go to company information administration" link={`/admin/info/company-information`} backgroundColor="#262832" />
+                                        <div className="admin-start-page-item">
+                                            <h4>Pages</h4>
+                                            <p>Administration of pages, to add, edit and delete pages</p>
+                                            <LinkButton text="Go to pages administration" link={`/admin/pages`} backgroundColor="#262832" />
+                                        </div>
+
+                                        <div className="border-line" />
+                                        
+                                        <div className="admin-start-page-item">
+                                            <h4>Posts</h4>
+                                            <p>Administration of posts, to add, edit and delete pages</p>
+                                            <LinkButton text="Go to posts administration" link={`/admin/posts`} backgroundColor="#262832" />
+                                        </div>
+
+                                        <div className="border-line" />
+
+                                        <div className="admin-start-page-item">
+                                            <h4>Users</h4>
+                                            <p>Administration of users, to add, edit and delete users</p>
+                                            <LinkButton text="Go to users administration" link={`/admin/users`} backgroundColor="#262832" />
+                                        </div>
+
+                                        <div className="border-line" />
+
+                                        <div className="admin-start-page-item">
+                                            <h4>Company information</h4>
+                                            <p>Administration of company information, to add and edit</p>
+                                            <LinkButton text="Go to company information administration" link={`/admin/info/company-information`} backgroundColor="#262832" />
+                                        </div>
+
+                                        <div className="border-line" />
+
                                     </div>
                                 </Fragment>
                 }

@@ -17,6 +17,7 @@ textarea {
 .posts,
 .users {
     margin: 1.5rem;
+    min-height: 100vh;
 }
 
 .page-action-list {
@@ -89,7 +90,7 @@ label {
 }
 
 .page-button-container {
-    margin-top: 1rem;
+    margin: 1rem 0;
 }
 
 .edit-name-form {

@@ -1,6 +1,7 @@
 .Admin-mobile-menu-items {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .Admin-mobile-menu-items a {
@@ -30,4 +31,10 @@
 
 .admin-mobile-menu.visible {
     transform: none;
+}
+
+.mobile-menu-line {
+    height: 3px;
+    width: 30vw;
+    background-color: #fff;
 }

@@ -28,11 +28,12 @@ class PostViewBox extends Component {
                                             }
                                             {
                                                 post.link_to === "noLink" || post.link_to === undefined || post.link_to === ""
-                                                    ? null
-                                                    : <div className="link-to-button-container">
+                                                ? null
+                                                : <div className="link-to-button-container">
                                                         <LinkButton text="read more" link={`/${post.link_to}`} backgroundColor="#262832" />
                                                     </div>
                                             }
+                                            <div className="line" />
                                         </div>
                                     )
                             }
@@ -58,6 +59,7 @@ class PostViewBox extends Component {
                                                         <LinkButton text="read more" link={`/${post.link_to}`} backgroundColor="#262832" />
                                                     </div>
                                             }
+                                            <div className="line" />
                                         </div>
                                     )
                             }

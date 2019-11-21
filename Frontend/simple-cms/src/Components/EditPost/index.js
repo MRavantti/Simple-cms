@@ -41,6 +41,7 @@ class EditPost extends Component {
                 Post_category: this.state.pageName,
                 Title: this.state.postTitle,
                 Body_text: this.state.bodyText,
+                link_to: this.state.linkTo,
             })
         }
 
